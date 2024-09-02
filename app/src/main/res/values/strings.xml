@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">ReciclaAi</string>
+    <string name="emailLogin">E-mail*</string>
+    <string name="passwordLogin">Senha*</string>
+    <string name="email">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="forgotPassword">Esqueceu a senha?</string>
+    <string name="login">Entrar</string>
+    <string name="semCadastro">Ainda não sou cadastrado</string>
+    <string name="name">Nome</string>
+    <string name="adress">Endereço</string>
+    <string name="number">Número</string>
+    <string name="complemento">Complemento</string>
+    <string name="cep">CEP</string>
+    <string name="cidade">Cidade</string>
+    <string name="bairro">Bairro</string>
+    <string name="cadastrar">Cadastrar</string>
+</resources>

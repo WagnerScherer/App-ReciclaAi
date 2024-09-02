@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "291510493651",
+    "project_id": "wagner-reciclaai",
+    "storage_bucket": "wagner-reciclaai.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291510493651:android:9804be79bc657978c68f26",
+        "android_client_info": {
+          "package_name": "com.wagner.reciclaai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAP7ygWvLen6fhm1UBFRnKRmN-eKu-XAaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

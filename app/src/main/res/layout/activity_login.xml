@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:paddingLeft="32dp"
+    android:paddingRight="32dp"
+    android:layout_gravity="center_horizontal">
+
+    <EditText
+        android:id="@+id/editTextEmailLogin"
+        android:layout_width="400dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="400dp"
+        android:autofillHints="emailAddress"
+        android:hint="@string/emailLogin"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/shape_edit_text"
+        android:padding="8dp" />
+
+    <EditText
+        android:id="@+id/editTextPasswordLogin"
+        android:hint="@string/passwordLogin"
+        android:layout_width="400dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:inputType="textPassword"
+        android:autofillHints="password"
+        android:background="@drawable/shape_edit_text"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/textViewForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgotPassword"
+        android:textSize="13sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonLogin"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/login"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:background="@drawable/background_botao" />
+
+    <TextView
+        android:id="@+id/textViewRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/semCadastro"
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
