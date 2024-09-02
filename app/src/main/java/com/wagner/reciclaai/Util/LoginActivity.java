@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //implementar aqui o processo de redefinição de senha
+                Toast.makeText(LoginActivity.this, "Função ainda não implementada.", Toast.LENGTH_SHORT).show();
             }
         });
 
