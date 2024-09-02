@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".Util.PrincipalActivity"/>
         <activity android:name=".Util.CadUserActivity"/>
+        <activity android:name=".Util.CadPontoColetaActivity"/>
     </application>
 
 </manifest>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+    
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/conteiner_usuario"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/conteiner_usuario"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="100dp" />
+
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/ic_location_pontocoleta"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-100dp"
+                    android:contentDescription="@string/fig_point_localization"/>
+            </LinearLayout>
+
+        <EditText
+            android:id="@+id/editTextNamePontoColeta"
+            android:layout_width="400dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:autofillHints="emailAddress"
+            android:hint="@string/name_local_coleta"
+            android:inputType="text"
+            android:background="@drawable/shape_edit_text"
+            android:padding="8dp"/>
+
+        <EditText
+            android:id="@+id/editTextEmailPontoColeta"
+            android:hint="@string/email"
+            android:layout_width="400dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:inputType="textEmailAddress"
+            android:autofillHints="password"
+            android:background="@drawable/shape_edit_text"
+            android:padding="8dp"/>
+
+            <LinearLayout
+                android:layout_width="400dp"
+                android:layout_height="48dp"
+                android:layout_weight="2"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="45dp">
+
+                <EditText
+                    android:id="@+id/editTextFonePontoColeta"
+                    android:layout_width="215dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="start"
+                    android:autofillHints="Fone"
+                    android:background="@drawable/shape_edit_text"
+                    android:hint="@string/fone"
+                    android:inputType="phone"
+                    android:padding="8dp" />
+
+                <Space
+                    android:layout_width="6dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/editTextWhatsappPontoColeta"
+                    android:layout_width="215dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="0dp"
+                    android:autofillHints="whatsapp"
+                    android:background="@drawable/shape_edit_text"
+                    android:hint="@string/whatsapp"
+                    android:inputType="text"
+                    android:padding="8dp" />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextEnderecoPontoColeta"
+                android:hint="@string/adressPC"
+                android:layout_width="400dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:inputType="text"
+                android:autofillHints="Endereço"
+                android:background="@drawable/shape_edit_text"
+                android:padding="8dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="48dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="45dp">
+
+            <EditText
+                android:id="@+id/editTextNroPontoColeta"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:autofillHints="numero"
+                android:background="@drawable/shape_edit_text"
+                android:hint="@string/numberPC"
+                android:inputType="text"
+                android:padding="8dp" />
+
+            <Space
+                android:layout_width="6dp"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/editTextBairroPontoColeta"
+                android:layout_width="215dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:autofillHints="bairro"
+                android:background="@drawable/shape_edit_text"
+                android:hint="@string/bairroPC"
+                android:inputType="text"
+                android:padding="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextComplementoPontoColeta"
+                android:hint="@string/complemento"
+                android:layout_width="400dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:inputType="text"
+                android:autofillHints="complemento"
+                android:background="@drawable/shape_edit_text"
+                android:padding="8dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="48dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="45dp">
+
+            <EditText
+                android:id="@+id/editTextCidadePontoColeta"
+                android:layout_width="215dp"
+                android:layout_height="48dp"
+                android:layout_gravity="start"
+                android:autofillHints="Fone"
+                android:background="@drawable/shape_edit_text"
+                android:hint="@string/cidadePC"
+                android:inputType="text"
+                android:padding="8dp"/>
+
+            <Space
+                android:layout_width="6dp"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/editTextUFPontoColeta"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:autofillHints="estado"
+                android:background="@drawable/shape_edit_text"
+                android:hint="@string/estadoPC"
+                android:inputType="textCapCharacters"
+                android:padding="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextSitePontoColeta"
+                android:hint="@string/site"
+                android:layout_width="400dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:inputType="text"
+                android:autofillHints="site"
+                android:background="@drawable/shape_edit_text"
+                android:padding="8dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxRealizaColeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="start"
+                android:layout_marginStart="40dp"
+                android:text="@string/realizacoleta" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonCadastrarPontoColeta"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="35dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/cadastrar"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:background="@drawable/background_botao" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

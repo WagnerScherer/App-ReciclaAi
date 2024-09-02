@@ -42,7 +42,7 @@ public class CadUserActivity extends AppCompatActivity {
         campoComplemento = findViewById(R.id.editTextComplemento);
         campoBairro = findViewById(R.id.editTextBairro);
         campoCidade = findViewById(R.id.editTextCidade);
-        campoEstado = findViewById(R.id.editTextEstado);
+        campoEstado = findViewById(R.id.editTextUF);
 
         botaoCadastrar = findViewById(R.id.buttonCadastrar);
 
@@ -125,7 +125,7 @@ public class CadUserActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(CadUserActivity.this, "Sucesso ao cadastrar o usuário", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CadUserActivity.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
                 }else {
                     String excecao ="";
 

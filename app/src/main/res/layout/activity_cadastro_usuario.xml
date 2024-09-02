@@ -7,10 +7,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="5dp">
 
         <View
-            android:id="@+id/conteiner_uruario"
+            android:id="@+id/conteiner_usuario"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/conteiner_usuario"
@@ -22,7 +23,8 @@
             android:layout_height="90dp"
             android:src="@drawable/ic_usuario"
             android:layout_gravity="center"
-            android:layout_marginTop="-100dp" />
+            android:layout_marginTop="-100dp"
+            android:contentDescription="@string/fig_person"/>
 
         <EditText
             android:id="@+id/editTextName"
@@ -72,17 +74,46 @@
             android:background="@drawable/shape_edit_text"
             android:padding="8dp"/>
 
-        <EditText
-            android:id="@+id/editTextNro"
-            android:hint="@string/number"
+        <LinearLayout
             android:layout_width="400dp"
             android:layout_height="48dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:inputType="text"
-            android:autofillHints="number"
-            android:background="@drawable/shape_edit_text"
-            android:padding="8dp"/>
+            android:layout_marginStart="45dp">
+
+            <EditText
+                android:id="@+id/editTextNro"
+                android:layout_width="20dp"
+                android:layout_height="48dp"
+                android:layout_gravity="left"
+                android:layout_marginTop="0dp"
+
+                android:autofillHints="Fone"
+                android:background="@drawable/shape_edit_text"
+                android:hint="@string/number"
+                android:inputType="text"
+                android:padding="8dp"
+                android:layout_weight="1"/>
+
+            <Space
+                android:layout_width="6dp"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/editTextBairro"
+                android:layout_width="215dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:autofillHints="whatsapp"
+                android:background="@drawable/shape_edit_text"
+                android:hint="@string/bairro"
+                android:inputType="text"
+                android:padding="8dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/editTextComplemento"
@@ -96,41 +127,46 @@
             android:background="@drawable/shape_edit_text"
             android:padding="8dp"/>
 
-        <EditText
-            android:id="@+id/editTextBairro"
-            android:hint="@string/bairro"
+        <LinearLayout
             android:layout_width="400dp"
             android:layout_height="48dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:inputType="text"
-            android:autofillHints="bairro"
-            android:background="@drawable/shape_edit_text"
-            android:padding="8dp"/>
+            android:layout_marginStart="45dp">
 
-        <EditText
-            android:id="@+id/editTextCidade"
-            android:hint="@string/cidade"
-            android:layout_width="400dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:inputType="text"
-            android:autofillHints="cidade"
-            android:background="@drawable/shape_edit_text"
-            android:padding="8dp"/>
+            <EditText
+                android:id="@+id/editTextCidade"
+                android:layout_width="215dp"
+                android:layout_height="48dp"
+                android:layout_gravity="left"
+                android:layout_marginTop="0dp"
 
-        <EditText
-            android:id="@+id/editTextEstado"
-            android:hint="UF"
-            android:layout_width="400dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:inputType="textCapCharacters"
-            android:autofillHints="estado"
-            android:background="@drawable/shape_edit_text"
-            android:padding="8dp"/>
+                android:autofillHints="cidade"
+                android:background="@drawable/shape_edit_text"
+                android:hint="@string/cidade"
+                android:inputType="text"
+                android:padding="8dp"
+                android:layout_weight="1"/>
+
+            <Space
+                android:layout_width="6dp"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/editTextUF"
+                android:layout_width="20dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:autofillHints="estado"
+                android:background="@drawable/shape_edit_text"
+                android:hint="@string/estado"
+                android:inputType="textCapCharacters"
+                android:padding="8dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonCadastrar"
