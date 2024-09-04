@@ -1,304 +1,301 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        tools:context="com.wagner.reciclaai.Util.PrincipalActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.wagner.reciclaai.Util.PrincipalActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
         android:background="@color/white">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonClickHome"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="290dp"
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
             android:background="@drawable/baseline_home"
             android:padding="9dp"
             android:contentDescription="@string/buttomHome"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonCadUser"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
             android:background="@drawable/button_user"
+            android:contentDescription="@string/buttonCadastroUser"
             android:drawableLeft="@drawable/baseline_user_black"
-            android:padding="11dp"
-            android:contentDescription="@string/buttonCadastroUser" />
+            android:padding="11dp" />
 
     </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="400dp"
-            android:layout_height="2dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="2dp"
-            android:background="@color/black">
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="2dp"
+        android:background="@color/black">
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/consultaPontoColeta_Card"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_margin="5dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="15dp">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/consultaPontoColeta_Card"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="15dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#8BB365"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#8BB365"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_card_localiza_ponto"
+                    android:contentDescription="@string/pontoColetaIcon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:text="@string/card_buscar_ponto_coleta"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:contentDescription="@string/mapaText"/>
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="84dp"
-                        android:layout_height="84dp"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_card_localiza_ponto"
-                        android:contentDescription="@string/pontoColetaIcon"/>
+        </androidx.cardview.widget.CardView>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:text="@string/card_buscar_ponto_coleta"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:contentDescription="@string/mapaText"/>
-                </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cadastraPontoColeta_Card"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="15dp">
 
-            </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#8BB365"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cadastraPontoColeta_Card"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_margin="5dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="15dp">
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_card_cadastra_ponto"
+                    android:contentDescription="@string/pontoColetaIcon"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#8BB365"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:text="@string/card_cadastrar_ponto_coleta"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
-                    <ImageView
-                        android:layout_width="84dp"
-                        android:layout_height="84dp"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_card_cadastra_ponto"
-                        android:contentDescription="@string/pontoColetaIcon"/>
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:text="@string/card_cadastrar_ponto_coleta"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
+    </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
-        </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/agendamentoColeta_Card"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="15dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#8BB365"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/agendamentoColeta_Card"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_margin="5dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="15dp">
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_card_agendamento"
+                    android:contentDescription="@string/calendarIcon"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#8BB365"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:text="@string/card_agendamento"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
-                    <ImageView
-                        android:layout_width="84dp"
-                        android:layout_height="84dp"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_card_agendamento"
-                        android:contentDescription="@string/calendarIcon"/>
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:text="@string/card_agendamento"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/notificacoes_Card"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="15dp">
 
-            </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#8BB365"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/notificacoes_Card"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_margin="5dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="15dp">
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_card_notificacoes"
+                    android:contentDescription="@string/notificacoesIcon"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#8BB365"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:text="@string/card_notificacoes"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="84dp"
-                        android:layout_height="84dp"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_card_notificacoes"
-                        android:contentDescription="@string/notificacoesIcon"/>
+        </androidx.cardview.widget.CardView>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:text="@string/card_notificacoes"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-                </LinearLayout>
+    </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
-        </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ranking_Card"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="15dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#8BB365"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/ranking_Card"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_margin="5dp"
-                app:cardCornerRadius="15dp">
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_card_ranking"
+                    android:contentDescription="@string/rankingIcon"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#8BB365"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:text="@string/card_Ranking"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="84dp"
-                        android:layout_height="84dp"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_card_ranking"
-                        android:contentDescription="@string/rankingIcon"/>
+        </androidx.cardview.widget.CardView>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:text="@string/card_Ranking"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-                </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/consultaHistorico_Card"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="15dp">
 
-            </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#8BB365"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/consultaHistorico_Card"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_margin="5dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="15dp">
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_card_historico"
+                    android:contentDescription="@string/historicoIcon"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#8BB365"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:text="@string/card_historico"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
-                    <ImageView
-                        android:layout_width="84dp"
-                        android:layout_height="84dp"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_card_historico"
-                        android:contentDescription="@string/historicoIcon"/>
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:text="@string/card_historico"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
+    </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonPerguntasFrequentes"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/buttonPerguntasFrequentes"
-            android:layout_gravity="center"
-            android:background="@drawable/background_botao_perg_freq" />
+    <Button
+        android:id="@+id/buttonPerguntasFrequentes"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/buttonPerguntasFrequentes"
+        android:layout_gravity="center"
+        android:background="@drawable/background_botao_perg_freq" />
 
 </LinearLayout>

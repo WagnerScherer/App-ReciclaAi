@@ -46,6 +46,8 @@ dependencies {
     //implementation 'com.google.firebase:firebase-analytics:21.3.0' // Firebase Analytics (opcional)
     implementation 'com.google.firebase:firebase-firestore:25.1.0'
     implementation 'com.google.firebase:firebase-storage:21.0.0'
-    implementation 'com.google.firebase:firebase-storage:21.0.0'
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.android.material:material:1.12.0'
+
 
 }

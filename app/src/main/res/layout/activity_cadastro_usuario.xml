@@ -2,99 +2,89 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:paddingLeft="32dp"
+    android:paddingRight="32dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="5dp">
+        android:padding="16dp">
 
         <View
             android:id="@+id/conteiner_usuario"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/conteiner_usuario"
-            android:layout_gravity="center"
-            android:layout_marginTop="100dp" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp" />
 
         <ImageView
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:src="@drawable/ic_usuario"
-            android:layout_gravity="center"
-            android:layout_marginTop="-100dp"
-            android:contentDescription="@string/fig_person"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-99dp"
+            android:contentDescription="@string/fig_person" />
 
         <EditText
             android:id="@+id/editTextName"
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:autofillHints="emailAddress"
-            android:hint="@string/name"
-            android:inputType="text"
+            android:layout_marginTop="40dp"
             android:background="@drawable/shape_edit_text"
-            android:padding="8dp"/>
+            android:inputType="text"
+            android:hint="@string/name"
+            android:padding="8dp" />
 
         <EditText
             android:id="@+id/editTextEmail"
             android:hint="@string/email"
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
             android:inputType="textEmailAddress"
             android:autofillHints="password"
             android:background="@drawable/shape_edit_text"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
         <EditText
             android:id="@+id/editTextPassword"
             android:hint="@string/password"
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
             android:inputType="textPassword"
             android:autofillHints="password"
             android:background="@drawable/shape_edit_text"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
         <EditText
             android:id="@+id/editTextEndereco"
             android:hint="@string/adress"
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
             android:inputType="text"
-            android:autofillHints="Endereço"
             android:background="@drawable/shape_edit_text"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
         <LinearLayout
-            android:layout_width="400dp"
-            android:layout_height="48dp"
-            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="45dp">
+            android:layout_marginTop="10dp">
 
             <EditText
                 android:id="@+id/editTextNro"
-                android:layout_width="20dp"
+                android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_gravity="left"
-                android:layout_marginTop="0dp"
-
-                android:autofillHints="Fone"
-                android:background="@drawable/shape_edit_text"
+                android:layout_weight="1"
                 android:hint="@string/number"
                 android:inputType="text"
-                android:padding="8dp"
-                android:layout_weight="1"/>
+                android:background="@drawable/shape_edit_text"
+                android:padding="8dp" />
 
             <Space
                 android:layout_width="6dp"
@@ -102,52 +92,41 @@
 
             <EditText
                 android:id="@+id/editTextBairro"
-                android:layout_width="215dp"
+                android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="0dp"
-                android:autofillHints="whatsapp"
-                android:background="@drawable/shape_edit_text"
+                android:layout_weight="2"
                 android:hint="@string/bairro"
                 android:inputType="text"
-                android:padding="8dp"
-                android:layout_weight="1"/>
+                android:background="@drawable/shape_edit_text"
+                android:padding="8dp" />
 
         </LinearLayout>
 
         <EditText
             android:id="@+id/editTextComplemento"
             android:hint="@string/complemento"
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
             android:inputType="text"
-            android:autofillHints="number"
             android:background="@drawable/shape_edit_text"
-            android:padding="8dp"/>
+            android:padding="8dp" />
 
         <LinearLayout
-            android:layout_width="400dp"
-            android:layout_height="48dp"
-            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="45dp">
+            android:layout_marginTop="10dp">
 
             <EditText
                 android:id="@+id/editTextCidade"
-                android:layout_width="215dp"
+                android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_gravity="left"
-                android:layout_marginTop="0dp"
-
-                android:autofillHints="cidade"
-                android:background="@drawable/shape_edit_text"
+                android:layout_weight="2"
                 android:hint="@string/cidade"
                 android:inputType="text"
-                android:padding="8dp"
-                android:layout_weight="1"/>
+                android:background="@drawable/shape_edit_text"
+                android:padding="8dp" />
 
             <Space
                 android:layout_width="6dp"
@@ -155,16 +134,13 @@
 
             <EditText
                 android:id="@+id/editTextUF"
-                android:layout_width="20dp"
+                android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="0dp"
-                android:autofillHints="estado"
-                android:background="@drawable/shape_edit_text"
+                android:layout_weight="1"
                 android:hint="@string/estado"
                 android:inputType="textCapCharacters"
-                android:padding="8dp"
-                android:layout_weight="1"/>
+                android:background="@drawable/shape_edit_text"
+                android:padding="8dp" />
 
         </LinearLayout>
 
@@ -172,9 +148,9 @@
             android:id="@+id/buttonCadastrar"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="35dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
             android:text="@string/cadastrar"
             android:textAllCaps="false"
             android:textSize="20sp"
