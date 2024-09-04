@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.wagner.reciclaai.R;
 
 import com.wagner.reciclaai.Util.ConfigBD;
@@ -26,6 +27,7 @@ public class PrincipalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
 
         auth = ConfigBD.Firebaseautenticacao();
+
         //findViewById(R.id.logout).setOnClickListener(this::logout);
         Button buttonCadUser = findViewById(R.id.buttonCadUser);
         Button buttonPerguntasFrequentes = findViewById(R.id.buttonPerguntasFrequentes);
@@ -36,7 +38,7 @@ public class PrincipalActivity extends AppCompatActivity {
         CardView agendamentoColeta_Card = findViewById(R.id.agendamentoColeta_Card);
         CardView notificacoes_Card = findViewById(R.id.notificacoes_Card);
         CardView ranking_Card = findViewById(R.id.ranking_Card);
-        CardView consultaHistoricoCard = findViewById(R.id.consultaPontoColeta_Card);
+        CardView consultaHistorico_Card = findViewById(R.id.consultaPontoColeta_Card);
 
         // Inicializar variáveis e configurar listeners para os cards
         //setupCards();
@@ -45,9 +47,19 @@ public class PrincipalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(PrincipalActivity.this,  CadUserActivity.class);
-                startActivity(intent);
+                //obter o usuário autenticado
+                FirebaseUser user = auth.getCurrentUser();
+                if(user != null) {
+                    //pega o uid do usuário
+                    String userId = user.getUid();
+
+                    //inicia a CadUser passando o USER_ID pra lá
+                    Intent intent = new Intent(PrincipalActivity.this, CadUserActivity.class);
+                    intent.putExtra("USER_ID", userId);
+                    startActivity(intent);
+                }
             }
+
         });
 
         buttonPerguntasFrequentes.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +131,7 @@ public class PrincipalActivity extends AppCompatActivity {
             }
         });
 
-        consultaHistoricoCard.setOnClickListener(new View.OnClickListener() {
+        consultaHistorico_Card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

@@ -47,6 +47,6 @@
     <string name="historicoIcon">Linhas representando escrita textual</string>
     <string name="card_buscarPonto">Buscar Ponto de Coleta</string>
     <string name="card_cadastraPonto">Cadastre um Ponto de Coleta</string>
-
+    <string name="logo">Logotipo do aplicativo</string>
 
 </resources>
