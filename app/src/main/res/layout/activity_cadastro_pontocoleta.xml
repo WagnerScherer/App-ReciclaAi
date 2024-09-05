@@ -190,6 +190,40 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/realizacoleta" />
 
+            <!-- Novo Texto e Checkboxes para Materiais -->
+            <TextView
+                android:id="@+id/textViewMateriais"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/materiais_que_coleta"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxPilhasBaterias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tipo_material_pilha" />
+
+            <CheckBox
+                android:id="@+id/checkBoxOleoCozinha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tipo_material_oleocozinha" />
+
+            <CheckBox
+                android:id="@+id/checkBoxLampadas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tipo_material_lampada" />
+
+            <CheckBox
+                android:id="@+id/checkBoxEletronicos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tipo_material_eletronico" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonCadastrarPontoColeta"
                 android:layout_width="300dp"

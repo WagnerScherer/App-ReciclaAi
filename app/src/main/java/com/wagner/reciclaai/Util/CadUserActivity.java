@@ -4,39 +4,26 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.wagner.reciclaai.R;
 import com.wagner.reciclaai.model.Usuario;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.prefs.Preferences;
-
 public class CadUserActivity extends AppCompatActivity {
 
     // Declaração das variáveis
-    private Usuario usuario;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private EditText campoNome, campoEmail, campoSenha, campoEndereco, campoNumero, campoComplemento, campoBairro, campoCidade, campoEstado;
     private Button botaoCadastrar;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,16 +44,17 @@ public class CadUserActivity extends AppCompatActivity {
         campoEstado = findViewById(R.id.editTextUF);
         botaoCadastrar = findViewById(R.id.buttonCadastrar);
 
-        botaoCadastrar.setOnClickListener(v -> validarCampos());
+        // Lidar com o clique do botão
+        botaoCadastrar.setOnClickListener(v -> validarCampos(uid == null));
 
         // Obter UID do Intent
-        String uid = getIntent().getStringExtra("USER_ID");
+        uid = getIntent().getStringExtra("USER_ID");
         if (uid != null) {
             recuperarDadosUsuario(uid);
         }
     }
 
-    private void validarCampos() {
+    private void validarCampos(boolean isCadastro) {
         String nome = campoNome.getText().toString().trim();
         String email = campoEmail.getText().toString().trim();
         String senha = campoSenha.getText().toString().trim();
@@ -77,37 +65,57 @@ public class CadUserActivity extends AppCompatActivity {
         String cidade = campoCidade.getText().toString().trim();
         String estado = campoEstado.getText().toString().trim();
 
-        // Validação básica
-        if (TextUtils.isEmpty(nome) || TextUtils.isEmpty(email) || TextUtils.isEmpty(senha) || TextUtils.isEmpty(endereco) || TextUtils.isEmpty(numero) || TextUtils.isEmpty(bairro) || TextUtils.isEmpty(cidade) || TextUtils.isEmpty(estado)) {
+        // Validação básica para todos os casos
+        if (TextUtils.isEmpty(nome) || TextUtils.isEmpty(endereco) || TextUtils.isEmpty(numero) || TextUtils.isEmpty(bairro) || TextUtils.isEmpty(cidade) || TextUtils.isEmpty(estado)) {
             Toast.makeText(this, "Preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Digite um email válido", Toast.LENGTH_SHORT).show();
-            return;
+        if (isCadastro) {
+            // Validações adicionais para o cadastro
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(senha)) {
+                Toast.makeText(this, "Preencha email e senha", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "Digite um email válido", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (senha.length() < 6) {
+                Toast.makeText(this, "A senha deve ter pelo menos 6 caracteres", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Criar um novo usuário
+
+            Usuario usuario = new Usuario();
+            usuario.setNome(nome);
+            usuario.setEmail(email);
+            usuario.setSenha(senha);
+            usuario.setEndereco(endereco);
+            usuario.setNumero(numero);
+            usuario.setComplemento(complemento);
+            usuario.setBairro(bairro);
+            usuario.setCidade(cidade);
+            usuario.setEstado(estado);
+
+            cadastrarUsuario(usuario);
+
+        } else {
+            // Atualizar os dados do usuário, sem email e senha
+            Usuario usuario = new Usuario();
+            usuario.setNome(nome);
+            usuario.setEndereco(endereco);
+            usuario.setNumero(numero);
+            usuario.setComplemento(complemento);
+            usuario.setBairro(bairro);
+            usuario.setCidade(cidade);
+            usuario.setEstado(estado);
+
+            atualizarDadosUsuario(usuario);
         }
-
-        if (senha.length() < 6) {
-            Toast.makeText(this, "A senha deve ter pelo menos 6 caracteres", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Criar o objeto Usuario com os dados válidos
-
-        usuario = new Usuario();
-
-        usuario.setNome(nome);
-        usuario.setEmail(email);
-        usuario.setSenha(senha);
-        usuario.setEndereco(endereco);
-        usuario.setNumero(numero);
-        usuario.setComplemento(complemento);
-        usuario.setBairro(bairro);
-        usuario.setCidade(cidade);
-        usuario.setEstado(estado);
-
-        cadastrarUsuario(usuario);
     }
 
     private void cadastrarUsuario(Usuario usuario) {
@@ -119,16 +127,30 @@ public class CadUserActivity extends AppCompatActivity {
                         db.collection("USUARIOS").document(uid).set(usuario)
                                 .addOnSuccessListener(aVoid -> {
                                     Toast.makeText(this, "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-                                    // Redirecionar ou realizar outras ações necessárias
                                 })
                                 .addOnFailureListener(e -> {
                                     Toast.makeText(this, "Erro ao cadastrar usuário", Toast.LENGTH_SHORT).show();
-                                    Log.e("Firestore", "Erro ao cadastrar usuário", e);
                                 });
                     } else {
-                        // Se a criação do usuário falhar
                         Toast.makeText(this, "Falha ao criar usuário: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
+                });
+    }
+
+    private void atualizarDadosUsuario(Usuario usuario) {
+        db.collection("USUARIOS").document(uid)
+                .update("nome", usuario.getNome(),
+                        "endereco", usuario.getEndereco(),
+                        "numero", usuario.getNumero(),
+                        "complemento", usuario.getComplemento(),
+                        "bairro", usuario.getBairro(),
+                        "cidade", usuario.getCidade(),
+                        "estado", usuario.getEstado())
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Erro ao atualizar os dados.", Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -141,7 +163,6 @@ public class CadUserActivity extends AppCompatActivity {
                         if (document.exists()) {
                             Usuario usuarioRecuperado = document.toObject(Usuario.class);
                             if (usuarioRecuperado != null) {
-                                // Preencher os campos do formulário com os dados do usuário
                                 campoNome.setText(usuarioRecuperado.getNome());
                                 campoEmail.setText(usuarioRecuperado.getEmail());
                                 campoSenha.setText(usuarioRecuperado.getSenha());
@@ -152,21 +173,17 @@ public class CadUserActivity extends AppCompatActivity {
                                 campoCidade.setText(usuarioRecuperado.getCidade());
                                 campoEstado.setText(usuarioRecuperado.getEstado());
 
-                                //campos e-mail e senha ficam bloqueados caso o usuário esteja autenticado
-                                //e acesse a área de usuário
+                                // Campos de email e senha ficam bloqueados ao atualizar
                                 campoEmail.setEnabled(false);
                                 campoSenha.setEnabled(false);
 
-                                // O campo senha vai mostrar asteriscos caso o usuário esteja autenticado no sistema
                                 campoSenha.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                                campoSenha.setTransformationMethod(new android.text.method.PasswordTransformationMethod());
-
                             }
                         } else {
-                            Log.d("Firestore", "No such document");
+                            Log.d("Firestore", "Documento não encontrado");
                         }
                     } else {
-                        Log.d("Firestore", "get failed with ", task.getException());
+                        Log.d("Firestore", "Erro ao recuperar dados", task.getException());
                     }
                 });
     }
