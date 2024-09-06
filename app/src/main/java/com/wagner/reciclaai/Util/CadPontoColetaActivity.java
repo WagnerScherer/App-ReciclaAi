@@ -1,6 +1,7 @@
 package com.wagner.reciclaai.Util;
 
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -8,26 +9,26 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.wagner.reciclaai.R;
-
+import com.wagner.reciclaai.model.PhoneNumberFormatter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CadPontoColetaActivity extends AppCompatActivity {
 
-    // Referências para os campos de entrada
     private EditText editTextName, editTextEmail, editTextFone, editTextWhatsapp, editTextEndereco,
             editTextNumero, editTextBairro, editTextComplemento, editTextCidade, editTextUF, editTextSite;
     private CheckBox checkBoxRealizaColeta, checkBoxPilhasBaterias, checkBoxOleoCozinha,
             checkBoxLampadas, checkBoxEletronicos;
 
-    // Instância do Firestore
     private FirebaseFirestore db;
 
     @Override
@@ -35,7 +36,6 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_pontocoleta);
 
-        // Inicializar o Firestore
         db = FirebaseFirestore.getInstance();
 
         // Referenciando os campos do layout
@@ -57,12 +57,57 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         checkBoxLampadas = findViewById(R.id.checkBoxLampadas);
         checkBoxEletronicos = findViewById(R.id.checkBoxEletronicos);
 
+        editTextFone.addTextChangedListener(new PhoneNumberFormatter(editTextFone));
+        editTextWhatsapp.addTextChangedListener(new PhoneNumberFormatter(editTextWhatsapp));
+
+
+
+        // Verificação de duplicidade ao sair do campo "nome"
+        editTextName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) { // Quando o campo perde o foco
+                    verificarDuplicidadeNome();
+                }
+            }
+        });
+
+
         findViewById(R.id.buttonCadastrarPontoColeta).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cadastrarPontoColeta();
             }
         });
+    }
+
+    // Função que verifica se o nome já existe
+    private void verificarDuplicidadeNome() {
+        String nome = editTextName.getText().toString();
+
+        if (TextUtils.isEmpty(nome)) {
+            editTextName.setError("O nome do ponto de coleta é obrigatório");
+            return;
+        }
+
+        // Consulta para verificar se já existe um ponto com o mesmo nome
+        db.collection("PONTOSCOLETA")
+                .whereEqualTo("nome", nome)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if (!task.getResult().isEmpty()) {
+                                // Ponto de coleta com o mesmo nome já existe
+                                editTextName.setError("Já existe um ponto de coleta com este nome");
+                                editTextName.requestFocus();
+                            }
+                        } else {
+                            Toast.makeText(CadPontoColetaActivity.this, "Erro ao verificar nome duplicado", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private void cadastrarPontoColeta() {
@@ -105,12 +150,13 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         // Salva os dados na coleção PONTOSCOLETA
         db.collection("PONTOSCOLETA")
                 .add(pontoColeta)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() { // Altere o tipo para DocumentReference
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(CadPontoColetaActivity.this, "Ponto de coleta cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-                        String pontoColetaId = documentReference.getId(); // Obtém o ID gerado pelo Firestore
-                        salvarMateriais(pontoColetaId); // Passa o ID gerado para a função de salvar materiais
+                        String pontoColetaId = documentReference.getId();
+                        salvarMateriais(pontoColetaId);
+                        limparCampos(); // Limpar campos após o cadastro
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -122,7 +168,6 @@ public class CadPontoColetaActivity extends AppCompatActivity {
     }
 
     private void salvarMateriais(String pontoColetaId) {
-        // Verifica e salva os materiais
         if (checkBoxPilhasBaterias.isChecked()) {
             salvarPontoColetaMaterial(pontoColetaId, 1);
         }
@@ -142,7 +187,6 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         pontoColetaMaterial.put("id_ponto_coleta", pontoColetaId);
         pontoColetaMaterial.put("id_material", idMaterial);
 
-        // Salva os dados na coleção PONTOSCOLETA_MATERIAIS
         db.collection("PONTOSCOLETA_MATERIAIS")
                 .add(pontoColetaMaterial)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -157,5 +201,26 @@ public class CadPontoColetaActivity extends AppCompatActivity {
                         Toast.makeText(CadPontoColetaActivity.this, "Erro ao salvar material", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void limparCampos() {
+        editTextName.setText("");
+        editTextEmail.setText("");
+        editTextFone.setText("");
+        editTextWhatsapp.setText("");
+        editTextEndereco.setText("");
+        editTextNumero.setText("");
+        editTextBairro.setText("");
+        editTextComplemento.setText("");
+        editTextCidade.setText("");
+        editTextUF.setText("");
+        editTextSite.setText("");
+
+        // Limpar os checkboxes
+        checkBoxRealizaColeta.setChecked(false);
+        checkBoxPilhasBaterias.setChecked(false);
+        checkBoxOleoCozinha.setChecked(false);
+        checkBoxLampadas.setChecked(false);
+        checkBoxEletronicos.setChecked(false);
     }
 }

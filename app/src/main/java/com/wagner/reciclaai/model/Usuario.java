@@ -16,6 +16,7 @@ public class Usuario {
     private String estado;
     private String data;
     private String fotoPerfil;
+    private String foneUser;
 
     public String getWhatsapp() {
         return whatsapp;
@@ -54,6 +55,14 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getFoneUser() {
+        return foneUser;
+    }
+
+    public void setFoneUser(String foneUser) {
+        this.foneUser = foneUser;
     }
 
     public String getEndereco() {
