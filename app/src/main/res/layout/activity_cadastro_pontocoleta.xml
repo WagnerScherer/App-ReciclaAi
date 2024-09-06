@@ -47,6 +47,7 @@
                 android:layout_marginTop="30dp"
                 android:hint="@string/name_local_coleta"
                 android:inputType="text"
+                android:maxLength="150"
                 android:background="@drawable/shape_edit_text"
                 android:padding="8dp"/>
 
@@ -57,6 +58,7 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
+                android:maxLength="100"
                 android:background="@drawable/shape_edit_text"
                 android:padding="8dp"/>
 
@@ -73,6 +75,7 @@
                     android:layout_weight="1"
                     android:hint="@string/fone"
                     android:inputType="phone"
+                    android:maxLength="15"
                     android:background="@drawable/shape_edit_text"
                     android:padding="8dp" />
 
@@ -87,6 +90,7 @@
                     android:layout_weight="1"
                     android:hint="@string/whatsapp"
                     android:inputType="text"
+                    android:maxLength="15"
                     android:background="@drawable/shape_edit_text"
                     android:padding="8dp" />
             </LinearLayout>
@@ -98,6 +102,7 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/adressPC"
                 android:inputType="text"
+                android:maxLength="100"
                 android:background="@drawable/shape_edit_text"
                 android:padding="8dp"/>
 
@@ -114,6 +119,7 @@
                     android:layout_weight="1"
                     android:hint="@string/numberPC"
                     android:inputType="text"
+                    android:maxLength="15"
                     android:background="@drawable/shape_edit_text"
                     android:padding="8dp" />
 
@@ -128,6 +134,7 @@
                     android:layout_weight="2"
                     android:hint="@string/bairroPC"
                     android:inputType="text"
+                    android:maxLength="50"
                     android:background="@drawable/shape_edit_text"
                     android:padding="8dp" />
             </LinearLayout>
@@ -139,6 +146,7 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/complemento"
                 android:inputType="text"
+                android:maxLength="100"
                 android:background="@drawable/shape_edit_text"
                 android:padding="8dp"/>
 
@@ -155,6 +163,7 @@
                     android:layout_weight="2"
                     android:hint="@string/cidadePC"
                     android:inputType="text"
+                    android:maxLength="100"
                     android:background="@drawable/shape_edit_text"
                     android:padding="8dp" />
 
@@ -169,6 +178,7 @@
                     android:layout_weight="1"
                     android:hint="@string/estadoPC"
                     android:inputType="textCapCharacters"
+                    android:maxLength="2"
                     android:background="@drawable/shape_edit_text"
                     android:padding="8dp" />
             </LinearLayout>
@@ -180,6 +190,7 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/site"
                 android:inputType="text"
+                android:maxLength="150"
                 android:background="@drawable/shape_edit_text"
                 android:padding="8dp"/>
 

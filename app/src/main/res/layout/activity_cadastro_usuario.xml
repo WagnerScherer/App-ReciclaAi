@@ -35,6 +35,7 @@
             android:layout_marginTop="40dp"
             android:background="@drawable/shape_edit_text"
             android:inputType="text"
+            android:maxLength="150"
             android:hint="@string/name"
             android:padding="8dp" />
 
@@ -45,7 +46,8 @@
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
             android:inputType="textEmailAddress"
-            android:autofillHints="password"
+            android:maxLength="100"
+            android:autofillHints="emailAddress"
             android:background="@drawable/shape_edit_text"
             android:padding="8dp" />
 
@@ -61,12 +63,25 @@
             android:padding="8dp" />
 
         <EditText
+            android:id="@+id/editTextFoneUser"
+            android:hint="@string/fone"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:inputType="phone"
+            android:maxLength="15"
+            android:background="@drawable/shape_edit_text"
+            android:padding="8dp" />
+
+
+        <EditText
             android:id="@+id/editTextEndereco"
             android:hint="@string/adress"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
             android:inputType="text"
+            android:maxLength="100"
             android:background="@drawable/shape_edit_text"
             android:padding="8dp" />
 
@@ -83,6 +98,7 @@
                 android:layout_weight="1"
                 android:hint="@string/number"
                 android:inputType="text"
+                android:maxLength="15"
                 android:background="@drawable/shape_edit_text"
                 android:padding="8dp" />
 
@@ -97,6 +113,7 @@
                 android:layout_weight="2"
                 android:hint="@string/bairro"
                 android:inputType="text"
+                android:maxLength="50"
                 android:background="@drawable/shape_edit_text"
                 android:padding="8dp" />
 
@@ -109,6 +126,7 @@
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
             android:inputType="text"
+            android:maxLength="100"
             android:background="@drawable/shape_edit_text"
             android:padding="8dp" />
 
@@ -125,6 +143,7 @@
                 android:layout_weight="2"
                 android:hint="@string/cidade"
                 android:inputType="text"
+                android:maxLength="100"
                 android:background="@drawable/shape_edit_text"
                 android:padding="8dp" />
 
@@ -139,6 +158,7 @@
                 android:layout_weight="1"
                 android:hint="@string/estado"
                 android:inputType="textCapCharacters"
+                android:maxLength="2"
                 android:background="@drawable/shape_edit_text"
                 android:padding="8dp" />
 

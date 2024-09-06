@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.wagner.reciclaai.R;
+import com.wagner.reciclaai.model.PhoneNumberFormatter;
 import com.wagner.reciclaai.model.Usuario;
 
 public class CadUserActivity extends AppCompatActivity {
@@ -21,7 +22,8 @@ public class CadUserActivity extends AppCompatActivity {
     // Declaração das variáveis
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private EditText campoNome, campoEmail, campoSenha, campoEndereco, campoNumero, campoComplemento, campoBairro, campoCidade, campoEstado;
+    private EditText campoNome, campoEmail, campoSenha, campoFoneUser;
+    private EditText campoEndereco, campoNumero, campoComplemento, campoBairro, campoCidade, campoEstado;
     private Button botaoCadastrar;
     private String uid;
 
@@ -37,12 +39,15 @@ public class CadUserActivity extends AppCompatActivity {
         campoEmail = findViewById(R.id.editTextEmail);
         campoSenha = findViewById(R.id.editTextPassword);
         campoEndereco = findViewById(R.id.editTextEndereco);
+        campoFoneUser = findViewById(R.id.editTextFoneUser);
         campoNumero = findViewById(R.id.editTextNro);
         campoComplemento = findViewById(R.id.editTextComplemento);
         campoBairro = findViewById(R.id.editTextBairro);
         campoCidade = findViewById(R.id.editTextCidade);
         campoEstado = findViewById(R.id.editTextUF);
         botaoCadastrar = findViewById(R.id.buttonCadastrar);
+
+        campoFoneUser.addTextChangedListener(new PhoneNumberFormatter(campoFoneUser));
 
         // Lidar com o clique do botão
         botaoCadastrar.setOnClickListener(v -> validarCampos(uid == null));
@@ -58,6 +63,7 @@ public class CadUserActivity extends AppCompatActivity {
         String nome = campoNome.getText().toString().trim();
         String email = campoEmail.getText().toString().trim();
         String senha = campoSenha.getText().toString().trim();
+        String foneUser = campoFoneUser.getText().toString().trim();
         String endereco = campoEndereco.getText().toString().trim();
         String numero = campoNumero.getText().toString().trim();
         String complemento = campoComplemento.getText().toString().trim();
@@ -94,6 +100,7 @@ public class CadUserActivity extends AppCompatActivity {
             usuario.setNome(nome);
             usuario.setEmail(email);
             usuario.setSenha(senha);
+            usuario.setFoneUser(foneUser);
             usuario.setEndereco(endereco);
             usuario.setNumero(numero);
             usuario.setComplemento(complemento);
@@ -107,6 +114,7 @@ public class CadUserActivity extends AppCompatActivity {
             // Atualizar os dados do usuário, sem email e senha
             Usuario usuario = new Usuario();
             usuario.setNome(nome);
+            usuario.setFoneUser(foneUser);
             usuario.setEndereco(endereco);
             usuario.setNumero(numero);
             usuario.setComplemento(complemento);
@@ -141,6 +149,7 @@ public class CadUserActivity extends AppCompatActivity {
         db.collection("USUARIOS").document(uid)
                 .update("nome", usuario.getNome(),
                         "endereco", usuario.getEndereco(),
+                        "foneUser", usuario.getFoneUser(),
                         "numero", usuario.getNumero(),
                         "complemento", usuario.getComplemento(),
                         "bairro", usuario.getBairro(),
@@ -166,6 +175,7 @@ public class CadUserActivity extends AppCompatActivity {
                                 campoNome.setText(usuarioRecuperado.getNome());
                                 campoEmail.setText(usuarioRecuperado.getEmail());
                                 campoSenha.setText(usuarioRecuperado.getSenha());
+                                campoFoneUser.setText(usuarioRecuperado.getFoneUser());
                                 campoEndereco.setText(usuarioRecuperado.getEndereco());
                                 campoNumero.setText(usuarioRecuperado.getNumero());
                                 campoComplemento.setText(usuarioRecuperado.getComplemento());
