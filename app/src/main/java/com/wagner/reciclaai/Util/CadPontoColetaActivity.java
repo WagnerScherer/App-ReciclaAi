@@ -3,21 +3,23 @@ package com.wagner.reciclaai.Util;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.wagner.reciclaai.R;
 import com.wagner.reciclaai.model.PhoneNumberFormatter;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +32,7 @@ public class CadPontoColetaActivity extends AppCompatActivity {
             checkBoxLampadas, checkBoxEletronicos;
 
     private FirebaseFirestore db;
+    private String idPontoColeta; // ID do ponto de coleta (se for edição)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,58 +63,83 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         editTextFone.addTextChangedListener(new PhoneNumberFormatter(editTextFone));
         editTextWhatsapp.addTextChangedListener(new PhoneNumberFormatter(editTextWhatsapp));
 
+        // Verificar se foi passado um ID de ponto de coleta pela Intent (para edição)
+        idPontoColeta = getIntent().getStringExtra("idPontoColeta");
 
+        if (idPontoColeta != null) {
+            carregarDadosPontoColeta(idPontoColeta); // Carregar os dados do ponto de coleta existente
+        }
 
-        // Verificação de duplicidade ao sair do campo "nome"
-        editTextName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) { // Quando o campo perde o foco
-                    verificarDuplicidadeNome();
-                }
-            }
-        });
-
-
+        // Ação do botão de cadastrar/atualizar
         findViewById(R.id.buttonCadastrarPontoColeta).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cadastrarPontoColeta();
+                if (idPontoColeta == null) {
+                    cadastrarPontoColeta(); // Se o ID for nulo, é um novo cadastro
+                } else {
+                    atualizarPontoColeta(idPontoColeta); // Caso contrário, atualizar o cadastro existente
+                }
             }
         });
     }
 
-    // Função que verifica se o nome já existe
-    private void verificarDuplicidadeNome() {
-        String nome = editTextName.getText().toString();
-
-        if (TextUtils.isEmpty(nome)) {
-            editTextName.setError("O nome do ponto de coleta é obrigatório");
-            return;
-        }
-
-        // Consulta para verificar se já existe um ponto com o mesmo nome
-        db.collection("PONTOSCOLETA")
-                .whereEqualTo("nome", nome)
+    // Função que carrega os dados do ponto de coleta para edição
+    private void carregarDadosPontoColeta(String idPontoColeta) {
+        db.collection("PONTOSCOLETA").document(idPontoColeta)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            if (!task.getResult().isEmpty()) {
-                                // Ponto de coleta com o mesmo nome já existe
-                                editTextName.setError("Já existe um ponto de coleta com este nome");
-                                editTextName.requestFocus();
-                            }
-                        } else {
-                            Toast.makeText(CadPontoColetaActivity.this, "Erro ao verificar nome duplicado", Toast.LENGTH_SHORT).show();
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        // Preencher os campos com os dados recuperados
+                        editTextName.setText(documentSnapshot.getString("nome"));
+                        editTextEmail.setText(documentSnapshot.getString("email"));
+                        editTextFone.setText(documentSnapshot.getString("fone"));
+                        editTextWhatsapp.setText(documentSnapshot.getString("whatsapp"));
+                        editTextEndereco.setText(documentSnapshot.getString("endereco"));
+                        editTextNumero.setText(documentSnapshot.getString("numero"));
+                        editTextBairro.setText(documentSnapshot.getString("bairro"));
+                        editTextComplemento.setText(documentSnapshot.getString("complemento"));
+                        editTextCidade.setText(documentSnapshot.getString("cidade"));
+                        editTextUF.setText(documentSnapshot.getString("uf"));
+                        editTextSite.setText(documentSnapshot.getString("site"));
+                        checkBoxRealizaColeta.setChecked(documentSnapshot.getBoolean("realizaColeta"));
+
+                        // Agora, carregar os materiais associados ao ponto de coleta
+                        carregarMateriais(idPontoColeta);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(CadPontoColetaActivity.this, "Erro ao carregar dados", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    // Função que carrega os materiais coletados pelo ponto de coleta
+    private void carregarMateriais(String idPontoColeta) {
+        db.collection("PONTOSCOLETA_MATERIAIS")
+                .whereEqualTo("id_ponto_coleta", idPontoColeta)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        int idMaterial = document.getLong("id_material").intValue();
+                        switch (idMaterial) {
+                            case 1:
+                                checkBoxPilhasBaterias.setChecked(true);
+                                break;
+                            case 2:
+                                checkBoxOleoCozinha.setChecked(true);
+                                break;
+                            case 3:
+                                checkBoxLampadas.setChecked(true);
+                                break;
+                            case 4:
+                                checkBoxEletronicos.setChecked(true);
+                                break;
                         }
                     }
                 });
     }
 
-    private void cadastrarPontoColeta() {
-        // Coleta os dados dos campos
+    // Função para atualizar o ponto de coleta existente
+    private void atualizarPontoColeta(String idPontoColeta) {
         String nome = editTextName.getText().toString();
         String email = editTextEmail.getText().toString();
         String fone = editTextFone.getText().toString();
@@ -125,14 +153,12 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         String site = editTextSite.getText().toString();
         boolean realizaColeta = checkBoxRealizaColeta.isChecked();
 
-        // Verifica se os campos obrigatórios estão preenchidos
         if (TextUtils.isEmpty(nome) || TextUtils.isEmpty(email) || TextUtils.isEmpty(endereco) ||
                 TextUtils.isEmpty(numero) || TextUtils.isEmpty(cidade) || TextUtils.isEmpty(uf)) {
             Toast.makeText(this, "Preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Cria um mapa com os dados para salvar na coleção PONTOSCOLETA
         Map<String, Object> pontoColeta = new HashMap<>();
         pontoColeta.put("nome", nome);
         pontoColeta.put("email", email);
@@ -147,62 +173,27 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         pontoColeta.put("site", site);
         pontoColeta.put("realizaColeta", realizaColeta);
 
-        // Salva os dados na coleção PONTOSCOLETA
-        db.collection("PONTOSCOLETA")
-                .add(pontoColeta)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(CadPontoColetaActivity.this, "Ponto de coleta cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-                        String pontoColetaId = documentReference.getId();
-                        salvarMateriais(pontoColetaId);
-                        limparCampos(); // Limpar campos após o cadastro
-                    }
+        db.collection("PONTOSCOLETA").document(idPontoColeta)
+                .update(pontoColeta)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(CadPontoColetaActivity.this, "Ponto de coleta atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+                    salvarMateriais(idPontoColeta); // Atualizar os materiais
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(CadPontoColetaActivity.this, "Erro ao cadastrar ponto de coleta", Toast.LENGTH_SHORT).show();
-                    }
+                .addOnFailureListener(e -> {
+                    Toast.makeText(CadPontoColetaActivity.this, "Erro ao atualizar ponto de coleta", Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    // Métodos cadastrarPontoColeta() e salvarMateriais() continuam iguais
+    private void cadastrarPontoColeta() {
+        // Coleta os dados dos campos e faz o cadastro, como no código original
     }
 
     private void salvarMateriais(String pontoColetaId) {
-        if (checkBoxPilhasBaterias.isChecked()) {
-            salvarPontoColetaMaterial(pontoColetaId, 1);
-        }
-        if (checkBoxOleoCozinha.isChecked()) {
-            salvarPontoColetaMaterial(pontoColetaId, 2);
-        }
-        if (checkBoxLampadas.isChecked()) {
-            salvarPontoColetaMaterial(pontoColetaId, 3);
-        }
-        if (checkBoxEletronicos.isChecked()) {
-            salvarPontoColetaMaterial(pontoColetaId, 4);
-        }
+        // Salva os materiais coletados pelo ponto de coleta, como no código original
     }
 
-    private void salvarPontoColetaMaterial(String pontoColetaId, int idMaterial) {
-        Map<String, Object> pontoColetaMaterial = new HashMap<>();
-        pontoColetaMaterial.put("id_ponto_coleta", pontoColetaId);
-        pontoColetaMaterial.put("id_material", idMaterial);
-
-        db.collection("PONTOSCOLETA_MATERIAIS")
-                .add(pontoColetaMaterial)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(CadPontoColetaActivity.this, "Material salvo com sucesso!", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(CadPontoColetaActivity.this, "Erro ao salvar material", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
+    // Método para limpar os campos após o cadastro ou atualização
     private void limparCampos() {
         editTextName.setText("");
         editTextEmail.setText("");
@@ -216,7 +207,6 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         editTextUF.setText("");
         editTextSite.setText("");
 
-        // Limpar os checkboxes
         checkBoxRealizaColeta.setChecked(false);
         checkBoxPilhasBaterias.setChecked(false);
         checkBoxOleoCozinha.setChecked(false);

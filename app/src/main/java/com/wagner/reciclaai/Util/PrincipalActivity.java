@@ -35,13 +35,29 @@ public class PrincipalActivity extends AppCompatActivity {
         //localizando os cards da tela principal
         CardView consultaPontoColeta_Card = findViewById(R.id.consultaPontoColeta_Card);
         CardView cadastraPontoColeta_Card = findViewById(R.id.cadastraPontoColeta_Card);
-        CardView agendamentoColeta_Card = findViewById(R.id.agendamentoColeta_Card);
-        CardView notificacoes_Card = findViewById(R.id.notificacoes_Card);
-        CardView ranking_Card = findViewById(R.id.ranking_Card);
-        CardView consultaHistorico_Card = findViewById(R.id.consultaPontoColeta_Card);
+        //CardView agendamentoColeta_Card = findViewById(R.id.agendamentoColeta_Card);
+        //CardView notificacoes_Card = findViewById(R.id.notificacoes_Card);
+        //CardView ranking_Card = findViewById(R.id.ranking_Card);
+        //CardView consultaHistorico_Card = findViewById(R.id.consultaPontoColeta_Card);
 
         // Inicializar variáveis e configurar listeners para os cards
         //setupCards();
+
+        cadastraPontoColeta_Card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PrincipalActivity.this, CadPontoColetaActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        consultaPontoColeta_Card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PrincipalActivity.this, ConsultaPontoActivity.class);
+                startActivity(intent);
+            }
+        });
 
         buttonCadUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,86 +78,84 @@ public class PrincipalActivity extends AppCompatActivity {
 
         });
 
-        buttonPerguntasFrequentes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //cadastraPontoColeta_Card.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //
+        //        Intent intent = new Intent(PrincipalActivity.this, CadPontoColetaActivity.class);
+        //        startActivity(intent);
+        //    }
+        //});
 
-                Toast.makeText(PrincipalActivity.this, "Função indisponível no momento.", Toast.LENGTH_SHORT).show();
+        //consultaPontoColeta_Card.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //
+        //        Toast.makeText(PrincipalActivity.this, "NÃO DÁ AINDA O MERDA.", Toast.LENGTH_SHORT).show();
+        //
+        //
+        //    }
+        //});
 
-                //preparando para funcionalidade futura
-                //Intent intent = new Intent(PrincipalActivity.this,  ....Activity.class);
-                //startActivity(intent);
-            }
-        });
+        //buttonPerguntasFrequentes.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //
+        //        Toast.makeText(PrincipalActivity.this, "Função indisponível no momento.", Toast.LENGTH_SHORT).show();
+        //
+        //        //preparando para funcionalidade futura
+        //        //Intent intent = new Intent(PrincipalActivity.this,  ....Activity.class);
+        //        //startActivity(intent);
+        //    }
+        //});
 
-        consultaPontoColeta_Card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //agendamentoColeta_Card.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
 
-                Toast.makeText(PrincipalActivity.this, "Função indisponível no momento.", Toast.LENGTH_SHORT).show();
-
-                //preparando para funcionalidade futura
-                //Intent intent = new Intent(PrincipalActivity.this,  ....Activity.class);
-                //startActivity(intent);
-            }
-        });
-
-        cadastraPontoColeta_Card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(PrincipalActivity.this, CadPontoColetaActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        agendamentoColeta_Card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(PrincipalActivity.this, "Função indisponível no momento.", Toast.LENGTH_SHORT).show();
+        //        Toast.makeText(PrincipalActivity.this, "Função indisponível no momento.", Toast.LENGTH_SHORT).show();
 
                 //preparando para funcionalidade futura
                 //Intent intent = new Intent(PrincipalActivity.this,  ....Activity.class);
                 //startActivity(intent);
-            }
-        });
+        //    }
+        //});
 
-        notificacoes_Card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //notificacoes_Card.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
 
-                Toast.makeText(PrincipalActivity.this, "Função indisponível no momento.", Toast.LENGTH_SHORT).show();
-
-                //preparando para funcionalidade futura
-                //Intent intent = new Intent(PrincipalActivity.this,  ....Activity.class);
-                //startActivity(intent);
-            }
-        });
-
-        ranking_Card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(PrincipalActivity.this, "Função indisponível no momento.", Toast.LENGTH_SHORT).show();
+        //        Toast.makeText(PrincipalActivity.this, "Função indisponível no momento.", Toast.LENGTH_SHORT).show();
 
                 //preparando para funcionalidade futura
                 //Intent intent = new Intent(PrincipalActivity.this,  ....Activity.class);
                 //startActivity(intent);
-            }
-        });
+        //    }
+        //});
 
-        consultaHistorico_Card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //ranking_Card.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
 
-                Toast.makeText(PrincipalActivity.this, "Função indisponível no momento.", Toast.LENGTH_SHORT).show();
+        //        Toast.makeText(PrincipalActivity.this, "Função indisponível no momento.", Toast.LENGTH_SHORT).show();
 
                 //preparando para funcionalidade futura
                 //Intent intent = new Intent(PrincipalActivity.this,  ....Activity.class);
                 //startActivity(intent);
-            }
-        });
+        //    }
+        //});
+
+        //consultaHistorico_Card.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //
+        //        Toast.makeText(PrincipalActivity.this, "Função indisponível no momento.", Toast.LENGTH_SHORT).show();
+
+                //preparando para funcionalidade futura
+                //Intent intent = new Intent(PrincipalActivity.this,  ....Activity.class);
+                //startActivity(intent);
+        //    }
+        //});
 
     }
 
@@ -159,7 +173,7 @@ public class PrincipalActivity extends AppCompatActivity {
         //setCardListener(notificacoesCard, NotificacoesActivity.class);
         //setCardListener(rankingCard, RankingActivity.class);
         //setCardListener(consultaHistoricoCard, CondultaHistoricoActivity.class);
-    }
+}
 
     //private void setCardListener(CardView cardView, final Class<?> activityClass) {
     //    cardView.setOnClickListener(new View.OnClickListener() {

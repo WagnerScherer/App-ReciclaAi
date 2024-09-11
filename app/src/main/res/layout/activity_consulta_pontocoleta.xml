@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Encontre um ponto de coleta"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:paddingBottom="16dp" />
+
+    <!-- Campos de pesquisa -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:background="@drawable/borda_gridlayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome:"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/editTextNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite o nome do ponto de coleta" />
+    </LinearLayout>
+
+    <!-- Filtros por tipo de material -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filtrar_tipomaterial_consulta_pontocoleta"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
+
+    <!-- Layout para os checkboxes divididos em duas colunas -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:background="@drawable/borda_gridlayout">
+
+        <CheckBox
+            android:id="@+id/checkBoxOleo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tipo_material_oleocozinha" />
+
+        <CheckBox
+            android:id="@+id/checkBoxPilhas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tipo_material_pilha" />
+
+        <CheckBox
+            android:id="@+id/checkBoxLampadas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tipo_material_lampada" />
+
+        <CheckBox
+            android:id="@+id/checkBoxEletronicos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tipo_material_eletronico" />
+    </GridLayout>
+
+    <!-- Botão de pesquisa -->
+    <Button
+        android:id="@+id/buttonPesquisar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="@string/btnPesquisar_pontocoleta"
+        android:background="@drawable/background_botao"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Lista de pontos de coleta -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPontosColeta"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="?android:attr/dividerHorizontal"
+        android:dividerHeight="1dp" />
+
+    <!-- CheckBox para filtrar apenas os favoritos -->
+    <CheckBox
+        android:id="@+id/checkBoxFavoritos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mostrar_somente_favoritos"
+        android:paddingBottom="8dp"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

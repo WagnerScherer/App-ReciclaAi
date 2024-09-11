@@ -54,6 +54,9 @@
     <string name="tipo_material_oleocozinha">Óleo de cozinha</string>
     <string name="tipo_material_lampada">Lâmpadas</string>
     <string name="tipo_material_eletronico">Eletrônicos</string>
+    <string name="btnPesquisar_pontocoleta">Pesquisar</string>
+    <string name="filtrar_tipomaterial_consulta_pontocoleta">Buscar por tipo de material:</string>
+    <string name="mostrar_somente_favoritos">Mostrar somente os pontos de coleta favoritos</string>
 
 
 </resources>
