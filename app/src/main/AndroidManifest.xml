@@ -24,6 +24,7 @@
         <activity android:name=".Util.PrincipalActivity"/>
         <activity android:name=".Util.CadUserActivity"/>
         <activity android:name=".Util.CadPontoColetaActivity"/>
+        <activity android:name=".Util.ConsultaPontoActivity"/>
     </application>
 
 </manifest>

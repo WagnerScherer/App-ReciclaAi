@@ -2,18 +2,20 @@ package com.wagner.reciclaai.model;
 
 public class PontoColeta {
 
-    private String nomeLocalColeta;
+    private String nome;
     private String emailPC;
-    private String fonePC;
+    private String fone;
     private String whatsappPC;
-    private String enderecoPC;
-    private String numeroPC;
+    private String endereco;
+    private String numero;
     private String complementoPC;
-    private String bairroPC;
-    private String cidadePC;
-    private String estadoPC;
+    private String bairro;
+    private String cidade;
+    private String uf;
     private String data;
     private String sitePC;
+    private String id_PC;
+    private String materiaisColetados;
 
     public String getWhatsAppPC() {
         return whatsappPC;
@@ -27,12 +29,30 @@ public class PontoColeta {
         // Construtor vazio
     }
 
-    public String getNomeLocalColeta() {
-        return nomeLocalColeta;
+    public PontoColeta(String nome, String endereco, String numero, String bairro, String cidade, String uf, String fone) {
+        this.nome = nome;
+        this.endereco = endereco;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.uf = uf;
+        this.fone = fone;
     }
 
-    public void setNomeLocalColeta(String nomeLocalColeta) {
-        this.nomeLocalColeta = nomeLocalColeta;
+    public String getId_PC() {
+        return id_PC;
+    }
+
+    public void setId_PC(String id_PC) {
+        this.id_PC = id_PC;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getEmailPC() {
@@ -43,28 +63,28 @@ public class PontoColeta {
         this.emailPC = emailPC;
     }
 
-    public String getFonePC() {
-        return fonePC;
+    public String getFone() {
+        return fone;
     }
 
-    public void setFonePC(String fonePC) {
-        this.fonePC = fonePC;
+    public void setFone(String fone) {
+        this.fone = fone;
     }
 
-    public String getEnderecoPC() {
-        return enderecoPC;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setEnderecoPC(String enderecoPC) {
-        this.enderecoPC = enderecoPC;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
-    public String getNumeroPC() {
-        return numeroPC;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setNumeroPC(String numeroPC) {
-        this.numeroPC = numeroPC;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     public String getComplementoPC() {
@@ -75,28 +95,28 @@ public class PontoColeta {
         this.complementoPC = complementoPC;
     }
 
-    public String getBairroPC() {
-        return bairroPC;
+    public String getBairro() {
+        return bairro;
     }
 
-    public void setBairroPC(String bairroPC) {
-        this.bairroPC = bairroPC;
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
-    public String getCidadePC() {
-        return cidadePC;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setCidadePC(String cidadePC) {
-        this.cidadePC = cidadePC;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
-    public String getEstadoPC() {
-        return estadoPC;
+    public String getUf() {
+        return uf;
     }
 
-    public void setEstadoPC(String estadoPC) {
-        this.estadoPC = estadoPC;
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 
     public String getSitePC() {
@@ -121,6 +141,14 @@ public class PontoColeta {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public String getMateriaisColetados() {
+        return materiaisColetados;
+    }
+
+    public void setMateriaisColetados(String materiaisColetados) {
+        this.materiaisColetados = materiaisColetados;
     }
 
 

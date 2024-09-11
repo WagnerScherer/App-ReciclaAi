@@ -59,4 +59,17 @@ public class PhoneNumberFormatter implements TextWatcher {
 
         isUpdating = false;
     }
+
+    public static String format(String fone) {
+        if (fone != null && fone.length() == 11) {
+            // Formatar telefone de 11 dígitos (inclui DDD e 9 dígitos)
+            return String.format("(%s) %s-%s",
+                    fone.substring(0, 2), // DDD
+                    fone.substring(2, 7), // Primeira parte
+                    fone.substring(7));   // Segunda parte
+        } else {
+            return fone; // Retornar o telefone como está se não for de 11 dígitos
+        }
+    }
+
 }
