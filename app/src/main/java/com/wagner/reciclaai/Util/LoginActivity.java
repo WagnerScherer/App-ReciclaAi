@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //implementar aqui o processo de redefinição de senha
+                //função pensada para Grau C - funcionalidade fora do escopo
                 Toast.makeText(LoginActivity.this, "Função ainda não implementada.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -64,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = editTextPasswordLogin.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
-            editTextEmailLogin.setError("E-mail é obrigatório");
+            editTextEmailLogin.setError("Informar o e-mail é obrigatório");
             editTextEmailLogin.requestFocus();
             return;
         }
@@ -76,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (TextUtils.isEmpty(password)) {
-           editTextPasswordLogin.setError("Senha é obrigatório!");
+           editTextPasswordLogin.setError("Necessário preencher a sua senha!");
            editTextPasswordLogin.requestFocus();
            return;
         }

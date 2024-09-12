@@ -16,6 +16,8 @@ public class PontoColeta {
     private String sitePC;
     private String id_PC;
     private String materiaisColetados;
+    private String pessoa_contato;
+    private String horario_funcionamento;
 
     public String getWhatsAppPC() {
         return whatsappPC;
@@ -29,7 +31,7 @@ public class PontoColeta {
         // Construtor vazio
     }
 
-    public PontoColeta(String nome, String endereco, String numero, String bairro, String cidade, String uf, String fone) {
+    public PontoColeta(String nome, String endereco, String numero, String bairro, String cidade, String uf, String fone, String pessoa_contato, String horario_funcionamento) {
         this.nome = nome;
         this.endereco = endereco;
         this.numero = numero;
@@ -37,6 +39,8 @@ public class PontoColeta {
         this.cidade = cidade;
         this.uf = uf;
         this.fone = fone;
+        this.pessoa_contato = pessoa_contato;
+        this.horario_funcionamento = horario_funcionamento;
     }
 
     public String getId_PC() {
@@ -151,6 +155,21 @@ public class PontoColeta {
         this.materiaisColetados = materiaisColetados;
     }
 
+    public String getPessoa_contato() {
+        return pessoa_contato;
+    }
 
+    public void setPessoa_contato(String pessoa_contato) {
+        this.pessoa_contato = pessoa_contato;
+
+    }
+
+    public String getHorario_funcionamento() {
+        return horario_funcionamento;
+    }
+
+    public void setHorario_funcionamento(String horario_funcionamento) {
+        this.horario_funcionamento = horario_funcionamento;
+    }
 
 }

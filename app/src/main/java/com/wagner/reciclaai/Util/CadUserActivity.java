@@ -57,6 +57,14 @@ public class CadUserActivity extends AppCompatActivity {
         if (uid != null) {
             recuperarDadosUsuario(uid);
         }
+
+        // Se o USER_ID for diferente de null, significa que o usuário já está autenticado
+        if (uid != null) {
+            botaoCadastrar.setText("Salvar");  // Mudar o texto do botão para "Salvar"
+        } else {
+            botaoCadastrar.setText("Cadastrar");  // Mudar o texto para "Cadastrar" se não houver usuário autenticado
+        }
+
     }
 
     private void validarCampos(boolean isCadastro) {
@@ -95,7 +103,6 @@ public class CadUserActivity extends AppCompatActivity {
             }
 
             // Criar um novo usuário
-
             Usuario usuario = new Usuario();
             usuario.setNome(nome);
             usuario.setEmail(email);
@@ -186,7 +193,8 @@ public class CadUserActivity extends AppCompatActivity {
                                 // Campos de email e senha ficam bloqueados ao atualizar
                                 campoEmail.setEnabled(false);
                                 campoSenha.setEnabled(false);
-
+                                //função serve para exibir a senha como asterriscos,
+                                // ao abrir a tela de cadastro para usuário já autenticado
                                 campoSenha.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
                             }
                         } else {

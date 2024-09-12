@@ -116,7 +116,6 @@
                 android:maxLength="50"
                 android:background="@drawable/shape_edit_text"
                 android:padding="8dp" />
-
         </LinearLayout>
 
         <EditText
@@ -161,7 +160,6 @@
                 android:maxLength="2"
                 android:background="@drawable/shape_edit_text"
                 android:padding="8dp" />
-
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -176,7 +174,5 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:background="@drawable/background_botao" />
-
     </LinearLayout>
-
 </ScrollView>

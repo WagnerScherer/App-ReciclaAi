@@ -57,6 +57,8 @@
     <string name="btnPesquisar_pontocoleta">Pesquisar</string>
     <string name="filtrar_tipomaterial_consulta_pontocoleta">Buscar por tipo de material:</string>
     <string name="mostrar_somente_favoritos">Mostrar somente os pontos de coleta favoritos</string>
+    <string name="pessoa_contato">Pessoa ou setor responsável</string>
+    <string name="horário_funcionamento">Horário de funcionamento</string>
 
 
 </resources>

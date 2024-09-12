@@ -92,6 +92,7 @@
         android:layout_marginTop="8dp"/>
 
     <!-- Lista de pontos de coleta -->
+    <!-- Será alimentado pelo activity_item_consulta_pontocoleta definido no adapter ConsultaPontoAdapter -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPontosColeta"
         android:layout_width="match_parent"
@@ -108,5 +109,4 @@
         android:text="@string/mostrar_somente_favoritos"
         android:paddingBottom="8dp"
         android:layout_marginTop="8dp" />
-
 </LinearLayout>

@@ -26,8 +26,9 @@ import java.util.Map;
 
 public class CadPontoColetaActivity extends AppCompatActivity {
 
-    private EditText editTextName, editTextEmail, editTextFone, editTextWhatsapp, editTextEndereco,
-            editTextNumero, editTextBairro, editTextComplemento, editTextCidade, editTextUF, editTextSite;
+    private EditText editTextName, editTextEmail, editTextFone, editTextWhatsapp, editTextEndereco;
+    private EditText editTextNumero, editTextBairro, editTextComplemento, editTextCidade, editTextUF, editTextSite;
+    private EditText editTextPessoaContato, editTextHorarioFuncionamento;
     private CheckBox checkBoxRealizaColeta, checkBoxPilhasBaterias, checkBoxOleoCozinha,
             checkBoxLampadas, checkBoxEletronicos;
 
@@ -53,6 +54,8 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         editTextCidade = findViewById(R.id.editTextCidadePontoColeta);
         editTextUF = findViewById(R.id.editTextUFPontoColeta);
         editTextSite = findViewById(R.id.editTextSitePontoColeta);
+        editTextPessoaContato = findViewById(R.id.editTextPessoaContato);
+        editTextHorarioFuncionamento = findViewById(R.id.editTextHorarioFuncionamento);
 
         checkBoxRealizaColeta = findViewById(R.id.checkBoxRealizaColeta);
         checkBoxPilhasBaterias = findViewById(R.id.checkBoxPilhasBaterias);
@@ -101,6 +104,8 @@ public class CadPontoColetaActivity extends AppCompatActivity {
                         editTextCidade.setText(documentSnapshot.getString("cidade"));
                         editTextUF.setText(documentSnapshot.getString("uf"));
                         editTextSite.setText(documentSnapshot.getString("site"));
+                        editTextPessoaContato.setText(documentSnapshot.getString("pessoa_contato"));
+                        editTextHorarioFuncionamento.setText(documentSnapshot.getString("horario_funcionamento"));
                         checkBoxRealizaColeta.setChecked(documentSnapshot.getBoolean("realizaColeta"));
 
                         // Agora, carregar os materiais associados ao ponto de coleta
@@ -151,6 +156,8 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         String cidade = editTextCidade.getText().toString();
         String uf = editTextUF.getText().toString();
         String site = editTextSite.getText().toString();
+        String pessoa_contato = editTextPessoaContato.getText().toString();
+        String horario_funcionamento = editTextHorarioFuncionamento.getText().toString();
         boolean realizaColeta = checkBoxRealizaColeta.isChecked();
 
         if (TextUtils.isEmpty(nome) || TextUtils.isEmpty(email) || TextUtils.isEmpty(endereco) ||
@@ -171,6 +178,8 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         pontoColeta.put("cidade", cidade);
         pontoColeta.put("uf", uf);
         pontoColeta.put("site", site);
+        pontoColeta.put("pessoa_contato", pessoa_contato);
+        pontoColeta.put("horario_funcionamento", horario_funcionamento);
         pontoColeta.put("realizaColeta", realizaColeta);
 
         db.collection("PONTOSCOLETA").document(idPontoColeta)
@@ -184,13 +193,54 @@ public class CadPontoColetaActivity extends AppCompatActivity {
                 });
     }
 
-    // Métodos cadastrarPontoColeta() e salvarMateriais() continuam iguais
-    private void cadastrarPontoColeta() {
-        // Coleta os dados dos campos e faz o cadastro, como no código original
+    // Função para salvar ou atualizar os materiais coletados
+    private void salvarMateriais(String pontoColetaId) {
+        // Primeiro, remover os materiais antigos
+        db.collection("PONTOSCOLETA_MATERIAIS")
+                .whereEqualTo("id_ponto_coleta", pontoColetaId)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        // Deletar cada documento de material anterior
+                        db.collection("PONTOSCOLETA_MATERIAIS").document(document.getId()).delete();
+                    }
+
+                    // Depois de deletar os materiais antigos, salvar os novos materiais
+                    Map<String, Object> pontoMaterial = new HashMap<>();
+
+                    if (checkBoxPilhasBaterias.isChecked()) {
+                        pontoMaterial.put("id_ponto_coleta", pontoColetaId);
+                        pontoMaterial.put("id_material", 1); // Código 1 para Pilhas/Baterias
+                        db.collection("PONTOSCOLETA_MATERIAIS").add(pontoMaterial);
+                    }
+
+                    if (checkBoxOleoCozinha.isChecked()) {
+                        pontoMaterial.put("id_ponto_coleta", pontoColetaId);
+                        pontoMaterial.put("id_material", 2); // Código 2 para Óleo de Cozinha
+                        db.collection("PONTOSCOLETA_MATERIAIS").add(pontoMaterial);
+                    }
+
+                    if (checkBoxLampadas.isChecked()) {
+                        pontoMaterial.put("id_ponto_coleta", pontoColetaId);
+                        pontoMaterial.put("id_material", 3); // Código 3 para Lâmpadas
+                        db.collection("PONTOSCOLETA_MATERIAIS").add(pontoMaterial);
+                    }
+
+                    if (checkBoxEletronicos.isChecked()) {
+                        pontoMaterial.put("id_ponto_coleta", pontoColetaId);
+                        pontoMaterial.put("id_material", 4); // Código 4 para Eletrônicos
+                        db.collection("PONTOSCOLETA_MATERIAIS").add(pontoMaterial);
+                    }
+
+                    Toast.makeText(CadPontoColetaActivity.this, "Materiais atualizados com sucesso!", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(CadPontoColetaActivity.this, "Erro ao atualizar os materiais.", Toast.LENGTH_SHORT).show();
+                });
     }
 
-    private void salvarMateriais(String pontoColetaId) {
-        // Salva os materiais coletados pelo ponto de coleta, como no código original
+    private void cadastrarPontoColeta() {
+        // Coleta os dados dos campos e faz o cadastro
     }
 
     // Método para limpar os campos após o cadastro ou atualização
@@ -206,6 +256,8 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         editTextCidade.setText("");
         editTextUF.setText("");
         editTextSite.setText("");
+        editTextPessoaContato.setText("");
+        editTextHorarioFuncionamento.setText("");
 
         checkBoxRealizaColeta.setChecked(false);
         checkBoxPilhasBaterias.setChecked(false);

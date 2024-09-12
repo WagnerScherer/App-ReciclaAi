@@ -17,7 +17,7 @@
             android:orientation="vertical"
             android:padding="8dp">
 
-            <!-- Container for User Image and Location Icon -->
+            <!-- Container para imagem referente ao ponto de coleta -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,7 +39,6 @@
                     android:contentDescription="@string/fig_point_localization"/>
             </LinearLayout>
 
-            <!-- EditText Fields -->
             <EditText
                 android:id="@+id/editTextNamePontoColeta"
                 android:layout_width="match_parent"
@@ -194,6 +193,28 @@
                 android:background="@drawable/shape_edit_text"
                 android:padding="8dp"/>
 
+            <EditText
+                android:id="@+id/editTextPessoaContato"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/pessoa_contato"
+                android:inputType="text"
+                android:maxLength="150"
+                android:background="@drawable/shape_edit_text"
+                android:padding="8dp"/>
+
+            <EditText
+                android:id="@+id/editTextHorarioFuncionamento"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/horário_funcionamento"
+                android:inputType="text"
+                android:maxLength="150"
+                android:background="@drawable/shape_edit_text"
+                android:padding="8dp"/>
+
             <CheckBox
                 android:id="@+id/checkBoxRealizaColeta"
                 android:layout_width="wrap_content"
@@ -201,7 +222,6 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/realizacoleta" />
 
-            <!-- Novo Texto e Checkboxes para Materiais -->
             <TextView
                 android:id="@+id/textViewMateriais"
                 android:layout_width="wrap_content"
@@ -246,7 +266,6 @@
                 android:textSize="20sp"
                 android:textColor="@color/black"
                 android:background="@drawable/background_botao" />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
