@@ -67,24 +67,20 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
         if (holder.textViewBairroPonto != null) {
             holder.textViewBairroPonto.setText(pontoColeta.getBairro());
         }
-        if (holder.textViewCidadePonto != null) {
-            holder.textViewCidadePonto.setText(pontoColeta.getCidade());
+        if (holder.textViewCidadeUfPonto != null) {
+            String cidadeUfPonto = pontoColeta.getCidade() + "-" + pontoColeta.getUf();
+            holder.textViewCidadeUfPonto.setText(cidadeUfPonto);
+            Log.d("Adapter", "Cidade-UF: " + cidadeUfPonto);
         }
-        if (holder.textViewUfPonto != null) {
-            holder.textViewUfPonto.setText(pontoColeta.getUf());
+        if (holder.textViewPessoaContato != null) {
+            holder.textViewPessoaContato.setText(pontoColeta.getPessoa_contato());
+        }
+        if (holder.textViewHorarioFuncionamento != null) {
+            holder.textViewHorarioFuncionamento.setText(pontoColeta.getHorario_funcionamento());
         }
         if (holder.textViewTelefonePonto != null) {
             holder.textViewTelefonePonto.setText(pontoColeta.getFone());
         }
-
-        // Exibir os materiais coletados
-        //if (holder.textViewMateriaisColetados != null) {
-        //    if (pontoColeta.getMateriaisColetados() != null && !pontoColeta.getMateriaisColetados().isEmpty()) {
-        //        holder.textViewMateriaisColetados.setText(pontoColeta.getMateriaisColetados());
-        //    } else {
-        //        holder.textViewMateriaisColetados.setText("Nenhum material registrado");
-        //    }
-        //}
 
         // Exibir os materiais coletados
         if (pontoColeta.getMateriaisColetados() != null && !pontoColeta.getMateriaisColetados().isEmpty()) {
@@ -94,8 +90,6 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
         } else {
             holder.textViewMateriaisColetados.setText("Nenhum material registrado");
         }
-
-
 
         // Verificar se o ponto de coleta já é favorito
         String uidUsuario = auth.getCurrentUser().getUid();
@@ -152,11 +146,10 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
 
     public static class PontoColetaViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewNomePonto, textViewEnderecoPonto, textViewBairroPonto;
-        TextView textViewCidadePonto, textViewUfPonto, textViewTelefonePonto, textViewMateriaisColetados;
+        TextView textViewNomePonto, textViewEnderecoPonto, textViewBairroPonto, textViewPessoaContato, textViewHorarioFuncionamento;
+        TextView textViewCidadePonto, textViewUfPonto, textViewCidadeUfPonto, textViewTelefonePonto, textViewMateriaisColetados;
         ImageButton imageButtonFavoritar;
         Button buttonAlterarPonto;
-
 
         public PontoColetaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -165,8 +158,10 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
             textViewNomePonto = itemView.findViewById(R.id.textViewNomePonto);
             textViewEnderecoPonto = itemView.findViewById(R.id.textViewEnderecoPonto);
             textViewBairroPonto = itemView.findViewById(R.id.textViewBairroPonto);
-            textViewCidadePonto = itemView.findViewById(R.id.textViewCidadePonto);
-            textViewUfPonto = itemView.findViewById(R.id.textViewUfPonto);
+            textViewCidadePonto = itemView.findViewById(R.id.editTextCidadePontoColeta);
+            textViewCidadeUfPonto = itemView.findViewById(R.id.textViewCidadeUfPonto);
+            textViewPessoaContato = itemView.findViewById(R.id.textViewPessoaContato);
+            textViewHorarioFuncionamento = itemView.findViewById(R.id.textViewHorarioFuncionamento);
             textViewTelefonePonto = itemView.findViewById(R.id.textViewTelefonePonto);
             textViewMateriaisColetados = itemView.findViewById(R.id.textViewMateriaisColetados);
 
@@ -190,6 +185,12 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
             if (textViewUfPonto == null) {
                 Log.e("ViewHolder", "textViewUfPonto é null");
             }
+            if (textViewPessoaContato == null) {
+                Log.e("ViewHolder", "textViewUfPonto é null");
+            }
+            if (textViewHorarioFuncionamento == null) {
+                Log.e("ViewHolder", "textViewUfPonto é null");
+            }
             if (textViewTelefonePonto == null) {
                 Log.e("ViewHolder", "textViewTelefonePonto é null");
             }
@@ -204,5 +205,4 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
             }
         }
     }
-
 }

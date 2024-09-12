@@ -91,7 +91,6 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- Cidade -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,38 +99,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cidade: "
+                    android:text="Cidade-UF: "
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textViewCidadePonto"
+                    android:id="@+id/textViewCidadeUfPonto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cidade"
+                    android:text="Cidade - UF"
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- UF -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="UF: "
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textViewUfPonto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Estado"
-                    android:textSize="14sp" />
-            </LinearLayout>
 
             <!-- Telefone -->
             <LinearLayout
@@ -153,17 +133,60 @@
                     android:text="Fone"
                     android:textSize="14sp" />
             </LinearLayout>
+
+            <!-- Pessoa de contato -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pessoa de contato: "
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewPessoaContato"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pessoa de contato"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Horário -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Horário de atendimento: "
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewHorarioFuncionamento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Horário"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
 
         <!-- Botão de favoritar (estrela) -->
         <ImageButton
             android:id="@+id/imageButtonFavoritar"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/baseline_star_border_24_vazia"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="Favoritar ponto de coleta" />
     </LinearLayout>
+
 
     <!-- Materiais coletados -->
     <TextView

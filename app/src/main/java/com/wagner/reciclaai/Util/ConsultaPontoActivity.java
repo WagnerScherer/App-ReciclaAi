@@ -52,15 +52,11 @@ public class ConsultaPontoActivity extends AppCompatActivity {
         // Configurar o RecyclerView
         recyclerViewPontosColeta.setLayoutManager(new LinearLayoutManager(this));
 
-        //linhadivisoria entre os itens aqui
-        // Adicionar a linha divisória
+        //Aplicação de linha divisória entre os itens do recyclerView aqui
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewPontosColeta.getContext(),
                 LinearLayoutManager.VERTICAL);
-
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.linha_divisoria_itens_recyclerview));
-
         recyclerViewPontosColeta.addItemDecoration(dividerItemDecoration);
-
 
         // Inicializar Firestore e FirebaseAuth
         db = FirebaseFirestore.getInstance();
@@ -69,6 +65,10 @@ public class ConsultaPontoActivity extends AppCompatActivity {
         // Ação do botão "Pesquisar"
         botaoPesquisar.setOnClickListener(v -> pesquisarPontosColeta());
 
+        //Regra para mostrar apenas os favoritos
+        //Faço a consulta: exibe todos os registros encontrados
+        //Ao marcar o box, vai mostrar somente os favoritos, se houver. Ao desmarcar, exibe o resultado da consulta anterior
+        //contendo todos os registros
         checkBoxFavoritos.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 filtrarFavoritos();
@@ -108,7 +108,7 @@ public class ConsultaPontoActivity extends AppCompatActivity {
         }
     }
 
-
+    //Consulta do cenário 1
     private void buscarTodosPontosColeta() {
         db.collection("PONTOSCOLETA")
                 .get()
@@ -133,6 +133,7 @@ public class ConsultaPontoActivity extends AppCompatActivity {
                 });
     }
 
+    //Consulta do cenário 2
     private void buscarPontosPorNome(String nomeDigitado) {
         db.collection("PONTOSCOLETA")
                 .whereGreaterThanOrEqualTo("nome", nomeDigitado)
@@ -159,6 +160,7 @@ public class ConsultaPontoActivity extends AppCompatActivity {
                 });
     }
 
+    //Consulta do cenário 3
     private void buscarPontosPorNomeEMaterial(String nomeDigitado, List<Integer> materiaisFiltrados) {
         db.collection("PONTOSCOLETA_MATERIAIS")
                 .whereIn("id_material", materiaisFiltrados)
@@ -208,6 +210,7 @@ public class ConsultaPontoActivity extends AppCompatActivity {
                 });
     }
 
+    //Consulta do cenário 4
     private void buscarPontosPorMaterial(List<Integer> materiaisFiltrados) {
         db.collection("PONTOSCOLETA_MATERIAIS")
                 .whereIn("id_material", materiaisFiltrados)
@@ -228,6 +231,9 @@ public class ConsultaPontoActivity extends AppCompatActivity {
                 });
     }
 
+    //Aqui vai ser utilizado quando não realizo busca por nome de ponto de coleta
+    //apenas seleciono um tipo de material
+    //Isso porque a estrutura de dados é separada, pontos numa tabela, materiais em outra, pontosmateriais em outra tabela
     private void buscarPontosColetaPorIds(List<String> idsPontos) {
         listaCompletaPontos.clear();
 
@@ -255,6 +261,8 @@ public class ConsultaPontoActivity extends AppCompatActivity {
         }
     }
 
+    //Este método serve para preencher uma string de materiais coletados pelo ponto
+    //será exibido em cada item do recyclerView
     private void carregarMateriaisColetados(PontoColeta pontoColeta) {
         db.collection("PONTOSCOLETA_MATERIAIS")
                 .whereEqualTo("id_ponto_coleta", pontoColeta.getId_PC())
@@ -300,7 +308,6 @@ public class ConsultaPontoActivity extends AppCompatActivity {
             Toast.makeText(this, "Nenhum ponto de coleta encontrado.", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     private void filtrarFavoritos() {
         String uid = auth.getCurrentUser().getUid();
