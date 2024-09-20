@@ -1,0 +1,87 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Nome do usuário -->
+    <TextView
+        android:id="@+id/textViewNomeUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nome do usuário"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="start"
+        android:layout_marginBottom="8dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <!-- Estrelas à esquerda e data à direita -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Layout das estrelas à esquerda -->
+        <LinearLayout
+            android:id="@+id/layoutStars"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <!-- Cinco estrelas -->
+            <ImageView
+                android:id="@+id/star1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_star_border_24_vazia" />
+
+            <ImageView
+                android:id="@+id/star2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_star_border_24_vazia" />
+
+            <ImageView
+                android:id="@+id/star3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_star_border_24_vazia" />
+
+            <ImageView
+                android:id="@+id/star4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_star_border_24_vazia" />
+
+            <ImageView
+                android:id="@+id/star5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_star_border_24_vazia" />
+        </LinearLayout>
+
+        <!-- Data da avaliação à direita -->
+        <TextView
+            android:id="@+id/textViewDataAvaliacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp"
+            android:gravity="end"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <!-- Comentário da avaliação -->
+    <TextView
+        android:id="@+id/textViewComentario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Comentário da avaliação"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape_edit_text"
+        android:padding="20dp" />
+</LinearLayout>

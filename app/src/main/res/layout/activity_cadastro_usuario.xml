@@ -18,7 +18,7 @@
             android:layout_height="100dp"
             android:background="@drawable/conteiner_usuario"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="80dp" />
+            android:layout_marginTop="50dp" />
 
         <ImageView
             android:layout_width="90dp"
@@ -72,7 +72,6 @@
             android:maxLength="15"
             android:background="@drawable/shape_edit_text"
             android:padding="8dp" />
-
 
         <EditText
             android:id="@+id/editTextEndereco"

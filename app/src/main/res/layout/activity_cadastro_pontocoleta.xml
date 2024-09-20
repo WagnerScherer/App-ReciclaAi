@@ -29,7 +29,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:background="@drawable/conteiner_usuario"
-                    android:layout_marginTop="16dp" />
+                    android:layout_marginTop="50dp" />
 
                 <ImageView
                     android:layout_width="90dp"
@@ -220,7 +220,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/realizacoleta" />
+                android:text="@string/realizacoleta"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <TextView
                 android:id="@+id/textViewMateriais"
@@ -228,32 +229,36 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/materiais_que_coleta"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <CheckBox
                 android:id="@+id/checkBoxPilhasBaterias"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tipo_material_pilha" />
+                android:text="@string/tipo_material_pilha"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <CheckBox
                 android:id="@+id/checkBoxOleoCozinha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tipo_material_oleocozinha" />
+                android:text="@string/tipo_material_oleocozinha"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <CheckBox
                 android:id="@+id/checkBoxLampadas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tipo_material_lampada" />
+                android:text="@string/tipo_material_lampada"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <CheckBox
                 android:id="@+id/checkBoxEletronicos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tipo_material_eletronico" />
+                android:text="@string/tipo_material_eletronico"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonCadastrarPontoColeta"

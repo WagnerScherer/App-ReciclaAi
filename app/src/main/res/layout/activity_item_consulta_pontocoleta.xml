@@ -38,15 +38,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nome: "
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <TextView
                     android:id="@+id/textViewNomePonto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nome do ponto de coleta"
-                    android:textSize="16sp" />
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
 
             <!-- Endereço completo (Endereço, Número) -->
@@ -91,6 +91,7 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
+            <!-- Cidade-UF -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,18 +112,18 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-
-
             <!-- Telefone -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
+                <!-- Telefone -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Telefone: "
+                    android:text="Fone: "
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -131,7 +132,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Fone"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:autoLink="phone"
+                    android:textColorLink="@android:color/holo_blue_light"
+                    android:clickable="true"
+                    android:linksClickable="true"
+                    android:layout_marginEnd="10dp"/>
             </LinearLayout>
 
             <!-- Pessoa de contato -->
@@ -159,7 +165,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -187,7 +193,6 @@
             android:contentDescription="Favoritar ponto de coleta" />
     </LinearLayout>
 
-
     <!-- Materiais coletados -->
     <TextView
         android:layout_width="wrap_content"
@@ -204,13 +209,24 @@
         android:textSize="14sp"
         android:orientation="horizontal" />
 
-       <!-- Botão de alterar -->
-    <Button
-        android:id="@+id/buttonAlterarPonto"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alterar"
+        android:orientation="horizontal"
         android:layout_gravity="end"
-        android:layout_marginTop="8dp"
-        android:visibility="invisible"/>
+        android:layout_marginTop="8dp">
+
+        <!-- TextView para Avaliações -->
+        <TextView
+            android:id="@+id/textViewAvaliacoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Avaliações"
+            android:textColor="@android:color/holo_green_dark"
+            android:textStyle="normal"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+    </LinearLayout>
 </LinearLayout>

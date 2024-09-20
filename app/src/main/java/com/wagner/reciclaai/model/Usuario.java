@@ -152,5 +152,4 @@ public class Usuario {
     public boolean isOnline() {
         return false;
     }
-
 }

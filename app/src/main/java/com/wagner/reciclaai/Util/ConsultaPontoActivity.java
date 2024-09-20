@@ -1,5 +1,7 @@
 package com.wagner.reciclaai.Util;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,12 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import com.wagner.reciclaai.R;
 import com.wagner.reciclaai.adapter.ConsultaPontoAdapter;
 import com.wagner.reciclaai.model.PontoColeta;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ConsultaPontoActivity extends AppCompatActivity {
 
@@ -78,6 +83,13 @@ public class ConsultaPontoActivity extends AppCompatActivity {
                 recyclerViewPontosColeta.setAdapter(consultaPontoAdapter);
             }
         });
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 2);
+        }
     }
 
     private void pesquisarPontosColeta() {

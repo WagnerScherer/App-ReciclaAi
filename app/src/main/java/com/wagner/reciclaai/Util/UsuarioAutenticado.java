@@ -13,5 +13,4 @@ public class UsuarioAutenticado {
         FirebaseAuth auth = ConfigBD.Firebaseautenticacao();
         return auth.getCurrentUser();
     }
-
 }

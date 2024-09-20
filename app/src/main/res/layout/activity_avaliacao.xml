@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Título do Ponto de Coleta -->
+    <TextView
+        android:id="@+id/textViewTituloPontoColeta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Nome do Ponto de Coleta"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColorLink="@color/design_default_color_primary_dark"
+        android:gravity="center_horizontal"
+        android:padding="16dp"
+        android:background="#8BB365"
+        android:textColor="@android:color/white" />
+
+    <!-- RecyclerView para exibir avaliações -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAvaliacoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewTituloPontoColeta"
+        android:layout_above="@+id/viewDivisoria"/>
+
+    <!-- Linha divisória entre RecyclerView e os campos de comentário -->
+    <View
+        android:id="@+id/viewDivisoria"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/layoutAvaliar"
+        android:background="@android:color/darker_gray"/>
+
+    <!-- Layout para nova avaliação -->
+    <LinearLayout
+        android:id="@+id/layoutAvaliar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white">
+
+        <!-- Layout para as estrelas -->
+        <LinearLayout
+            android:id="@+id/layoutEstrelas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <!-- Incluir ImageView para cada estrela aqui -->
+            <ImageView
+                android:id="@+id/star1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_star_border_24_vazia"
+                android:clickable="true"
+                android:focusable="true"/>
+            <ImageView
+                android:id="@+id/star2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_star_border_24_vazia"
+                android:clickable="true"
+                android:focusable="true"/>
+            <ImageView
+                android:id="@+id/star3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_star_border_24_vazia"
+                android:clickable="true"
+                android:focusable="true"/>
+            <ImageView
+                android:id="@+id/star4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_star_border_24_vazia"
+                android:clickable="true"
+                android:focusable="true"/>
+            <ImageView
+                android:id="@+id/star5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_star_border_24_vazia"
+                android:clickable="true"
+                android:focusable="true"/>
+        </LinearLayout>
+
+        <!-- Campo de texto para comentário -->
+        <EditText
+            android:id="@+id/editTextComentario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Adicione um comentário (opcional)"
+            android:inputType="textMultiLine"
+            android:background="@drawable/shape_edit_text"
+            android:padding="20dp"/>
+
+        <!-- Botão para enviar avaliação -->
+        <Button
+            android:id="@+id/buttonAvaliar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Avaliar"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_green"/>
+    </LinearLayout>
+</RelativeLayout>

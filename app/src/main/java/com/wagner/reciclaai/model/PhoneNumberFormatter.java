@@ -52,11 +52,9 @@ public class PhoneNumberFormatter implements TextWatcher {
                 editText.setText(str);
                 editText.setSelection(str.length());  // Mantém o cursor no final do texto
             }
-
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
-
         isUpdating = false;
     }
 
@@ -71,5 +69,4 @@ public class PhoneNumberFormatter implements TextWatcher {
             return fone; // Retornar o telefone como está se não for de 11 dígitos
         }
     }
-
 }

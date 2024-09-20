@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/white">
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/filtrar_tipomaterial_consulta_pontocoleta"
-        android:textSize="16sp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
         android:layout_marginTop="16dp" />
 
@@ -59,25 +60,29 @@
             android:id="@+id/checkBoxOleo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tipo_material_oleocozinha" />
+            android:text="@string/tipo_material_oleocozinha"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <CheckBox
             android:id="@+id/checkBoxPilhas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tipo_material_pilha" />
+            android:text="@string/tipo_material_pilha"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <CheckBox
             android:id="@+id/checkBoxLampadas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tipo_material_lampada" />
+            android:text="@string/tipo_material_lampada"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <CheckBox
             android:id="@+id/checkBoxEletronicos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tipo_material_eletronico" />
+            android:text="@string/tipo_material_eletronico"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
     </GridLayout>
 
     <!-- Botão de pesquisa -->
@@ -89,7 +94,8 @@
         android:text="@string/btnPesquisar_pontocoleta"
         android:background="@drawable/background_botao"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <!-- Lista de pontos de coleta -->
     <!-- Será alimentado pelo activity_item_consulta_pontocoleta definido no adapter ConsultaPontoAdapter -->
@@ -108,5 +114,6 @@
         android:layout_height="wrap_content"
         android:text="@string/mostrar_somente_favoritos"
         android:paddingBottom="8dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 </LinearLayout>
