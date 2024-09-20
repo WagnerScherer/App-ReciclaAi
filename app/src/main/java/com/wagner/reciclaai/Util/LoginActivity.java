@@ -57,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, CadUserActivity.class));
             }
         });
-
     }
 
     private void loginUser() {
@@ -94,7 +93,5 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Autenticação falhou, e-mail ou senha inválidos! Tente novamente.", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
 }

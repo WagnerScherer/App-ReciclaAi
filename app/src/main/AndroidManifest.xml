@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,7 +19,9 @@
         tools:targetApi="31">
         <activity
             android:name=".Util.LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,6 +32,7 @@
         <activity android:name=".Util.CadUserActivity"/>
         <activity android:name=".Util.CadPontoColetaActivity"/>
         <activity android:name=".Util.ConsultaPontoActivity"/>
+        <activity android:name=".Util.AvaliacaoActivity" />
     </application>
 
 </manifest>

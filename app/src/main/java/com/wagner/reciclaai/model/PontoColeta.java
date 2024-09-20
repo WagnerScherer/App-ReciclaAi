@@ -5,7 +5,7 @@ public class PontoColeta {
     private String nome;
     private String emailPC;
     private String fone;
-    private String whatsappPC;
+    private String whatsapp;
     private String endereco;
     private String numero;
     private String complementoPC;
@@ -19,12 +19,12 @@ public class PontoColeta {
     private String pessoa_contato;
     private String horario_funcionamento;
 
-    public String getWhatsAppPC() {
-        return whatsappPC;
+    public String getWhatsApp() {
+        return whatsapp;
     }
 
-    public void setWhatsAppPC(String whatsappPC) {
-        this.whatsappPC = whatsappPC;
+    public void setWhatsApp(String whatsapp) {
+        this.whatsapp = whatsapp;
     }
 
     public PontoColeta() {
@@ -39,6 +39,7 @@ public class PontoColeta {
         this.cidade = cidade;
         this.uf = uf;
         this.fone = fone;
+        this.whatsapp = whatsapp;
         this.pessoa_contato = pessoa_contato;
         this.horario_funcionamento = horario_funcionamento;
     }
@@ -161,7 +162,6 @@ public class PontoColeta {
 
     public void setPessoa_contato(String pessoa_contato) {
         this.pessoa_contato = pessoa_contato;
-
     }
 
     public String getHorario_funcionamento() {
@@ -171,5 +171,4 @@ public class PontoColeta {
     public void setHorario_funcionamento(String horario_funcionamento) {
         this.horario_funcionamento = horario_funcionamento;
     }
-
 }

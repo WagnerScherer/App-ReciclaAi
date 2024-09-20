@@ -119,13 +119,8 @@ public class PrincipalActivity extends AppCompatActivity {
                             .addOnFailureListener(e -> {
                                 Toast.makeText(PrincipalActivity.this, "Erro ao carregar dados do usuário.", Toast.LENGTH_SHORT).show();
                             });
-
                 }
-
             }
-
         });
-
     }
-
 }

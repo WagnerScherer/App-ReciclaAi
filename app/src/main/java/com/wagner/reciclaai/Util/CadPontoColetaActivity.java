@@ -26,9 +26,9 @@ import java.util.Map;
 
 public class CadPontoColetaActivity extends AppCompatActivity {
 
-    private EditText editTextName, editTextEmail, editTextFone, editTextWhatsapp, editTextEndereco;
-    private EditText editTextNumero, editTextBairro, editTextComplemento, editTextCidade, editTextUF, editTextSite;
-    private EditText editTextPessoaContato, editTextHorarioFuncionamento;
+    private EditText editTextName, editTextEmail, editTextFone, editTextWhatsapp, editTextEndereco,
+            editTextNumero, editTextBairro, editTextComplemento, editTextCidade, editTextUF, editTextSite,
+            editTextPessoaContato, editTextHorarioFuncionamento;
     private CheckBox checkBoxRealizaColeta, checkBoxPilhasBaterias, checkBoxOleoCozinha,
             checkBoxLampadas, checkBoxEletronicos;
 

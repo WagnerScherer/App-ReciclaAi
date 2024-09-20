@@ -22,8 +22,8 @@ public class CadUserActivity extends AppCompatActivity {
     // Declaração das variáveis
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private EditText campoNome, campoEmail, campoSenha, campoFoneUser;
-    private EditText campoEndereco, campoNumero, campoComplemento, campoBairro, campoCidade, campoEstado;
+    private EditText campoNome, campoEmail, campoSenha, campoFoneUser,
+            campoEndereco, campoNumero, campoComplemento, campoBairro, campoCidade, campoEstado;
     private Button botaoCadastrar;
     private String uid;
 
@@ -64,7 +64,6 @@ public class CadUserActivity extends AppCompatActivity {
         } else {
             botaoCadastrar.setText("Cadastrar");  // Mudar o texto para "Cadastrar" se não houver usuário autenticado
         }
-
     }
 
     private void validarCampos(boolean isCadastro) {

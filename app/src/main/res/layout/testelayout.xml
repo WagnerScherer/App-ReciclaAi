@@ -1,0 +1,292 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.wagner.reciclaai.Util.PrincipalActivity">
+
+    <!-- Botões Home e Cadastro de Usuário -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonClickHome"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/baseline_home"
+        android:padding="9dp"
+        android:contentDescription="@string/buttomHome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonCadUser"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/button_user"
+        android:contentDescription="@string/buttonCadastroUser"
+        android:drawableLeft="@drawable/baseline_user_black"
+        android:padding="11dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Barra Separadora -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/buttonClickHome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Cards na primeira linha -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/buscaPontoColeta_Card"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_margin="5dp"
+        android:clickable="true"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintTop_toBottomOf="@id/buttonClickHome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cadastraPontoColeta_Card"
+        app:layout_constraintHorizontal_chainStyle="spread">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#8BB365"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_card_localiza_ponto"
+                android:contentDescription="@string/pontoColetaIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/card_buscar_ponto_coleta"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cadastraPontoColeta_Card"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_margin="5dp"
+        android:clickable="true"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintTop_toBottomOf="@id/buttonClickHome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/buscaPontoColeta_Card"
+        app:layout_constraintHorizontal_chainStyle="spread">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#8BB365"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_card_cadastra_ponto"
+                android:contentDescription="@string/pontoColetaIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/card_cadastrar_ponto_coleta"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Cards na segunda linha -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/agendamentoColeta_Card"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_margin="5dp"
+        android:clickable="true"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintTop_toBottomOf="@id/buscaPontoColeta_Card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/notificacoes_Card"
+        app:layout_constraintHorizontal_chainStyle="spread">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#8BB365"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_card_agendamento"
+                android:contentDescription="@string/calendarIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/card_agendamento"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/notificacoes_Card"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_margin="5dp"
+        android:clickable="true"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintTop_toBottomOf="@id/cadastraPontoColeta_Card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/agendamentoColeta_Card"
+        app:layout_constraintHorizontal_chainStyle="spread">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#8BB365"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_card_notificacoes"
+                android:contentDescription="@string/notificacoesIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/card_notificacoes"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Terceira linha de Cards -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ranking_Card"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_margin="5dp"
+        android:clickable="true"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintTop_toBottomOf="@id/agendamentoColeta_Card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/consultaHistorico_Card"
+        app:layout_constraintHorizontal_chainStyle="spread">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#8BB365"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_card_ranking"
+                android:contentDescription="@string/rankingIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/card_Ranking"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/consultaHistorico_Card"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_margin="5dp"
+        android:clickable="true"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintTop_toBottomOf="@id/notificacoes_Card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ranking_Card"
+        app:layout_constraintHorizontal_chainStyle="spread">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#8BB365"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_card_historico"
+                android:contentDescription="@string/historicoIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/card_historico"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Botão Perguntas Frequentes -->
+    <Button
+        android:id="@+id/buttonPerguntasFrequentes"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/buttonPerguntasFrequentes"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:background="@drawable/background_botao_perg_freq"
+        android:drawableStart="@drawable/margin_escrever_mensagem"
+        android:drawablePadding="-25dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        app:layout_constraintTop_toBottomOf="@id/ranking_Card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
