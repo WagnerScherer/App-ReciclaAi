@@ -38,15 +38,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nome: "
-                    android:textStyle="bold"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewNomePonto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nome do ponto de coleta"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:text="Nome do ponto de coleta" />
             </LinearLayout>
 
             <!-- Endereço completo (Endereço, Número) -->
