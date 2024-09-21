@@ -160,7 +160,7 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         String horario_funcionamento = editTextHorarioFuncionamento.getText().toString();
         boolean realizaColeta = checkBoxRealizaColeta.isChecked();
 
-        if (TextUtils.isEmpty(nome) || TextUtils.isEmpty(email) || TextUtils.isEmpty(endereco) ||
+        if (TextUtils.isEmpty(nome) || TextUtils.isEmpty(endereco) ||
                 TextUtils.isEmpty(numero) || TextUtils.isEmpty(cidade) || TextUtils.isEmpty(uf)) {
             Toast.makeText(this, "Preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show();
             return;
@@ -193,54 +193,123 @@ public class CadPontoColetaActivity extends AppCompatActivity {
                 });
     }
 
+
     // Função para salvar ou atualizar os materiais coletados
     private void salvarMateriais(String pontoColetaId) {
-        // Primeiro, remover os materiais antigos
-        db.collection("PONTOSCOLETA_MATERIAIS")
-                .whereEqualTo("id_ponto_coleta", pontoColetaId)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (DocumentSnapshot document : queryDocumentSnapshots) {
-                        // Deletar cada documento de material anterior
-                        db.collection("PONTOSCOLETA_MATERIAIS").document(document.getId()).delete();
-                    }
+        // Verificar os checkboxes e salvar cada material na coleção PONTOSCOLETA_MATERIAIS
+        if (checkBoxPilhasBaterias.isChecked()) {
+            Map<String, Object> pontoMaterial = new HashMap<>();
+            pontoMaterial.put("id_ponto_coleta", pontoColetaId);
+            pontoMaterial.put("id_material", 1); // Código 1 para Pilhas/Baterias
+            db.collection("PONTOSCOLETA_MATERIAIS").add(pontoMaterial)
+                    .addOnSuccessListener(documentReference -> {
+                        Log.d("Firestore", "Material Pilhas/Baterias salvo com sucesso");
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("Firestore", "Erro ao salvar material Pilhas/Baterias", e);
+                    });
+        }
 
-                    // Depois de deletar os materiais antigos, salvar os novos materiais
-                    Map<String, Object> pontoMaterial = new HashMap<>();
+        if (checkBoxOleoCozinha.isChecked()) {
+            Map<String, Object> pontoMaterial = new HashMap<>();
+            pontoMaterial.put("id_ponto_coleta", pontoColetaId);
+            pontoMaterial.put("id_material", 2); // Código 2 para Óleo de Cozinha
+            db.collection("PONTOSCOLETA_MATERIAIS").add(pontoMaterial)
+                    .addOnSuccessListener(documentReference -> {
+                        Log.d("Firestore", "Material Óleo de Cozinha salvo com sucesso");
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("Firestore", "Erro ao salvar material Óleo de Cozinha", e);
+                    });
+        }
 
-                    if (checkBoxPilhasBaterias.isChecked()) {
-                        pontoMaterial.put("id_ponto_coleta", pontoColetaId);
-                        pontoMaterial.put("id_material", 1); // Código 1 para Pilhas/Baterias
-                        db.collection("PONTOSCOLETA_MATERIAIS").add(pontoMaterial);
-                    }
+        if (checkBoxLampadas.isChecked()) {
+            Map<String, Object> pontoMaterial = new HashMap<>();
+            pontoMaterial.put("id_ponto_coleta", pontoColetaId);
+            pontoMaterial.put("id_material", 3); // Código 3 para Lâmpadas
+            db.collection("PONTOSCOLETA_MATERIAIS").add(pontoMaterial)
+                    .addOnSuccessListener(documentReference -> {
+                        Log.d("Firestore", "Material Lâmpadas salvo com sucesso");
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("Firestore", "Erro ao salvar material Lâmpadas", e);
+                    });
+        }
 
-                    if (checkBoxOleoCozinha.isChecked()) {
-                        pontoMaterial.put("id_ponto_coleta", pontoColetaId);
-                        pontoMaterial.put("id_material", 2); // Código 2 para Óleo de Cozinha
-                        db.collection("PONTOSCOLETA_MATERIAIS").add(pontoMaterial);
-                    }
+        if (checkBoxEletronicos.isChecked()) {
+            Map<String, Object> pontoMaterial = new HashMap<>();
+            pontoMaterial.put("id_ponto_coleta", pontoColetaId);
+            pontoMaterial.put("id_material", 4); // Código 4 para Eletrônicos
+            db.collection("PONTOSCOLETA_MATERIAIS").add(pontoMaterial)
+                    .addOnSuccessListener(documentReference -> {
+                        Log.d("Firestore", "Material Eletrônicos salvo com sucesso");
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("Firestore", "Erro ao salvar material Eletrônicos", e);
+                    });
+        }
 
-                    if (checkBoxLampadas.isChecked()) {
-                        pontoMaterial.put("id_ponto_coleta", pontoColetaId);
-                        pontoMaterial.put("id_material", 3); // Código 3 para Lâmpadas
-                        db.collection("PONTOSCOLETA_MATERIAIS").add(pontoMaterial);
-                    }
-
-                    if (checkBoxEletronicos.isChecked()) {
-                        pontoMaterial.put("id_ponto_coleta", pontoColetaId);
-                        pontoMaterial.put("id_material", 4); // Código 4 para Eletrônicos
-                        db.collection("PONTOSCOLETA_MATERIAIS").add(pontoMaterial);
-                    }
-
-                    Toast.makeText(CadPontoColetaActivity.this, "Materiais atualizados com sucesso!", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(CadPontoColetaActivity.this, "Erro ao atualizar os materiais.", Toast.LENGTH_SHORT).show();
-                });
+        Toast.makeText(CadPontoColetaActivity.this, "Materiais salvos com sucesso!", Toast.LENGTH_SHORT).show();
     }
 
     private void cadastrarPontoColeta() {
-        // Coleta os dados dos campos e faz o cadastro
+        // Coletar os dados dos campos
+        String nome = editTextName.getText().toString();
+        String email = editTextEmail.getText().toString();
+        String fone = editTextFone.getText().toString();
+        String whatsapp = editTextWhatsapp.getText().toString();
+        String endereco = editTextEndereco.getText().toString();
+        String numero = editTextNumero.getText().toString();
+        String bairro = editTextBairro.getText().toString();
+        String complemento = editTextComplemento.getText().toString();
+        String cidade = editTextCidade.getText().toString();
+        String uf = editTextUF.getText().toString();
+        String site = editTextSite.getText().toString();
+        String pessoa_contato = editTextPessoaContato.getText().toString();
+        String horario_funcionamento = editTextHorarioFuncionamento.getText().toString();
+        boolean realizaColeta = checkBoxRealizaColeta.isChecked();
+
+        // Verificar se os campos obrigatórios estão preenchidos
+        if (TextUtils.isEmpty(nome) || TextUtils.isEmpty(endereco) || TextUtils.isEmpty(numero) ||
+                TextUtils.isEmpty(cidade) || TextUtils.isEmpty(uf)) {
+            Toast.makeText(this, "Preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Criar um mapa com os dados do ponto de coleta
+        Map<String, Object> pontoColeta = new HashMap<>();
+        pontoColeta.put("nome", nome);
+        pontoColeta.put("email", email);
+        pontoColeta.put("fone", fone);
+        pontoColeta.put("whatsapp", whatsapp);
+        pontoColeta.put("endereco", endereco);
+        pontoColeta.put("numero", numero);
+        pontoColeta.put("bairro", bairro);
+        pontoColeta.put("complemento", complemento);
+        pontoColeta.put("cidade", cidade);
+        pontoColeta.put("uf", uf);
+        pontoColeta.put("site", site);
+        pontoColeta.put("pessoa_contato", pessoa_contato);
+        pontoColeta.put("horario_funcionamento", horario_funcionamento);
+        pontoColeta.put("realizaColeta", realizaColeta);
+
+        // Adicionar o novo ponto de coleta ao Firestore
+        db.collection("PONTOSCOLETA")
+                .add(pontoColeta)
+                .addOnSuccessListener(documentReference -> {
+                    String novoIdPontoColeta = documentReference.getId();  // ID gerado pelo Firestore
+                    Toast.makeText(CadPontoColetaActivity.this, "Ponto de coleta cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+
+                    // Salvar os materiais associados ao novo ponto de coleta
+                    salvarMateriais(novoIdPontoColeta);
+
+                    // Limpar os campos após o cadastro
+                    limparCampos();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(CadPontoColetaActivity.this, "Erro ao cadastrar ponto de coleta", Toast.LENGTH_SHORT).show();
+                    Log.e("Firestore", "Erro ao cadastrar o ponto de coleta", e);
+                });
     }
 
     // Método para limpar os campos após o cadastro ou atualização
@@ -258,7 +327,6 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         editTextSite.setText("");
         editTextPessoaContato.setText("");
         editTextHorarioFuncionamento.setText("");
-
         checkBoxRealizaColeta.setChecked(false);
         checkBoxPilhasBaterias.setChecked(false);
         checkBoxOleoCozinha.setChecked(false);

@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -22,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import com.google.firebase.firestore.Query;
 import com.wagner.reciclaai.R;
 import com.wagner.reciclaai.adapter.ConsultaPontoAdapter;
 import com.wagner.reciclaai.model.PontoColeta;
@@ -45,6 +47,10 @@ public class ConsultaPontoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consulta_pontocoleta);
 
+        // Inicializar Firestore e FirebaseAuth
+        db = FirebaseFirestore.getInstance();  // Certifique-se de que essa linha vem antes de qualquer uso de db
+        auth = FirebaseAuth.getInstance();
+
         // Inicializar os componentes do layout
         checkBoxEletronicos = findViewById(R.id.checkBoxEletronicos);
         checkBoxLampadas = findViewById(R.id.checkBoxLampadas);
@@ -57,23 +63,26 @@ public class ConsultaPontoActivity extends AppCompatActivity {
         // Configurar o RecyclerView
         recyclerViewPontosColeta.setLayoutManager(new LinearLayoutManager(this));
 
-        //Aplicação de linha divisória entre os itens do recyclerView aqui
+        // Aplicação de linha divisória entre os itens do recyclerView aqui
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewPontosColeta.getContext(),
                 LinearLayoutManager.VERTICAL);
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.linha_divisoria_itens_recyclerview));
         recyclerViewPontosColeta.addItemDecoration(dividerItemDecoration);
 
-        // Inicializar Firestore e FirebaseAuth
-        db = FirebaseFirestore.getInstance();
-        auth = FirebaseAuth.getInstance();
+        // Inicializar o adapter do RecyclerView
+        consultaPontoAdapter = new ConsultaPontoAdapter(new ArrayList<>(), this);
+        recyclerViewPontosColeta.setAdapter(consultaPontoAdapter);
+
+        // Configurar paginação
+        configurarPaginacao();
+
+        // Primeira consulta sem filtros (depois de configurar tudo)
+        //buscarTodosPontosColeta();  // Isso agora vem depois de db ter sido inicializado
 
         // Ação do botão "Pesquisar"
         botaoPesquisar.setOnClickListener(v -> pesquisarPontosColeta());
 
-        //Regra para mostrar apenas os favoritos
-        //Faço a consulta: exibe todos os registros encontrados
-        //Ao marcar o box, vai mostrar somente os favoritos, se houver. Ao desmarcar, exibe o resultado da consulta anterior
-        //contendo todos os registros
+        // Regra para mostrar apenas os favoritos
         checkBoxFavoritos.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 filtrarFavoritos();
@@ -84,6 +93,7 @@ public class ConsultaPontoActivity extends AppCompatActivity {
             }
         });
 
+        // Permissões de localização e chamada
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
@@ -121,28 +131,77 @@ public class ConsultaPontoActivity extends AppCompatActivity {
     }
 
     //Consulta do cenário 1
+    private DocumentSnapshot lastVisible;  // Variável para armazenar o último documento visível da consulta
+    private boolean isLoading = false;     // Variável para controlar se já estamos carregando mais dados
+
+    // Consulta inicial para buscar os pontos de coleta com paginação
     private void buscarTodosPontosColeta() {
-        db.collection("PONTOSCOLETA")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        listaCompletaPontos.clear();
-                        for (DocumentSnapshot document : task.getResult()) {
-                            PontoColeta pontoColeta = document.toObject(PontoColeta.class);
-                            pontoColeta.setId_PC(document.getId());
+        // Impedir múltiplas consultas simultâneas
+        if (isLoading) return;
+        isLoading = true;
 
-                            // Carregar os materiais coletados para cada ponto de coleta
-                            carregarMateriaisColetados(pontoColeta);
+        Log.d("Paginacao", "Iniciando a busca de pontos de coleta");
 
-                            // Adicionar o ponto de coleta à lista
-                            listaCompletaPontos.add(pontoColeta);
-                        }
-                        // Após adicionar os pontos e carregar os materiais, atualizar o RecyclerView
-                        atualizarRecyclerView();
-                    } else {
-                        Toast.makeText(this, "Erro ao buscar pontos de coleta.", Toast.LENGTH_SHORT).show();
+        // Limitar a quantidade de resultados por vez
+        Query query = db.collection("PONTOSCOLETA")
+                .orderBy("nome")   // Ordenar por nome
+                .limit(10);         // Limitar para 10 resultados por vez
+
+        // Se já houver uma página carregada, usar o último documento como ponto de referência para a próxima página
+        if (lastVisible != null) {
+            query = query.startAfter(lastVisible);  // Paginar a partir do último documento visível
+        }
+
+        query.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                // Verificar se houve resultados
+                if (!task.getResult().isEmpty()) {
+                    Log.d("Paginacao", "Número de pontos carregados: " + task.getResult().size());
+
+                    // Salvar o último documento visível para a próxima paginação
+                    lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 1);
+
+                    for (DocumentSnapshot document : task.getResult()) {
+                        PontoColeta pontoColeta = document.toObject(PontoColeta.class);
+                        pontoColeta.setId_PC(document.getId());
+
+                        // Carregar os materiais coletados para cada ponto de coleta
+                        carregarMateriaisColetados(pontoColeta);
+
+                        // Adicionar o ponto de coleta à lista
+                        listaCompletaPontos.add(pontoColeta);
                     }
-                });
+
+                    // Atualizar o RecyclerView
+                    atualizarRecyclerView();
+                } else {
+                    // Se não houver mais resultados (fim da lista)
+                    Toast.makeText(this, "Não há mais pontos de coleta para carregar.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Erro ao buscar pontos de coleta.", Toast.LENGTH_SHORT).show();
+                Log.e("Paginacao", "Erro: ", task.getException());
+            }
+
+            // Liberar o bloqueio de carregamento
+            isLoading = false;
+        });
+    }
+
+    private void configurarPaginacao() {
+        recyclerViewPontosColeta.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                // Verificar se o RecyclerView chegou ao fim
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == listaCompletaPontos.size() - 1) {
+                    Log.d("Paginacao", "Fim da lista detectado, carregando mais dados...");
+                    buscarTodosPontosColeta();
+                }
+            }
+        });
     }
 
     //Consulta do cenário 2
@@ -150,6 +209,7 @@ public class ConsultaPontoActivity extends AppCompatActivity {
         db.collection("PONTOSCOLETA")
                 .whereGreaterThanOrEqualTo("nome", nomeDigitado)
                 .whereLessThanOrEqualTo("nome", nomeDigitado + "\uf8ff")
+                .orderBy("nome")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -176,6 +236,7 @@ public class ConsultaPontoActivity extends AppCompatActivity {
     private void buscarPontosPorNomeEMaterial(String nomeDigitado, List<Integer> materiaisFiltrados) {
         db.collection("PONTOSCOLETA_MATERIAIS")
                 .whereIn("id_material", materiaisFiltrados)
+                .orderBy("nome")
                 .get()
                 .addOnCompleteListener(materialTask -> {
                     if (materialTask.isSuccessful()) {
@@ -226,6 +287,7 @@ public class ConsultaPontoActivity extends AppCompatActivity {
     private void buscarPontosPorMaterial(List<Integer> materiaisFiltrados) {
         db.collection("PONTOSCOLETA_MATERIAIS")
                 .whereIn("id_material", materiaisFiltrados)
+                .orderBy("nome")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
