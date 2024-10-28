@@ -1,104 +1,119 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/white">
+    android:background="#F5F5F5">
 
+    <!-- Título -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Encontre um ponto de coleta"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_gravity="center"
-        android:paddingBottom="16dp" />
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp"
+        android:textColor="#333333" />
 
-    <!-- Campos de pesquisa -->
-    <LinearLayout
+    <!-- CardView para o contêiner de pesquisa e filtros -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp"
-        android:background="@drawable/borda_gridlayout">
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@android:color/white">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nome:"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/editTextNome"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Digite o nome do ponto de coleta" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <!-- Filtros por tipo de material -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/filtrar_tipomaterial_consulta_pontocoleta"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp" />
+            <!-- Campo de pesquisa por nome -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome:"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#555555"/>
 
-    <!-- Layout para os checkboxes divididos em duas colunas -->
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:background="@drawable/borda_gridlayout">
+            <EditText
+                android:id="@+id/editTextNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Digite o nome do ponto de coleta"
+                android:background="@drawable/rounded_edit_text"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp" />
 
-        <CheckBox
-            android:id="@+id/checkBoxOleo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tipo_material_oleocozinha"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            <!-- Título dos filtros por tipo de material -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filtrar_tipomaterial_consulta_pontocoleta"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:textColor="#555555"
+                android:layout_marginBottom="8dp" />
 
-        <CheckBox
-            android:id="@+id/checkBoxPilhas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tipo_material_pilha"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            <!-- Layout para os checkboxes divididos em duas colunas -->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:paddingTop="6dp"
+                android:paddingBottom="8dp">
 
-        <CheckBox
-            android:id="@+id/checkBoxLampadas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tipo_material_lampada"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+                <CheckBox
+                    android:id="@+id/checkBoxOleo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tipo_material_oleocozinha"
+                    android:textColor="#333333"/>
 
-        <CheckBox
-            android:id="@+id/checkBoxEletronicos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tipo_material_eletronico"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
-    </GridLayout>
+                <CheckBox
+                    android:id="@+id/checkBoxPilhas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tipo_material_pilha"
+                    android:textColor="#333333"/>
 
-    <!-- Botão de pesquisa -->
+                <CheckBox
+                    android:id="@+id/checkBoxLampadas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tipo_material_lampada"
+                    android:textColor="#333333"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxEletronicos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tipo_material_eletronico"
+                    android:textColor="#333333"/>
+            </GridLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Botão de pesquisa centralizado -->
     <Button
         android:id="@+id/buttonPesquisar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:text="@string/btnPesquisar_pontocoleta"
-        android:background="@drawable/background_botao"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
+        android:textColor="@android:color/white"
+        android:background="@drawable/background_botao_moderno"
+        android:padding="12dp"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
 
     <!-- Lista de pontos de coleta -->
-    <!-- Será alimentado pelo activity_item_consulta_pontocoleta definido no adapter ConsultaPontoAdapter -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPontosColeta"
         android:layout_width="match_parent"
@@ -113,7 +128,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mostrar_somente_favoritos"
-        android:paddingBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:textColor="#333333"
+        android:paddingTop="8dp"
+        android:layout_gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 </LinearLayout>

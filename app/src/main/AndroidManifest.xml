@@ -33,6 +33,8 @@
         <activity android:name=".Util.CadPontoColetaActivity"/>
         <activity android:name=".Util.ConsultaPontoActivity"/>
         <activity android:name=".Util.AvaliacaoActivity" />
+        <activity android:name=".Util.AgendamentosActivity" />
+        <activity android:name=".Util.NotificacaoActivity" />
     </application>
 
 </manifest>

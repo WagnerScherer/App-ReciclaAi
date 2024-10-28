@@ -29,12 +29,12 @@
     <string name="fig_point_localization">Ponto de localização em mapa</string>
     <string name="fig_person">Figura representando uma pessoa</string>
     <string name="tela_principal">Tela Principal</string>
-    <string name="card_buscar_ponto_coleta">Buscar Ponto de Coleta</string>
-    <string name="card_cadastrar_ponto_coleta">Cadastre um Ponto de Coleta</string>
-    <string name="card_agendamento">Agendamento</string>
+    <string name="card_buscar_ponto_coleta">Buscar</string>
+    <string name="card_cadastrar_ponto_coleta">Cadastrar</string>
+    <string name="card_agendamento">Agendamentos</string>
     <string name="card_notificacoes">Notificações</string>
     <string name="card_Ranking">Ranking</string>
-    <string name="card_historico">Histórico</string>
+    <string name="card_historico">Meu Histórico</string>
     <string name="buttonPerguntasFrequentes">Respostas às Dúvidas Frequentes</string>
     <string name="buttonCadastroUser">Botão de acesso ao cadastro de usuários</string>
     <string name="buttomHome">Botão de atalho a tela principal</string>

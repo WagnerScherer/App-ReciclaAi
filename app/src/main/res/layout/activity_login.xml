@@ -1,17 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="#F5F5F5"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp"
-        android:scrollbars="none">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,66 +17,114 @@
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
+            <!-- Logo do aplicativo -->
             <ImageView
                 android:id="@+id/imageViewLogo"
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
+                android:layout_height="300dp"
                 android:contentDescription="@string/logo"
                 android:scaleType="fitCenter"
                 android:src="@drawable/logo_recicla_ai"
-                android:paddingTop="1dp"
-                android:paddingBottom="1dp" />
+                android:layout_marginBottom="24dp" />
 
-            <EditText
-                android:id="@+id/editTextEmailLogin"
+            <!-- Campo de email com ícone à esquerda -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:hint="@string/emailLogin"
-                android:inputType="textEmailAddress"
-                android:background="@drawable/shape_edit_text"
-                android:padding="8dp"
-                android:layout_marginTop="-10dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/rounded_edit_text"
+                android:padding="12dp">
 
-            <EditText
-                android:id="@+id/editTextPasswordLogin"
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_email"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/editTextEmailLogin"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:hint="@string/emailLogin"
+                    android:inputType="textEmailAddress"
+                    android:background="@android:color/transparent"
+                    android:padding="0dp" />
+            </LinearLayout>
+
+            <!-- Campo de senha com ícones de cadeado e olho -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/rounded_edit_text"
                 android:layout_marginTop="10dp"
-                android:hint="@string/passwordLogin"
-                android:inputType="textPassword"
-                android:background="@drawable/shape_edit_text"
-                android:padding="8dp" />
+                android:padding="12dp">
 
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_lock"
+
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/editTextPasswordLogin"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:hint="@string/passwordLogin"
+                    android:inputType="textPassword"
+                    android:background="@android:color/transparent"
+                    android:padding="0dp" />
+
+                <ImageView
+                    android:id="@+id/imageViewShowPassword"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/visibility_off"
+
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                android:focusable="true" />
+            </LinearLayout>
+
+            <!-- Esqueci minha senha -->
             <TextView
                 android:id="@+id/textViewForgotPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/forgotPassword"
-                android:textColor="@android:color/black"
+                android:textColor="#333333"
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
+            <!-- Botão de login -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonLogin"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/buttonlogin"
                 android:textAllCaps="false"
                 android:textSize="20sp"
-                android:textColor="@color/black"
-                android:background="@drawable/background_botao" />
+                android:textColor="@android:color/white"
+                android:background="@drawable/background_botao_moderno" />
 
+            <!-- Link para cadastro -->
             <TextView
                 android:id="@+id/textViewRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/semCadastro"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/holo_green_dark"
                 android:layout_marginTop="20dp"
                 android:gravity="center_horizontal"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+</LinearLayout>
