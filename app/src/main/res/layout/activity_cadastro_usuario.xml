@@ -2,9 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:paddingLeft="32dp"
-    android:paddingRight="32dp">
+    android:background="#F5F5F5"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,6 +11,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Imagem do usuário -->
         <View
             android:id="@+id/conteiner_usuario"
             android:layout_width="100dp"
@@ -28,16 +28,17 @@
             android:layout_marginTop="-99dp"
             android:contentDescription="@string/fig_person" />
 
+        <!-- Campos de texto -->
         <EditText
             android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="40dp"
-            android:background="@drawable/shape_edit_text"
+            android:background="@drawable/rounded_edit_text"
             android:inputType="text"
             android:maxLength="150"
             android:hint="@string/name"
-            android:padding="8dp" />
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -48,8 +49,8 @@
             android:inputType="textEmailAddress"
             android:maxLength="100"
             android:autofillHints="emailAddress"
-            android:background="@drawable/shape_edit_text"
-            android:padding="8dp" />
+            android:background="@drawable/rounded_edit_text"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/editTextPassword"
@@ -59,8 +60,8 @@
             android:layout_marginTop="10dp"
             android:inputType="textPassword"
             android:autofillHints="password"
-            android:background="@drawable/shape_edit_text"
-            android:padding="8dp" />
+            android:background="@drawable/rounded_edit_text"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/editTextFoneUser"
@@ -70,8 +71,8 @@
             android:layout_marginTop="10dp"
             android:inputType="phone"
             android:maxLength="15"
-            android:background="@drawable/shape_edit_text"
-            android:padding="8dp" />
+            android:background="@drawable/rounded_edit_text"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/editTextEndereco"
@@ -81,9 +82,10 @@
             android:layout_marginTop="10dp"
             android:inputType="text"
             android:maxLength="100"
-            android:background="@drawable/shape_edit_text"
-            android:padding="8dp" />
+            android:background="@drawable/rounded_edit_text"
+            android:padding="12dp" />
 
+        <!-- Campos de endereço lado a lado -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,8 +100,8 @@
                 android:hint="@string/number"
                 android:inputType="text"
                 android:maxLength="15"
-                android:background="@drawable/shape_edit_text"
-                android:padding="8dp" />
+                android:background="@drawable/rounded_edit_text"
+                android:padding="12dp" />
 
             <Space
                 android:layout_width="6dp"
@@ -113,8 +115,8 @@
                 android:hint="@string/bairro"
                 android:inputType="text"
                 android:maxLength="50"
-                android:background="@drawable/shape_edit_text"
-                android:padding="8dp" />
+                android:background="@drawable/rounded_edit_text"
+                android:padding="12dp" />
         </LinearLayout>
 
         <EditText
@@ -125,8 +127,8 @@
             android:layout_marginTop="10dp"
             android:inputType="text"
             android:maxLength="100"
-            android:background="@drawable/shape_edit_text"
-            android:padding="8dp" />
+            android:background="@drawable/rounded_edit_text"
+            android:padding="12dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -142,8 +144,8 @@
                 android:hint="@string/cidade"
                 android:inputType="text"
                 android:maxLength="100"
-                android:background="@drawable/shape_edit_text"
-                android:padding="8dp" />
+                android:background="@drawable/rounded_edit_text"
+                android:padding="12dp" />
 
             <Space
                 android:layout_width="6dp"
@@ -157,10 +159,11 @@
                 android:hint="@string/estado"
                 android:inputType="textCapCharacters"
                 android:maxLength="2"
-                android:background="@drawable/shape_edit_text"
-                android:padding="8dp" />
+                android:background="@drawable/rounded_edit_text"
+                android:padding="12dp" />
         </LinearLayout>
 
+        <!-- Botão Cadastrar -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonCadastrar"
             android:layout_width="300dp"
@@ -171,7 +174,7 @@
             android:text="@string/cadastrar"
             android:textAllCaps="false"
             android:textSize="20sp"
-            android:textColor="@color/black"
-            android:background="@drawable/background_botao" />
+            android:textColor="@android:color/white"
+            android:background="@drawable/background_botao_moderno" />
     </LinearLayout>
 </ScrollView>

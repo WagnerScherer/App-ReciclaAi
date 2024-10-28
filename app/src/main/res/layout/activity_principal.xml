@@ -51,7 +51,8 @@
         android:layout_height="180dp"
         android:layout_margin="10dp"
         android:clickable="true"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cadastraPontoColeta_Card"
         app:layout_constraintTop_toBottomOf="@+id/lineSeparator"
@@ -60,7 +61,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#8BB365"
+            android:background="@drawable/background_card_gradiente"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -89,7 +90,8 @@
         android:layout_height="180dp"
         android:layout_margin="10dp"
         android:clickable="true"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="25dp"
         app:layout_constraintStart_toEndOf="@+id/buscaPontoColeta_Card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lineSeparator">
@@ -97,7 +99,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#8BB365"
+            android:background="@drawable/background_card_gradiente"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -127,7 +129,9 @@
         android:layout_height="180dp"
         android:layout_margin="10dp"
         android:clickable="true"
-        app:cardCornerRadius="15dp"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/notificacoes_Card"
         app:layout_constraintTop_toBottomOf="@+id/buscaPontoColeta_Card">
@@ -135,7 +139,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#8BB365"
+            android:background="@drawable/background_card_gradiente"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -164,7 +168,9 @@
         android:layout_height="180dp"
         android:layout_margin="10dp"
         android:clickable="true"
-        app:cardCornerRadius="15dp"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
         app:layout_constraintStart_toEndOf="@+id/agendamentoColeta_Card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cadastraPontoColeta_Card">
@@ -172,7 +178,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#8BB365"
+            android:background="@drawable/background_card_gradiente"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -203,7 +209,8 @@
         android:layout_height="180dp"
         android:layout_margin="10dp"
         android:clickable="true"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/consultaHistorico_Card"
         app:layout_constraintTop_toBottomOf="@+id/agendamentoColeta_Card"
@@ -212,7 +219,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#8BB365"
+            android:background="@drawable/background_card_gradiente"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -241,7 +248,8 @@
         android:layout_height="180dp"
         android:layout_margin="10dp"
         android:clickable="true"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="10dp"
         app:layout_constraintStart_toEndOf="@+id/ranking_Card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notificacoes_Card"
@@ -250,7 +258,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#8BB365"
+            android:background="@drawable/background_card_gradiente"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -281,7 +289,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/buttonPerguntasFrequentes"
         android:textColor="@color/black"
-        android:background="@drawable/background_botao_perg_freq"
+        android:background="@drawable/background_card_gradiente"
         android:drawableStart="@drawable/margin_escrever_mensagem"
         android:drawablePadding="-25dp"
         android:textAppearance="?android:attr/textAppearanceMedium"

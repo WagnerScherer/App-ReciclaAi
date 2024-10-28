@@ -1,10 +1,12 @@
 package com.wagner.reciclaai.Util;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,6 +36,7 @@ public class CadPontoColetaActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private String idPontoColeta; // ID do ponto de coleta (se for edição)
+    private Button btnCadastrarPontoColeta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +87,13 @@ public class CadPontoColetaActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnCadastrarPontoColeta = findViewById(R.id.buttonCadastrarPontoColeta);
+
+        Intent intent = getIntent();
+        if (intent != null && intent.getBooleanExtra("isFromConsulta", false)) {
+            btnCadastrarPontoColeta.setText("Salvar");
+        }
     }
 
     // Função que carrega os dados do ponto de coleta para edição
@@ -248,8 +258,7 @@ public class CadPontoColetaActivity extends AppCompatActivity {
                         Log.e("Firestore", "Erro ao salvar material Eletrônicos", e);
                     });
         }
-
-        Toast.makeText(CadPontoColetaActivity.this, "Materiais salvos com sucesso!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(CadPontoColetaActivity.this, "Materiais salvos com sucesso!", Toast.LENGTH_SHORT).show();
     }
 
     private void cadastrarPontoColeta() {
@@ -303,6 +312,9 @@ public class CadPontoColetaActivity extends AppCompatActivity {
                     // Salvar os materiais associados ao novo ponto de coleta
                     salvarMateriais(novoIdPontoColeta);
 
+                    // Enviar a notificação para todos os usuários
+                    enviarNotificacaoParaTodosUsuarios(nome);
+
                     // Limpar os campos após o cadastro
                     limparCampos();
                 })
@@ -332,5 +344,28 @@ public class CadPontoColetaActivity extends AppCompatActivity {
         checkBoxOleoCozinha.setChecked(false);
         checkBoxLampadas.setChecked(false);
         checkBoxEletronicos.setChecked(false);
+    }
+
+    private void enviarNotificacaoParaTodosUsuarios(String nomePontoColeta) {
+        db.collection("USUARIOS").get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        String uidUsuario = document.getId(); // UID do usuário
+
+                        // Criar a notificação para o usuário
+                        Map<String, Object> notificacao = new HashMap<>();
+                        notificacao.put("id_usuario", uidUsuario);
+                        notificacao.put("titulo", "Há um novo ponto de coleta!");
+                        notificacao.put("mensagem", "Recentemente foi cadastrado um novo ponto de coleta: "  + nomePontoColeta + ".");
+                        notificacao.put("status", false); // Status não lido (false)
+
+                        // Adicionar a notificação na coleção NOTIFICACOES
+                        db.collection("NOTIFICACOES")
+                                .add(notificacao)
+                                .addOnSuccessListener(documentReference -> Log.d("Firestore", "Notificação enviada para: " + uidUsuario))
+                                .addOnFailureListener(e -> Log.e("Firestore", "Erro ao enviar notificação", e));
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("Firestore", "Erro ao buscar usuários", e));
     }
 }

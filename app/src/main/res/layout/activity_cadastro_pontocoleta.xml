@@ -3,9 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="32dp"
-    android:paddingRight="32dp"
-    android:background="@color/white">
+    android:padding="16dp"
+    android:background="#F5F5F5">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -39,6 +38,7 @@
                     android:contentDescription="@string/fig_point_localization"/>
             </LinearLayout>
 
+            <!-- Campos de texto para informações do ponto de coleta -->
             <EditText
                 android:id="@+id/editTextNamePontoColeta"
                 android:layout_width="match_parent"
@@ -47,8 +47,8 @@
                 android:hint="@string/name_local_coleta"
                 android:inputType="text"
                 android:maxLength="150"
-                android:background="@drawable/shape_edit_text"
-                android:padding="8dp"/>
+                android:background="@drawable/rounded_edit_text"
+                android:padding="12dp"/>
 
             <EditText
                 android:id="@+id/editTextEmailPontoColeta"
@@ -58,8 +58,8 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:maxLength="100"
-                android:background="@drawable/shape_edit_text"
-                android:padding="8dp"/>
+                android:background="@drawable/rounded_edit_text"
+                android:padding="12dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,8 +75,8 @@
                     android:hint="@string/fone"
                     android:inputType="phone"
                     android:maxLength="15"
-                    android:background="@drawable/shape_edit_text"
-                    android:padding="8dp" />
+                    android:background="@drawable/rounded_edit_text"
+                    android:padding="12dp" />
 
                 <Space
                     android:layout_width="8dp"
@@ -90,8 +90,8 @@
                     android:hint="@string/whatsapp"
                     android:inputType="text"
                     android:maxLength="15"
-                    android:background="@drawable/shape_edit_text"
-                    android:padding="8dp" />
+                    android:background="@drawable/rounded_edit_text"
+                    android:padding="12dp" />
             </LinearLayout>
 
             <EditText
@@ -102,8 +102,8 @@
                 android:hint="@string/adressPC"
                 android:inputType="text"
                 android:maxLength="100"
-                android:background="@drawable/shape_edit_text"
-                android:padding="8dp"/>
+                android:background="@drawable/rounded_edit_text"
+                android:padding="12dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -119,8 +119,8 @@
                     android:hint="@string/numberPC"
                     android:inputType="text"
                     android:maxLength="15"
-                    android:background="@drawable/shape_edit_text"
-                    android:padding="8dp" />
+                    android:background="@drawable/rounded_edit_text"
+                    android:padding="12dp" />
 
                 <Space
                     android:layout_width="8dp"
@@ -134,8 +134,8 @@
                     android:hint="@string/bairroPC"
                     android:inputType="text"
                     android:maxLength="50"
-                    android:background="@drawable/shape_edit_text"
-                    android:padding="8dp" />
+                    android:background="@drawable/rounded_edit_text"
+                    android:padding="12dp" />
             </LinearLayout>
 
             <EditText
@@ -146,8 +146,8 @@
                 android:hint="@string/complemento"
                 android:inputType="text"
                 android:maxLength="100"
-                android:background="@drawable/shape_edit_text"
-                android:padding="8dp"/>
+                android:background="@drawable/rounded_edit_text"
+                android:padding="12dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -163,8 +163,8 @@
                     android:hint="@string/cidadePC"
                     android:inputType="text"
                     android:maxLength="100"
-                    android:background="@drawable/shape_edit_text"
-                    android:padding="8dp" />
+                    android:background="@drawable/rounded_edit_text"
+                    android:padding="12dp" />
 
                 <Space
                     android:layout_width="8dp"
@@ -178,8 +178,8 @@
                     android:hint="@string/estadoPC"
                     android:inputType="textCapCharacters"
                     android:maxLength="2"
-                    android:background="@drawable/shape_edit_text"
-                    android:padding="8dp" />
+                    android:background="@drawable/rounded_edit_text"
+                    android:padding="12dp" />
             </LinearLayout>
 
             <EditText
@@ -190,8 +190,8 @@
                 android:hint="@string/site"
                 android:inputType="text"
                 android:maxLength="150"
-                android:background="@drawable/shape_edit_text"
-                android:padding="8dp"/>
+                android:background="@drawable/rounded_edit_text"
+                android:padding="12dp"/>
 
             <EditText
                 android:id="@+id/editTextPessoaContato"
@@ -201,8 +201,8 @@
                 android:hint="@string/pessoa_contato"
                 android:inputType="text"
                 android:maxLength="150"
-                android:background="@drawable/shape_edit_text"
-                android:padding="8dp"/>
+                android:background="@drawable/rounded_edit_text"
+                android:padding="12dp"/>
 
             <EditText
                 android:id="@+id/editTextHorarioFuncionamento"
@@ -212,16 +212,17 @@
                 android:hint="@string/horário_funcionamento"
                 android:inputType="text"
                 android:maxLength="150"
-                android:background="@drawable/shape_edit_text"
-                android:padding="8dp"/>
+                android:background="@drawable/rounded_edit_text"
+                android:padding="12dp"/>
 
+            <!-- Checkboxes para materiais de coleta -->
             <CheckBox
                 android:id="@+id/checkBoxRealizaColeta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/realizacoleta"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textColor="#333333"/>
 
             <TextView
                 android:id="@+id/textViewMateriais"
@@ -229,48 +230,48 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/materiais_que_coleta"
-                android:textColor="@color/black"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textColor="#333333"/>
 
             <CheckBox
                 android:id="@+id/checkBoxPilhasBaterias"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tipo_material_pilha"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textColor="#333333"/>
 
             <CheckBox
                 android:id="@+id/checkBoxOleoCozinha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tipo_material_oleocozinha"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textColor="#333333"/>
 
             <CheckBox
                 android:id="@+id/checkBoxLampadas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tipo_material_lampada"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textColor="#333333"/>
 
             <CheckBox
                 android:id="@+id/checkBoxEletronicos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tipo_material_eletronico"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textColor="#333333"/>
 
+            <!-- Botão Cadastrar -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonCadastrarPontoColeta"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="30dp"
                 android:layout_gravity="center"
                 android:text="@string/cadastrar"
                 android:textAllCaps="false"
                 android:textSize="20sp"
-                android:textColor="@color/black"
-                android:background="@drawable/background_botao" />
+                android:textColor="@android:color/white"
+                android:background="@drawable/background_botao_moderno" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

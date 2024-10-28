@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
 
     <!-- Título do Ponto de Coleta -->
     <TextView
@@ -11,104 +12,107 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:text="Nome do Ponto de Coleta"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:textColorLink="@color/design_default_color_primary_dark"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:padding="16dp"
-        android:background="#8BB365"
-        android:textColor="@android:color/white" />
+        android:background="#4CAF50"
+        android:textColor="@android:color/white"/>
 
     <!-- RecyclerView para exibir avaliações -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAvaliacoes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewTituloPontoColeta"
-        android:layout_above="@+id/viewDivisoria"/>
+        android:layout_height="0dp"
+        android:layout_below="@id/textViewTituloPontoColeta"
+        android:layout_above="@id/cardViewAvaliar"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/white"/>
 
-    <!-- Linha divisória entre RecyclerView e os campos de comentário -->
-    <View
-        android:id="@+id/viewDivisoria"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@+id/layoutAvaliar"
-        android:background="@android:color/darker_gray"/>
-
-    <!-- Layout para nova avaliação -->
-    <LinearLayout
-        android:id="@+id/layoutAvaliar"
+    <!-- CardView para nova avaliação -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewAvaliar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/white">
+        android:layout_margin="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@android:color/white">
 
-        <!-- Layout para as estrelas -->
         <LinearLayout
-            android:id="@+id/layoutEstrelas"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:padding="8dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <!-- Incluir ImageView para cada estrela aqui -->
-            <ImageView
-                android:id="@+id/star1"
+            <!-- Layout para as estrelas -->
+            <LinearLayout
+                android:id="@+id/layoutEstrelas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/baseline_star_border_24_vazia"
-                android:clickable="true"
-                android:focusable="true"/>
-            <ImageView
-                android:id="@+id/star2"
-                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="8dp">
+
+                <!-- Incluir ImageView para cada estrela aqui -->
+                <ImageView
+                    android:id="@+id/star1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_star_border_24_vazia"
+                    android:clickable="true"
+                    android:focusable="true"/>
+                <ImageView
+                    android:id="@+id/star2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_star_border_24_vazia"
+                    android:clickable="true"
+                    android:focusable="true"/>
+                <ImageView
+                    android:id="@+id/star3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_star_border_24_vazia"
+                    android:clickable="true"
+                    android:focusable="true"/>
+                <ImageView
+                    android:id="@+id/star4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_star_border_24_vazia"
+                    android:clickable="true"
+                    android:focusable="true"/>
+                <ImageView
+                    android:id="@+id/star5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_star_border_24_vazia"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </LinearLayout>
+
+            <!-- Campo de texto para comentário -->
+            <EditText
+                android:id="@+id/editTextComentario"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/baseline_star_border_24_vazia"
-                android:clickable="true"
-                android:focusable="true"/>
-            <ImageView
-                android:id="@+id/star3"
-                android:layout_width="wrap_content"
+                android:hint="Adicione um comentário (opcional)"
+                android:inputType="textMultiLine"
+                android:background="@drawable/shape_edit_text"
+                android:padding="16dp"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Botão para enviar avaliação -->
+            <Button
+                android:id="@+id/buttonAvaliar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/baseline_star_border_24_vazia"
-                android:clickable="true"
-                android:focusable="true"/>
-            <ImageView
-                android:id="@+id/star4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_star_border_24_vazia"
-                android:clickable="true"
-                android:focusable="true"/>
-            <ImageView
-                android:id="@+id/star5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_star_border_24_vazia"
-                android:clickable="true"
-                android:focusable="true"/>
+                android:text="Avaliar"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/background_botao_moderno"
+                android:textColor="@android:color/white"/>
         </LinearLayout>
-
-        <!-- Campo de texto para comentário -->
-        <EditText
-            android:id="@+id/editTextComentario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Adicione um comentário (opcional)"
-            android:inputType="textMultiLine"
-            android:background="@drawable/shape_edit_text"
-            android:padding="20dp"/>
-
-        <!-- Botão para enviar avaliação -->
-        <Button
-            android:id="@+id/buttonAvaliar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Avaliar"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/background_green"/>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

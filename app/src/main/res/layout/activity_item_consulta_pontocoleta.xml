@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -6,27 +5,19 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Informações do ponto de coleta -->
-    <LinearLayout
+    <!-- Layout Principal com Textos e Imagens -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <!-- Imagem do ponto de coleta -->
-        <ImageView
-            android:id="@+id/imageViewPontoColeta"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginEnd="16dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/baseline_map_icon" />
-
-        <!-- Layout para informações textuais (nome, endereço e telefone) -->
+        <!-- Layout para Informações Textuais (Nome, Endereço, Telefone) -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/layoutTextos"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_alignParentStart="true">
 
             <!-- Nome -->
             <LinearLayout
@@ -38,13 +29,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nome: "
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <TextView
                     android:id="@+id/textViewNomePonto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nome do ponto de coleta" />
+                    android:text="Nome do ponto de coleta"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
 
             <!-- Endereço completo (Endereço, Número) -->
@@ -110,34 +103,6 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- Telefone -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <!-- Telefone -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fone: "
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textViewTelefonePonto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fone"
-                    android:textSize="14sp"
-                    android:autoLink="phone"
-                    android:textColorLink="@android:color/holo_blue_light"
-                    android:clickable="true"
-                    android:linksClickable="true"
-                    android:layout_marginEnd="10dp"/>
-            </LinearLayout>
-
             <!-- Pessoa de contato -->
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -179,6 +144,57 @@
                     android:text="Horário"
                     android:textSize="14sp" />
             </LinearLayout>
+
+            <!-- Telefone -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fone: "
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewTelefonePonto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fone"
+                    android:textSize="14sp"
+                    android:autoLink="phone"
+                    android:textColorLink="@android:color/holo_blue_light"
+                    android:clickable="true"
+                    android:linksClickable="true"
+                    android:layout_marginEnd="10dp"/>
+            </LinearLayout>
+
+            <!-- WhatsApp -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewWhatsApp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/_721678_whatsapp_icon"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/textViewWhatsApp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WhatsApp"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:clickable="true"/>
+            </LinearLayout>
         </LinearLayout>
 
         <!-- Botão de favoritar (estrela) -->
@@ -186,15 +202,29 @@
             android:id="@+id/imageButtonFavoritar"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/baseline_star_border_24_vazia"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/baseline_star_border_24_vazia"
             android:contentDescription="Favoritar ponto de coleta" />
-    </LinearLayout>
+
+        <!-- Imagem do Ponto de Coleta -->
+        <ImageView
+            android:id="@+id/imageViewPontoColeta"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_below="@id/imageButtonFavoritar"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/baseline_map_icon" />
+    </RelativeLayout>
 
     <!-- Materiais coletados -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="Materiais coletados:"
         android:textSize="14sp"
         android:textStyle="bold"/>
@@ -204,9 +234,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lista de materiais coletados"
-        android:textSize="14sp"
-        android:orientation="horizontal" />
+        android:textSize="14sp"/>
 
+    <!-- Layout inferior para Avaliações e Botão Ver Mais -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -226,5 +256,14 @@
             android:focusable="true"
             android:layout_marginEnd="16dp"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <!-- Botão de Alterar -->
+        <Button
+            android:id="@+id/buttonAlterarPonto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ver mais"
+            android:textColor="@android:color/white"
+            android:background="@drawable/background_botao_moderno"/>
     </LinearLayout>
 </LinearLayout>

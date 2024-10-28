@@ -2,11 +2,13 @@ package com.wagner.reciclaai.Util;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +22,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextEmailLogin, editTextPasswordLogin;
     private Button loginButton;
     private TextView textViewForgotPassword, textViewRegister;
+    private ImageView imageViewShowPassword;
     private FirebaseAuth mAuth;
+    private Boolean isPasswordVisible = false;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -30,9 +34,28 @@ public class LoginActivity extends AppCompatActivity {
 
         editTextEmailLogin = findViewById(R.id.editTextEmailLogin);
         editTextPasswordLogin = findViewById(R.id.editTextPasswordLogin);
+        imageViewShowPassword = findViewById(R.id.imageViewShowPassword);
         loginButton = findViewById(R.id.buttonLogin);
         textViewForgotPassword = findViewById(R.id.textViewForgotPassword);
         textViewRegister = findViewById(R.id.textViewRegister);
+
+        imageViewShowPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isPasswordVisible) {
+                    // Ocultar a senha
+                    editTextPasswordLogin.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    imageViewShowPassword.setImageResource(R.drawable.visibility_off); // Ícone para senha oculta
+                } else {
+                    // Exibir a senha
+                    editTextPasswordLogin.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    imageViewShowPassword.setImageResource(R.drawable.visibility_on); // Ícone para senha visível
+                }
+                // Move o cursor para o final do texto no campo de senha
+                editTextPasswordLogin.setSelection(editTextPasswordLogin.length());
+                isPasswordVisible = !isPasswordVisible;
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = editTextPasswordLogin.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
-            editTextEmailLogin.setError("Informar o e-mail é obrigatório");
+            editTextEmailLogin.setError("Informe o seu e-mail");
             editTextEmailLogin.requestFocus();
             return;
         }

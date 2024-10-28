@@ -60,7 +60,11 @@ public class PrincipalActivity extends AppCompatActivity {
         agendamentoColeta_Card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PrincipalActivity.this, "Função indisponível no momento, aguarde novas atualizações!", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(PrincipalActivity.this, AgendamentosActivity.class);
+                startActivity(intent);
+
+                //Toast.makeText(PrincipalActivity.this, "Função indisponível no momento, aguarde novas atualizações!", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -68,7 +72,10 @@ public class PrincipalActivity extends AppCompatActivity {
         notificacoes_Card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PrincipalActivity.this, "Função indisponível no momento, aguarde novas atualizações!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PrincipalActivity.this, NotificacaoActivity.class);
+                startActivity(intent);
+
+                //Toast.makeText(PrincipalActivity.this, "Função indisponível no momento, aguarde novas atualizações!", Toast.LENGTH_SHORT).show();
             }
         });
 

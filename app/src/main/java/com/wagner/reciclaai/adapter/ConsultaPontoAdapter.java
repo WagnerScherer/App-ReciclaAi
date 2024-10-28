@@ -149,26 +149,34 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
                     });
         });
 
+        // botão "ver mais"
+        holder.buttonAlterarPonto.setOnClickListener(v -> {
+            Intent intent = new Intent(activity, CadPontoColetaActivity.class);
+            intent.putExtra("isFromConsulta", true);
+            intent.putExtra("idPontoColeta", pontoColeta.getId_PC());
+            activity.startActivity(intent);
+        });
+
         holder.imageViewPontoColeta.setOnClickListener(new View.OnClickListener() {
             @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                    builder.setMessage("Deseja ir até o ponto de coleta?")
-                            .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // Chama o método para abrir o Google Maps, passando o ponto de coleta atual
-                                    openMapApps(pontoColeta);
-                                }
-                            })
-                            .setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    builder.create().show();
-                }
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setMessage("Deseja ir até o ponto de coleta?")
+                        .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Chama o método para abrir o Google Maps, passando o ponto de coleta atual
+                                openMapApps(pontoColeta);
+                            }
+                        })
+                        .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                builder.create().show();
+            }
         });
 
         holder.textViewTelefonePonto.setOnClickListener(new View.OnClickListener() {
@@ -208,6 +216,52 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.d("TelefoneClick", "Usuário clicou em 'Não', fechando o diálogo.");
                                 dialog.dismiss();
+                            }
+                        });
+                builder.create().show();
+            }
+        });
+
+        holder.textViewWhatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Criação do diálogo ao usuário "questionamento: sim/não"
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setMessage("Deseja abrir o WhatsApp?")
+                        .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //captura o numero de whatsapp ponto de coleta, passando com o 55 do brasil + somente números
+                                String numeroWhatsApp = "55" + pontoColeta.getWhatsApp().replaceAll("[^\\d]", "");
+
+                                // Log para verificar o número do WhatsApp
+                                Log.d("WhatsAppClick", "Número do WhatsApp: " + numeroWhatsApp);
+
+                                // Verifica se o WhatsApp está instalado e tenta abrir
+                                try {
+                                    // Cria a URL para enviar mensagem no WhatsApp
+                                    String url = "https://api.whatsapp.com/send?phone=" + numeroWhatsApp;
+
+                                    // Log para verificar a URL do WhatsApp
+                                    Log.d("WhatsAppClick", "URL para WhatsApp: " + url);
+
+                                    // Criar o Intent para abrir o WhatsApp via URL
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(url));
+
+                                    // Tenta abrir a URL sem verificar explicitamente se o WhatsApp está instalado
+                                    activity.startActivity(intent);
+
+                                } catch (Exception e) {
+                                    Log.e("WhatsAppClick", "Erro ao tentar abrir o WhatsApp", e);
+                                    Toast.makeText(activity, "Erro ao tentar abrir o WhatsApp.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss(); // Fecha o diálogo e não faz nada
                             }
                         });
                 builder.create().show();
@@ -268,12 +322,14 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
             textViewPessoaContato = itemView.findViewById(R.id.textViewPessoaContato);
             textViewHorarioFuncionamento = itemView.findViewById(R.id.textViewHorarioFuncionamento);
             textViewTelefonePonto = itemView.findViewById(R.id.textViewTelefonePonto);
+            textViewWhatsapp = itemView.findViewById(R.id.textViewWhatsApp);
             textViewMateriaisColetados = itemView.findViewById(R.id.textViewMateriaisColetados);
             imageViewPontoColeta = itemView.findViewById(R.id.imageViewPontoColeta);
 
             // Inicializar o botão de favoritar e alterar
             imageButtonFavoritar = itemView.findViewById(R.id.imageButtonFavoritar);
             textViewAvaliacoes = itemView.findViewById(R.id.textViewAvaliacoes);
+            buttonAlterarPonto = itemView.findViewById(R.id.buttonAlterarPonto);
 
             // Adicionar logs para verificar se todos os componentes foram corretamente inicializados
             if (textViewNomePonto == null) {
