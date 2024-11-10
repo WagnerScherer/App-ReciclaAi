@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Título da tela -->
+    <TextView
+        android:id="@+id/tituloHistorico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Meu histórico de coletas"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:paddingBottom="16dp"
+        android:padding="16dp"
+        android:background="#4CAF50"
+        android:textColor="@android:color/white"/>
+
+    <!-- RecyclerView para exibir o histórico de coletas solicitadas -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewHistorico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:visibility="visible"/>
+
+</LinearLayout>

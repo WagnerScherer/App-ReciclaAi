@@ -56,6 +56,8 @@ public class AgendamentosActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_agendamentos);
         setContentView(R.layout.activity_agendamentos_abas);
 
+
+
     /*
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -108,7 +110,10 @@ public class AgendamentosActivity extends AppCompatActivity {
         // Verifica se o usuário é administrador (exemplo de verificação)
         boolean isAdmin = getIntent().getBooleanExtra("IS_ADMIN", false);
 
-        // Configura o adapter
+        // Configura o adapter com a flag isAdmin
+
+        //List<Agendamento> agendamentoList = new ArrayList<>();
+
         AgendamentoTabsAdapter adapter = new AgendamentoTabsAdapter(this, isAdmin);
         viewPager.setAdapter(adapter);
 
