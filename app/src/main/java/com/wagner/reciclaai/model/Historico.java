@@ -13,6 +13,7 @@ public class Historico {
     private String dataAgendamento;
     private String idPontoColeta;
     private List<String> tipoMaterial;
+    private int statusAgendamento;
 
     public Historico() {
         this.tipoMaterial = new ArrayList<>();
@@ -23,6 +24,7 @@ public class Historico {
         this.dataAgendamento = dataAgendamento;
         this.idPontoColeta = idPontoColeta;
         this.tipoMaterial = tipoMaterial != null ? tipoMaterial : new ArrayList<>();
+        this.statusAgendamento = statusAgendamento;
     }
 
     public String getIdUsuario() { return idUsuario; }
@@ -37,6 +39,14 @@ public class Historico {
     public List<String> getTipoMaterial() { return tipoMaterial != null ? tipoMaterial : new ArrayList<>(); }
     public void setTipoMaterial(List<String> tipoMaterial) {
         this.tipoMaterial = tipoMaterial != null ? tipoMaterial : new ArrayList<>();
+    }
+
+    public int getStatusAgendamento() {
+        return statusAgendamento;
+    }
+
+    public void setStatusAgendamento(int statusAgendamento) {
+        this.statusAgendamento = statusAgendamento;
     }
 
     // Método para converter Timestamp para String

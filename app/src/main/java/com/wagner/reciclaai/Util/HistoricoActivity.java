@@ -126,6 +126,11 @@ public class HistoricoActivity extends AppCompatActivity {
                                 historico.setTipoMaterial(new ArrayList<>());
                             }
 
+                            //recuperar o ststus_agendamento
+                            Long statusLong = document.getLong("status_agendamento");
+                            int statusAgendamento = (statusLong != null) ? statusLong.intValue() : 0;
+                            historico.setStatusAgendamento(statusAgendamento);
+
                             historicoList.add(historico);
                             Log.d("HistoricoActivity", "Documento adicionado: " + document.getId());
                         } catch (Exception e) {

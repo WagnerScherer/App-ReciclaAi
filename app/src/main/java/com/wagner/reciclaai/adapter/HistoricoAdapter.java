@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,7 +49,11 @@ public class HistoricoAdapter extends RecyclerView.Adapter<HistoricoAdapter.Hist
         // Convertendo a lista de materiais para uma string legível
         List<String> materiais = historico.getTipoMaterial();
         String materiaisColetados = formatarMateriais(materiais);
-        holder.materiaisColetados.setText("Materiais: " + materiaisColetados);
+        holder.materiaisColetados.setText("Materiais coletados: " + materiaisColetados);
+
+        //exibindo o status da coleta
+        String statusTexto = formatarStatus(historico.getStatusAgendamento());
+        holder.statusColeta.setText("Status: " + statusTexto);
     }
 
     @Override
@@ -72,6 +77,19 @@ public class HistoricoAdapter extends RecyclerView.Adapter<HistoricoAdapter.Hist
                     tituloHistorico.setText("Ponto de coleta: Erro ao carregar");
                     Log.e("HistoricoAdapter", "Erro ao buscar o nome do ponto de coleta: " + e.getMessage());
                 });
+    }
+
+    private String formatarStatus(int status) {
+        switch (status) {
+            case 1:
+                return "Pendente";
+            case 2:
+                return "Coleta Recusada";
+            case 3:
+                return "Coleta Confirmada";
+            default:
+                return "Status desconhecido";
+        }
     }
 
     private String formatarMateriais(List<String> materiais) {
@@ -105,13 +123,14 @@ public class HistoricoAdapter extends RecyclerView.Adapter<HistoricoAdapter.Hist
     }
 
     public static class HistoricoViewHolder extends RecyclerView.ViewHolder {
-        TextView tituloHistorico, dataColeta, materiaisColetados;
+        TextView tituloHistorico, dataColeta, materiaisColetados, statusColeta;
 
         public HistoricoViewHolder(@NonNull View itemView) {
             super(itemView);
             tituloHistorico = itemView.findViewById(R.id.tituloHistorico);
             dataColeta = itemView.findViewById(R.id.dataColeta);
             materiaisColetados = itemView.findViewById(R.id.materiaisColetados);
+            statusColeta = itemView.findViewById(R.id.statusColeta);
         }
     }
 }
