@@ -14,12 +14,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.wagner.reciclaai.R;
+import com.wagner.reciclaai.adapter.AgendamentoTabsAdapter;
 import com.wagner.reciclaai.model.Agendamento;
 
 import java.util.ArrayList;
@@ -42,11 +47,16 @@ public class AgendamentosActivity extends AppCompatActivity {
     private String idPontoSelecionado;
     private HashMap<String, String> materialMap;
 
+    private TabLayout tabLayout;
+    private ViewPager2 viewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agendamentos);
+        //setContentView(R.layout.activity_agendamentos);
+        setContentView(R.layout.activity_agendamentos_abas);
 
+    /*
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         materialMap = new HashMap<>();
@@ -89,6 +99,28 @@ public class AgendamentosActivity extends AppCompatActivity {
             datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
             datePickerDialog.show();
         });
+
+     */
+
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
+
+        // Verifica se o usuário é administrador (exemplo de verificação)
+        boolean isAdmin = getIntent().getBooleanExtra("IS_ADMIN", false);
+
+        // Configura o adapter
+        AgendamentoTabsAdapter adapter = new AgendamentoTabsAdapter(this, isAdmin);
+        viewPager.setAdapter(adapter);
+
+        // Conecta o TabLayout com o ViewPager2
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            if (position == 0) {
+                tab.setText("Solicitar Agendamento");
+            } else if (position == 1) {
+                tab.setText("Solicitações Recebidas");
+            }
+        }).attach();
+
     }
 
     private void carregarMateriais() {
