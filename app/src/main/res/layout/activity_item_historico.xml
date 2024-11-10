@@ -30,6 +30,14 @@
             android:textSize="16sp"/>
 
         <TextView
+            android:id="@+id/statusColeta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Status da coleta"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"/>
+
+        <TextView
             android:id="@+id/materiaisColetados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
