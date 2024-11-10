@@ -4,8 +4,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +21,8 @@ import com.wagner.reciclaai.R;
 import com.wagner.reciclaai.model.PhoneNumberFormatter;
 import com.wagner.reciclaai.model.Usuario;
 
+import java.util.Collections;
+
 public class CadUserActivity extends AppCompatActivity {
 
     // Declaração das variáveis
@@ -26,6 +32,8 @@ public class CadUserActivity extends AppCompatActivity {
             campoEndereco, campoNumero, campoComplemento, campoBairro, campoCidade, campoEstado;
     private Button botaoCadastrar;
     private String uid;
+    private Switch switchUserAdmin;
+    private Spinner spinnerAdmPontoColeta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +57,41 @@ public class CadUserActivity extends AppCompatActivity {
 
         campoFoneUser.addTextChangedListener(new PhoneNumberFormatter(campoFoneUser));
 
+        switchUserAdmin = findViewById(R.id.switchUserAdmin);
+        spinnerAdmPontoColeta = findViewById(R.id.spinnerAdmPontoColeta);
+
+        //define o spinner inicialmente invisível
+        spinnerAdmPontoColeta.setVisibility(View.GONE);
+
+        // Obter dados da Intent
+        uid = getIntent().getStringExtra("USER_ID");
+        Boolean isAdmin = getIntent().getBooleanExtra("isAdmin", false);
+        String idPontoColeta = getIntent().getStringExtra("idPontoColeta");
+
+        // Configurar o switch e a visibilidade do spinner com base em isAdmin
+        if (isAdmin != null && isAdmin) {
+            switchUserAdmin.setChecked(true);
+            spinnerAdmPontoColeta.setVisibility(View.VISIBLE);
+
+            // Carregar o nome do ponto de coleta no spinner
+            if (idPontoColeta != null) {
+                db.collection("PONTOSCOLETA").document(idPontoColeta)
+                        .get()
+                        .addOnSuccessListener(document -> {
+                            if (document.exists()) {
+                                String nomePontoColeta = document.getString("nome");
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Collections.singletonList(nomePontoColeta));
+                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerAdmPontoColeta.setAdapter(adapter);
+                            }
+                        })
+                        .addOnFailureListener(e -> Log.d("Firestore", "Erro ao carregar nome do ponto de coleta", e));
+            }
+        } else {
+            switchUserAdmin.setChecked(false);
+            spinnerAdmPontoColeta.setVisibility(View.GONE);
+        }
+
         // Lidar com o clique do botão
         botaoCadastrar.setOnClickListener(v -> validarCampos(uid == null));
 
@@ -56,14 +99,20 @@ public class CadUserActivity extends AppCompatActivity {
         uid = getIntent().getStringExtra("USER_ID");
         if (uid != null) {
             recuperarDadosUsuario(uid);
+            botaoCadastrar.setText("Salvar"); // Mudar o texto do botão para "Salvar"
+        } else {
+            botaoCadastrar.setText("Cadastrar"); // Mudar o texto para "Cadastrar" se não houver usuário autenticado
         }
 
-        // Se o USER_ID for diferente de null, significa que o usuário já está autenticado
-        if (uid != null) {
-            botaoCadastrar.setText("Salvar");  // Mudar o texto do botão para "Salvar"
-        } else {
-            botaoCadastrar.setText("Cadastrar");  // Mudar o texto para "Cadastrar" se não houver usuário autenticado
-        }
+        // Exibe o spinner de pontos de coleta apenas se o usuário for administrador
+        switchUserAdmin.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                spinnerAdmPontoColeta.setVisibility(View.VISIBLE);
+            } else {
+                spinnerAdmPontoColeta.setSelection(0);
+                spinnerAdmPontoColeta.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void validarCampos(boolean isCadastro) {
@@ -79,13 +128,13 @@ public class CadUserActivity extends AppCompatActivity {
         String estado = campoEstado.getText().toString().trim();
 
         // Validação básica para todos os casos
-        if (TextUtils.isEmpty(nome) || TextUtils.isEmpty(endereco) || TextUtils.isEmpty(numero) || TextUtils.isEmpty(bairro) || TextUtils.isEmpty(cidade) || TextUtils.isEmpty(estado)) {
+        if (TextUtils.isEmpty(nome) || TextUtils.isEmpty(endereco) || TextUtils.isEmpty(numero) ||
+                TextUtils.isEmpty(bairro) || TextUtils.isEmpty(cidade) || TextUtils.isEmpty(estado)) {
             Toast.makeText(this, "Preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (isCadastro) {
-            // Validações adicionais para o cadastro
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(senha)) {
                 Toast.makeText(this, "Preencha email e senha", Toast.LENGTH_SHORT).show();
                 return;
@@ -101,7 +150,6 @@ public class CadUserActivity extends AppCompatActivity {
                 return;
             }
 
-            // Criar um novo usuário
             Usuario usuario = new Usuario();
             usuario.setNome(nome);
             usuario.setEmail(email);
@@ -117,7 +165,6 @@ public class CadUserActivity extends AppCompatActivity {
             cadastrarUsuario(usuario);
 
         } else {
-            // Atualizar os dados do usuário, sem email e senha
             Usuario usuario = new Usuario();
             usuario.setNome(nome);
             usuario.setFoneUser(foneUser);
@@ -136,15 +183,10 @@ public class CadUserActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha())
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Usuário criado com sucesso
                         String uid = mAuth.getCurrentUser().getUid();
                         db.collection("USUARIOS").document(uid).set(usuario)
-                                .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(this, "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-                                })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(this, "Erro ao cadastrar usuário", Toast.LENGTH_SHORT).show();
-                                });
+                                .addOnSuccessListener(aVoid -> Toast.makeText(this, "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show())
+                                .addOnFailureListener(e -> Toast.makeText(this, "Erro ao cadastrar usuário", Toast.LENGTH_SHORT).show());
                     } else {
                         Toast.makeText(this, "Falha ao criar usuário: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -161,12 +203,8 @@ public class CadUserActivity extends AppCompatActivity {
                         "bairro", usuario.getBairro(),
                         "cidade", usuario.getCidade(),
                         "estado", usuario.getEstado())
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Erro ao atualizar os dados.", Toast.LENGTH_SHORT).show();
-                });
+                .addOnSuccessListener(aVoid -> Toast.makeText(this, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(this, "Erro ao atualizar os dados.", Toast.LENGTH_SHORT).show());
     }
 
     private void recuperarDadosUsuario(String uid) {
@@ -178,6 +216,7 @@ public class CadUserActivity extends AppCompatActivity {
                         if (document.exists()) {
                             Usuario usuarioRecuperado = document.toObject(Usuario.class);
                             if (usuarioRecuperado != null) {
+                                //vai preencher os campos do cadastro com os dados do usuário autenticado
                                 campoNome.setText(usuarioRecuperado.getNome());
                                 campoEmail.setText(usuarioRecuperado.getEmail());
                                 campoSenha.setText(usuarioRecuperado.getSenha());
@@ -189,12 +228,33 @@ public class CadUserActivity extends AppCompatActivity {
                                 campoCidade.setText(usuarioRecuperado.getCidade());
                                 campoEstado.setText(usuarioRecuperado.getEstado());
 
-                                // Campos de email e senha ficam bloqueados ao atualizar
+                                //desabilita a edição nos campos de e-mail e senha
                                 campoEmail.setEnabled(false);
                                 campoSenha.setEnabled(false);
-                                //função serve para exibir a senha como asterriscos,
-                                // ao abrir a tela de cadastro para usuário já autenticado
                                 campoSenha.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+                                //Configura o switch de administrador
+                                if (usuarioRecuperado.isAdmin()) {
+                                    switchUserAdmin.setChecked(true);
+                                }
+
+                                //Vai buscar e exibir o nome do ponto de coleta no spinner
+                                // Buscar e exibir o nome do ponto de coleta no Spinner
+                                if (usuarioRecuperado.getIdPontoColeta() != null) {
+                                    db.collection("PONTOSCOLETA")
+                                            .document(usuarioRecuperado.getIdPontoColeta())
+                                            .get()
+                                            .addOnSuccessListener(pontoDocument -> {
+                                                if (pontoDocument.exists()) {
+                                                    String nomePontoColeta = pontoDocument.getString("nome");
+                                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Collections.singletonList(nomePontoColeta));
+                                                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                                    spinnerAdmPontoColeta.setAdapter(adapter);
+                                                }
+                                            })
+                                            .addOnFailureListener(e -> Log.d("Firestore", "Erro ao carregar nome do ponto de coleta", e));
+                                }
+
                             }
                         } else {
                             Log.d("Firestore", "Documento não encontrado");

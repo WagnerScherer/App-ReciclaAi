@@ -1,5 +1,7 @@
 package com.wagner.reciclaai.model;
 
+import android.widget.Switch;
+
 import java.security.PrivateKey;
 
 public class Usuario {
@@ -17,6 +19,9 @@ public class Usuario {
     private String data;
     private String fotoPerfil;
     private String foneUser;
+
+    private boolean isAdmin;
+    private String idPontoColeta;
 
     public String getWhatsapp() {
         return whatsapp;
@@ -151,5 +156,21 @@ public class Usuario {
 
     public boolean isOnline() {
         return false;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public String getIdPontoColeta() {
+        return idPontoColeta;
+    }
+
+    public void setIdPontoColeta(String idPontoColeta) {
+        this.idPontoColeta = idPontoColeta;
     }
 }
