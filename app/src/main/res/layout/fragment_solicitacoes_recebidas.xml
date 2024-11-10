@@ -12,5 +12,9 @@
         android:textSize="18sp"
         android:textStyle="bold"/>
 
-    <!-- Adicione o conteúdo para exibir as solicitações recebidas aqui -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSolicitacoesRecebidas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"/>
 </LinearLayout>

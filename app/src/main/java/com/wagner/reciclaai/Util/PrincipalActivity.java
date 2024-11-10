@@ -77,7 +77,8 @@ public class PrincipalActivity extends AppCompatActivity {
 
                                 // Inicia a Activity Agendamentos e passa a informação de administrador
                                 Intent intent = new Intent(PrincipalActivity.this, AgendamentosActivity.class);
-                                intent.putExtra("isAdmin", isAdmin);
+                                intent.putExtra("isAdmin", usuario.isAdmin());
+                                intent.putExtra("ID_PONTO_COLETA", usuario.getIdPontoColeta());
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(PrincipalActivity.this, "Usuário não encontrado", Toast.LENGTH_SHORT).show();
@@ -109,7 +110,10 @@ public class PrincipalActivity extends AppCompatActivity {
         consultaHistorico_Card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PrincipalActivity.this, "Função indisponível no momento, aguarde novas atualizações!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PrincipalActivity.this, HistoricoActivity.class);
+                startActivity(intent);
+
+                //Toast.makeText(PrincipalActivity.this, "Função indisponível no momento, aguarde novas atualizações!", Toast.LENGTH_SHORT).show();
             }
         });
 

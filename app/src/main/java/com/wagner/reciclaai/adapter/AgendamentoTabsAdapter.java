@@ -4,9 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-
-import com.wagner.reciclaai.Util.SolicitacoesRecebidasFragment;
 import com.wagner.reciclaai.Util.SolicitarAgendamentoFragment;
+import com.wagner.reciclaai.Util.SolicitacoesRecebidasFragment;
 
 public class AgendamentoTabsAdapter extends FragmentStateAdapter {
     private final boolean isAdmin;
@@ -28,6 +27,6 @@ public class AgendamentoTabsAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return isAdmin ? 2 : 1; // 2 abas se administrador, 1 se não
+        return isAdmin ? 2 : 1; // Exibe 2 abas se for admin, 1 aba caso contrário
     }
 }
