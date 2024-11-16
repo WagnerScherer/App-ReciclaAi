@@ -30,7 +30,8 @@ public class AgendamentosActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
 
         // Obter o valor de isAdmin da Intent
-        isAdmin = true; //getIntent().getBooleanExtra("IS_ADMIN", false);
+        //isAdmin = true;
+        getIntent().getBooleanExtra("IS_ADMIN", false);
         Log.d("AgendamentosActivity", "isAdmin: " + isAdmin);
 
         // Configurar o adapter do ViewPager2
