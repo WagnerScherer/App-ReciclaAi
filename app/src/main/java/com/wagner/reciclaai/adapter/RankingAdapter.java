@@ -38,7 +38,8 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankingV
             case 0: holder.imgPosition.setImageResource(R.drawable.ic_primeiro_colocado); break;
             case 1: holder.imgPosition.setImageResource(R.drawable.ic_segundo_colocado); break;
             case 2: holder.imgPosition.setImageResource(R.drawable.ic_terceiro_colocado); break;
-            default: holder.imgPosition.setImageResource(R.drawable.ic_quarto_colocado);
+            case 3: holder.imgPosition.setImageResource(R.drawable.ic_quarto_colocado); break;
+            default: holder.imgPosition.setImageResource(R.drawable.ic_quinto_colocado);
         }
 
         holder.txtPosition.setText(String.valueOf(position + 1));

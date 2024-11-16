@@ -1,10 +1,10 @@
 package com.wagner.reciclaai.model;
 
 public class Ranking {
-    private String username;
+    private String username; // Aqui está armazenado o ID inicialmente
     private int coletas;
 
-    public Ranking() { }
+    public Ranking() {}
 
     public Ranking(String username, int coletas) {
         this.username = username;
@@ -27,4 +27,3 @@ public class Ranking {
         this.coletas = coletas;
     }
 }
-

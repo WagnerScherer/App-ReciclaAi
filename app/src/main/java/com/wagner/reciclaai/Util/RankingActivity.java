@@ -17,7 +17,10 @@ import com.wagner.reciclaai.adapter.RankingAdapter;
 import com.wagner.reciclaai.model.Ranking;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RankingActivity extends AppCompatActivity {
     private RecyclerView recyclerRanking;
@@ -40,20 +43,67 @@ public class RankingActivity extends AppCompatActivity {
 
     private void fetchRankingData() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("USUARIOS")
-                .orderBy("coletasFinalizadas", Query.Direction.DESCENDING)
-                .limit(5)
+        db.collection("AGENDAMENTOS")
+                .whereEqualTo("status", "FINALIZADO")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    rankingList.clear();
-                    for (DocumentSnapshot document : queryDocumentSnapshots) {
-                        String username = document.getString("nome");
-                        int coletas = document.getLong("coletasFinalizadas").intValue();
-                        rankingList.add(new Ranking(username, coletas));
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        Log.d("RankingActivity", "Nenhum agendamento encontrado.");
+                        return;
                     }
-                    adapter.notifyDataSetChanged();
+
+                    // Mapa para contar a quantidade de agendamentos por usuário
+                    Map<String, Integer> userCountMap = new HashMap<>();
+
+                    // Contar agendamentos por idUsuario
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        String idUsuario = document.getString("idUsuario");
+                        if (idUsuario != null) {
+                            userCountMap.put(idUsuario, userCountMap.getOrDefault(idUsuario, 0) + 1);
+                        }
+                    }
+
+                    // Transformar o mapa em uma lista de Ranking
+                    List<Ranking> rankingListTemp = new ArrayList<>();
+                    for (Map.Entry<String, Integer> entry : userCountMap.entrySet()) {
+                        rankingListTemp.add(new Ranking(entry.getKey(), entry.getValue()));
+                    }
+
+                    // Ordenar pelo número de agendamentos (decrescente)
+                    Collections.sort(rankingListTemp, (a, b) -> b.getColetas() - a.getColetas());
+
+                    // Pegar apenas os top 5
+                    List<Ranking> top5List = rankingListTemp.subList(0, Math.min(5, rankingListTemp.size()));
+
+                    // Buscar os nomes dos usuários na coleção USUARIOS
+                    fetchUsernames(top5List);
                 })
-                .addOnFailureListener(e -> Log.e("RankingActivity", "Erro ao carregar dados", e));
+                .addOnFailureListener(e -> Log.e("RankingActivity", "Erro ao carregar agendamentos", e));
     }
+
+    private void fetchUsernames(List<Ranking> top5List) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        rankingList.clear(); // Limpar lista antes de preencher
+
+        for (Ranking ranking : top5List) {
+            db.collection("USUARIOS")
+                    .document(ranking.getUsername()) // Usar o ID como referência do documento
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String nomeUsuario = documentSnapshot.getString("nome");
+                            ranking.setUsername(nomeUsuario != null ? nomeUsuario : "Usuário Desconhecido");
+                        }
+                        rankingList.add(ranking);
+
+                        // Atualizar o adapter após obter todos os usuários
+                        if (rankingList.size() == top5List.size()) {
+                            adapter.notifyDataSetChanged();
+                        }
+                    })
+                    .addOnFailureListener(e -> Log.e("RankingActivity", "Erro ao buscar nome de usuário", e));
+        }
+    }
+
 }
 
