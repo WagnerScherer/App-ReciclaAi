@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Ícone de ranking no topo -->
+    <ImageView
+        android:id="@+id/iconRanking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_medal"
+        android:layout_gravity="center"
+        android:contentDescription="Ranking" />
+
+    <!-- Título da página -->
+    <TextView
+        android:id="@+id/txtRanking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ranking"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingTop="8dp" />
+
+    <!-- Lista de usuários no ranking -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerRanking"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="16dp" />
+
+</LinearLayout>

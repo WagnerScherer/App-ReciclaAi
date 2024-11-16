@@ -2,6 +2,7 @@ package com.wagner.reciclaai.Util;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,6 +18,8 @@ import com.wagner.reciclaai.R;
 
 import com.wagner.reciclaai.Util.ConfigBD;
 import com.google.firebase.auth.FirebaseAuth;
+import com.wagner.reciclaai.adapter.AgendamentoTabsAdapter;
+import com.wagner.reciclaai.model.Agendamento;
 import com.wagner.reciclaai.model.Usuario;
 
 public class PrincipalActivity extends AppCompatActivity {
@@ -61,31 +64,36 @@ public class PrincipalActivity extends AppCompatActivity {
         agendamentoColeta_Card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Obtendo o ID do usuário autenticado
-                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                String uid = FirebaseAuth.getInstance().getCurrentUser() != null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
 
-                // Buscando o documento do usuário no Firestore
+                if (uid == null) {
+                    Toast.makeText(PrincipalActivity.this, "Usuário não autenticado", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 FirebaseFirestore.getInstance().collection("USUARIOS").document(uid)
                         .get()
                         .addOnSuccessListener(documentSnapshot -> {
                             if (documentSnapshot.exists()) {
-                                // Recupera a instância do usuário com base no documento
                                 Usuario usuario = documentSnapshot.toObject(Usuario.class);
+                                if (usuario != null) {
+                                    boolean isAdmin = usuario.isAdmin();
+                                    String idPontoColeta = usuario.getIdPontoColeta();
 
-                                // Verifica se o usuário é administrador
-                                boolean isAdmin = usuario != null && usuario.isAdmin();
+                                    Log.d("PrincipalActivity", "isAdmin: " + isAdmin);
+                                    Log.d("PrincipalActivity", "idPontoColeta: " + idPontoColeta);
 
-                                // Inicia a Activity Agendamentos e passa a informação de administrador
-                                Intent intent = new Intent(PrincipalActivity.this, AgendamentosActivity.class);
-                                intent.putExtra("isAdmin", usuario.isAdmin());
-                                intent.putExtra("ID_PONTO_COLETA", usuario.getIdPontoColeta());
-                                startActivity(intent);
+                                    Intent intent = new Intent(PrincipalActivity.this, AgendamentosActivity.class);
+                                    intent.putExtra("IS_ADMIN", isAdmin);
+                                    intent.putExtra("ID_PONTO_COLETA", idPontoColeta);
+                                    startActivity(intent);
+                                }
                             } else {
                                 Toast.makeText(PrincipalActivity.this, "Usuário não encontrado", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(e -> {
-                            Toast.makeText(PrincipalActivity.this, "Erro ao carregar dados do usuário", Toast.LENGTH_SHORT).show();
+                            Log.e("PrincipalActivity", "Erro ao carregar dados do usuário", e);
                         });
             }
         });
@@ -103,7 +111,10 @@ public class PrincipalActivity extends AppCompatActivity {
         ranking_Card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PrincipalActivity.this, "Função indisponível no momento, aguarde novas atualizações!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PrincipalActivity.this, RankingActivity.class);
+                startActivity(intent);
+
+                //Toast.makeText(PrincipalActivity.this, "Função indisponível no momento, aguarde novas atualizações!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -120,7 +131,11 @@ public class PrincipalActivity extends AppCompatActivity {
         buttonPerguntasFrequentes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PrincipalActivity.this, "Função indisponível no momento, aguarde novas atualizações!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PrincipalActivity.this, FaqActivity.class);
+                startActivity(intent);
+
+
+                //Toast.makeText(PrincipalActivity.this, "Função indisponível no momento, aguarde novas atualizações!", Toast.LENGTH_SHORT).show();
             }
         });
 

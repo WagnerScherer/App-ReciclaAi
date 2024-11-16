@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp" >
+    <!-- android:background="@drawable/bg_ranking_item" -->
+
+    <!-- Ícone de posição -->
+    <ImageView
+        android:id="@+id/imgPosition"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_primeiro_colocado" />
+
+    <!-- Texto da posição -->
+    <TextView
+        android:id="@+id/txtPosition"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:textStyle="bold" />
+
+    <!-- Nome do usuário -->
+    <TextView
+        android:id="@+id/txtUsername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Nome do Usuário"
+        android:textSize="18sp"
+        android:paddingStart="8dp"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <!-- Quantidade de coletas -->
+    <TextView
+        android:id="@+id/txtColetas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10 coletas"
+        android:textSize="16sp"
+        android:textColor="@color/black" />
+
+</LinearLayout>

@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -33,9 +34,12 @@
         <activity android:name=".Util.CadPontoColetaActivity"/>
         <activity android:name=".Util.ConsultaPontoActivity"/>
         <activity android:name=".Util.AvaliacaoActivity" />
-        <activity android:name=".Util.AgendamentosActivity" />
+        <activity android:name=".Util.AgendamentosActivity"
+                  android:exported="true"/>
         <activity android:name=".Util.NotificacaoActivity" />
         <activity android:name=".Util.HistoricoActivity" />
+        <activity android:name=".Util.RankingActivity" />
+        <activity android:name=".Util.FaqActivity" />
     </application>
 
 </manifest>
