@@ -12,10 +12,10 @@
 
         <!-- Título -->
         <TextView
-            android:id="@+id/textViewTituloAgendamento"
+            android:id="@+id/textViewTituloAgendamento2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Agendamento de Coleta"
+            android:text="Agendamento de Coleta antigo"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
@@ -31,7 +31,7 @@
             android:textColor="#555555"/>
 
         <Spinner
-            android:id="@+id/spinnerPontoColeta"
+            android:id="@+id/spinnerPontoColeta2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_spinner"
@@ -48,7 +48,7 @@
             android:textColor="#555555"/>
 
         <EditText
-            android:id="@+id/editTextDataColeta"
+            android:id="@+id/editTextDataColeta2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Selecionar Data"
@@ -74,28 +74,28 @@
             android:layout_marginBottom="16dp">
 
             <CheckBox
-                android:id="@+id/checkBoxOleoCozinha"
+                android:id="@+id/checkBoxOleoCozinha2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Óleo de Cozinha"
                 android:textColor="#333333" />
 
             <CheckBox
-                android:id="@+id/checkBoxPilhasBaterias"
+                android:id="@+id/checkBoxPilhasBaterias2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pilha/Baterias"
                 android:textColor="#333333" />
 
             <CheckBox
-                android:id="@+id/checkBoxLampadas"
+                android:id="@+id/checkBoxLampadas2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lâmpadas"
                 android:textColor="#333333" />
 
             <CheckBox
-                android:id="@+id/checkBoxEletronicos"
+                android:id="@+id/checkBoxEletronicos2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Eletrônicos"
@@ -111,7 +111,7 @@
             android:textColor="#555555"/>
 
         <EditText
-            android:id="@+id/editTextEndereco"
+            android:id="@+id/editTextEndereco2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Endereço"
@@ -121,7 +121,7 @@
 
         <!-- Campo de texto para observações -->
         <EditText
-            android:id="@+id/editTextObservacoes"
+            android:id="@+id/editTextObservacoes2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Observações sobre os itens de coleta"
@@ -132,7 +132,7 @@
 
         <!-- Botão Agendar -->
         <Button
-            android:id="@+id/btnAgendar"
+            android:id="@+id/btnAgendar2"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="Agendar"
