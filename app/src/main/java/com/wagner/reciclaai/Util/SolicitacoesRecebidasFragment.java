@@ -192,11 +192,9 @@ public class SolicitacoesRecebidasFragment extends Fragment implements RecargaLi
                 .addOnFailureListener(e -> Log.e("Firestore", "Erro ao aplicar filtro", e));
     }
 
-
     @Override
     public void recarregarSolicitacoes() {
         Log.d("SolicitacoesRecebidasFragment", "Recarregando lista de solicitações");
         carregarSolicitacoes();
     }
-
 }
