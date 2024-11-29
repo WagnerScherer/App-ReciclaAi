@@ -196,5 +196,6 @@ public class SolicitacoesRecebidasFragment extends Fragment implements RecargaLi
     public void recarregarSolicitacoes() {
         Log.d("SolicitacoesRecebidasFragment", "Recarregando lista de solicitações");
         carregarSolicitacoes();
+        atualizarFiltro();
     }
 }
