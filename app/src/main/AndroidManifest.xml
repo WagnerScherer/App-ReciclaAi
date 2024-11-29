@@ -40,6 +40,8 @@
         <activity android:name=".Util.HistoricoActivity" />
         <activity android:name=".Util.RankingActivity" />
         <activity android:name=".Util.FaqActivity" />
+        <activity android:name=".Util.RecuperarSenhaActivity" />
+
     </application>
 
 </manifest>
