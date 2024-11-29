@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,14 +30,24 @@ public class SolicitacoesRecebidasFragment extends Fragment implements RecargaLi
 
     private RecyclerView recyclerView;
     private TextView textViewTitulo;
+    private CheckBox checkBoxPendente, checkBoxConfirmada, checkBoxRecusada;
     private FirebaseFirestore db;
     private FirebaseAuth auth;
+    private AgendamentoRecyclerAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d("SolicitacoesRecebidasFragment", "onCreateView chamado");
         View view = inflater.inflate(R.layout.fragment_solicitacoes_recebidas, container, false);
+
+        checkBoxPendente = view.findViewById(R.id.checkBoxPendente);
+        checkBoxConfirmada = view.findViewById(R.id.checkBoxConfirmada);
+        checkBoxRecusada = view.findViewById(R.id.checkBoxRecusada);
+
+        checkBoxPendente.setChecked(false);
+        checkBoxConfirmada.setChecked(false);
+        checkBoxRecusada.setChecked(false);
 
         recyclerView = view.findViewById(R.id.recyclerViewSolicitacoesRecebidas);
         textViewTitulo = view.findViewById(R.id.textViewTitulo);
@@ -46,10 +57,19 @@ public class SolicitacoesRecebidasFragment extends Fragment implements RecargaLi
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
 
+        //configurando os listeners para os checkboxes
+        configurarListeners();
+
         carregarNomePontoColeta();
         carregarSolicitacoes();
 
         return view;
+    }
+
+    private void configurarListeners () {
+        checkBoxPendente.setOnCheckedChangeListener((buttonView, isChecked) -> atualizarFiltro());
+        checkBoxConfirmada.setOnCheckedChangeListener((buttonView, isChecked) -> atualizarFiltro());
+        checkBoxRecusada.setOnCheckedChangeListener((buttonView, isChecked) -> atualizarFiltro());
     }
 
     private void carregarNomePontoColeta() {
@@ -94,32 +114,84 @@ public class SolicitacoesRecebidasFragment extends Fragment implements RecargaLi
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<AgendamentoSolicitado> agendamentos = new ArrayList<>();
                     for (DocumentSnapshot document : queryDocumentSnapshots) {
-                        String idUsuario = document.getString("idUsuario");
-                        Timestamp dataTimestamp = document.getTimestamp("data_coleta");
-                        String dataColeta = AgendamentoSolicitado.formatarData(dataTimestamp);
-                        List<String> tipoMaterial = (List<String>) document.get("tipo_material");
-                        String idPontoColeta = document.getString("id_ponto_coleta");
-                        int statusAgendamento = document.getLong("status_agendamento").intValue();
+                        try {
+                            String idUsuario = document.getString("idUsuario");
+                            Timestamp dataTimestamp = document.getTimestamp("data_coleta");
+                            String dataColeta = AgendamentoSolicitado.formatarData(dataTimestamp);
+                            List<String> tipoMaterial = (List<String>) document.get("tipo_material");
+                            String idPontoColeta = document.getString("id_ponto_coleta");
+                            int statusAgendamento = document.getLong("status_agendamento").intValue();
 
-                        // Ajuste para utilizar o construtor correto
-                        AgendamentoSolicitado agendamento = new AgendamentoSolicitado(
-                                idUsuario,
-                                dataColeta,
-                                dataTimestamp,
-                                tipoMaterial,
-                                idPontoColeta,
-                                statusAgendamento
-                        );
-
-                        agendamento.setId(document.getId()); // Não se esqueça de definir o ID
-                        agendamentos.add(agendamento);
+                            AgendamentoSolicitado agendamento = new AgendamentoSolicitado(
+                                    idUsuario,
+                                    dataColeta,
+                                    dataTimestamp,
+                                    tipoMaterial,
+                                    idPontoColeta,
+                                    statusAgendamento
+                            );
+                            agendamento.setId(document.getId());
+                            agendamentos.add(agendamento);
+                        } catch (Exception e) {
+                            Log.e("CarregarSolicitacoes", "Erro ao processar documento: " + document.getId(), e);
+                        }
                     }
 
-                    AgendamentoRecyclerAdapter adapter = new AgendamentoRecyclerAdapter(agendamentos, getContext(), this);
+                    // Inicializar o adapter com todos os dados
+                    adapter = new AgendamentoRecyclerAdapter(agendamentos, requireContext(), this);
                     recyclerView.setAdapter(adapter);
                 })
                 .addOnFailureListener(e -> Log.e("Firestore", "Erro ao carregar agendamentos", e));
     }
+
+    private void atualizarFiltro() {
+        boolean filtrarPendente = checkBoxPendente.isChecked();
+        boolean filtrarConfirmada = checkBoxConfirmada.isChecked();
+        boolean filtrarRecusada = checkBoxRecusada.isChecked();
+
+        // Se nenhum filtro estiver marcado, liste todos os registros
+        if (!filtrarPendente && !filtrarConfirmada && !filtrarRecusada) {
+            carregarSolicitacoes(); // Recarrega todos os registros
+            return;
+        }
+
+        // Aplicar filtros apenas se algum checkbox estiver marcado
+        db.collection("AGENDAMENTOS").get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<AgendamentoSolicitado> agendamentosFiltrados = new ArrayList<>();
+
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        int statusAgendamento = document.getLong("status_agendamento").intValue();
+
+                        if ((filtrarPendente && statusAgendamento == 1) || // 0: Pendente
+                                (filtrarConfirmada && statusAgendamento == 3) || // 1: Confirmada
+                                (filtrarRecusada && statusAgendamento == 2)) { // 2: Recusada
+
+                            String idUsuario = document.getString("idUsuario");
+                            Timestamp dataTimestamp = document.getTimestamp("data_coleta");
+                            String dataColeta = AgendamentoSolicitado.formatarData(dataTimestamp);
+                            List<String> tipoMaterial = (List<String>) document.get("tipo_material");
+                            String idPontoColeta = document.getString("id_ponto_coleta");
+
+                            AgendamentoSolicitado agendamento = new AgendamentoSolicitado(
+                                    idUsuario,
+                                    dataColeta,
+                                    dataTimestamp,
+                                    tipoMaterial,
+                                    idPontoColeta,
+                                    statusAgendamento
+                            );
+                            agendamento.setId(document.getId());
+                            agendamentosFiltrados.add(agendamento);
+                        }
+                    }
+
+                    // Atualizar a lista no adapter
+                    adapter.atualizarLista(agendamentosFiltrados);
+                })
+                .addOnFailureListener(e -> Log.e("Firestore", "Erro ao aplicar filtro", e));
+    }
+
 
     @Override
     public void recarregarSolicitacoes() {

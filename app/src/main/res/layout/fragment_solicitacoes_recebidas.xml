@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Título da tela -->
     <TextView
         android:id="@+id/textViewTitulo"
         android:layout_width="wrap_content"
@@ -12,11 +13,44 @@
         android:layout_gravity="center"
         android:text="Solicitações Recebidas"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
+    <!-- Checkboxes de filtro -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center">
+
+        <CheckBox
+            android:id="@+id/checkBoxPendente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pendente"
+            android:checked="true" />
+
+        <CheckBox
+            android:id="@+id/checkBoxConfirmada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirmada"
+            android:checked="true"
+            android:layout_marginStart="16dp" />
+
+        <CheckBox
+            android:id="@+id/checkBoxRecusada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recusada"
+            android:checked="true"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
+
+    <!-- RecyclerView para exibir a listagem -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSolicitacoesRecebidas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp" />
 </LinearLayout>

@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.wagner.reciclaai.R;
 import com.wagner.reciclaai.adapter.AgendamentoTabsAdapter;
 
@@ -15,7 +16,7 @@ public class AgendamentosActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private FirebaseAuth auth;
-    private boolean isAdmin;
+    private boolean isAdmin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,9 @@ public class AgendamentosActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
 
         // Obter o valor de isAdmin da Intent
-        //isAdmin = true;
-        getIntent().getBooleanExtra("IS_ADMIN", false);
+        //teste fixando o parametro isAdmin = true;
+        isAdmin = getIntent().getBooleanExtra("IS_ADMIN", false);
+
         Log.d("AgendamentosActivity", "isAdmin: " + isAdmin);
 
         // Configurar o adapter do ViewPager2
@@ -55,4 +57,5 @@ public class AgendamentosActivity extends AppCompatActivity {
         // Log para depuração
         Log.d("AgendamentosActivity", "Número de abas: " + adapter.getItemCount());
     }
+
 }

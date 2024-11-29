@@ -44,7 +44,7 @@ public class RankingActivity extends AppCompatActivity {
     private void fetchRankingData() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("AGENDAMENTOS")
-                .whereEqualTo("status", "FINALIZADO")
+                //.whereEqualTo("status", "FINALIZADO")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (queryDocumentSnapshots.isEmpty()) {
