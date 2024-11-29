@@ -18,6 +18,7 @@ import com.wagner.reciclaai.R;
 import com.wagner.reciclaai.Util.RecargaListener;
 import com.wagner.reciclaai.model.AgendamentoSolicitado;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -203,4 +204,10 @@ public class AgendamentoRecyclerAdapter extends RecyclerView.Adapter<Agendamento
             buttonRejeitar = itemView.findViewById(R.id.buttonRejeitar);
         }
     }
+
+    // Método para obter a lista de agendamentos
+    public List<AgendamentoSolicitado> getAgendamentos() {
+        return new ArrayList<>(agendamentos); // Retorna uma cópia da lista para evitar manipulação direta
+    }
+
 }
