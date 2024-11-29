@@ -71,29 +71,29 @@ public class PrincipalActivity extends AppCompatActivity {
                     return;
                 }
 
+                // Obtenha o status de admin e ID do ponto de coleta
                 FirebaseFirestore.getInstance().collection("USUARIOS").document(uid)
                         .get()
                         .addOnSuccessListener(documentSnapshot -> {
                             if (documentSnapshot.exists()) {
-                                Usuario usuario = documentSnapshot.toObject(Usuario.class);
-                                if (usuario != null) {
-                                    boolean isAdmin = usuario.isAdmin();
-                                    String idPontoColeta = usuario.getIdPontoColeta();
+                                boolean isAdmin = documentSnapshot.getBoolean("isAdmin") != null && documentSnapshot.getBoolean("isAdmin");
+                                String idPontoColeta = documentSnapshot.getString("idPontoColeta");
 
-                                    Log.d("PrincipalActivity", "isAdmin: " + isAdmin);
-                                    Log.d("PrincipalActivity", "idPontoColeta: " + idPontoColeta);
+                                Log.d("PrincipalActivity", "isAdmin: " + isAdmin);
+                                Log.d("PrincipalActivity", "idPontoColeta: " + idPontoColeta);
 
-                                    Intent intent = new Intent(PrincipalActivity.this, AgendamentosActivity.class);
-                                    intent.putExtra("IS_ADMIN", isAdmin);
-                                    intent.putExtra("ID_PONTO_COLETA", idPontoColeta);
-                                    startActivity(intent);
-                                }
+                                // Enviar os dados para a AgendamentosActivity
+                                Intent intent = new Intent(PrincipalActivity.this, AgendamentosActivity.class);
+                                intent.putExtra("IS_ADMIN", isAdmin);
+                                intent.putExtra("ID_PONTO_COLETA", idPontoColeta);
+                                startActivity(intent);
                             } else {
                                 Toast.makeText(PrincipalActivity.this, "Usuário não encontrado", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(e -> {
                             Log.e("PrincipalActivity", "Erro ao carregar dados do usuário", e);
+                            Toast.makeText(PrincipalActivity.this, "Erro ao carregar informações", Toast.LENGTH_SHORT).show();
                         });
             }
         });

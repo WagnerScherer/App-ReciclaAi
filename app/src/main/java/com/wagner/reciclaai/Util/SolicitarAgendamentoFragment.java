@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.wagner.reciclaai.R;
 import com.wagner.reciclaai.model.Agendamento;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class SolicitarAgendamentoFragment extends Fragment {
@@ -81,7 +82,9 @@ public class SolicitarAgendamentoFragment extends Fragment {
     }
 
     private void carregarPontosColeta() {
-        db.collection("PONTOSCOLETA").get()
+        db.collection("PONTOSCOLETA")
+                .whereEqualTo("realizaColeta", true)
+                .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     pontosColetaIds.clear();
                     pontosColetaNomes.clear();
@@ -184,6 +187,7 @@ public class SolicitarAgendamentoFragment extends Fragment {
         btnAgendar.setOnClickListener(v -> validarEMarcarAgendamento());
     }
 
+    /*
     private void validarEMarcarAgendamento() {
         if (idPontoSelecionado == null) {
             Toast.makeText(getContext(), "Selecione um ponto de coleta.", Toast.LENGTH_SHORT).show();
@@ -204,6 +208,69 @@ public class SolicitarAgendamentoFragment extends Fragment {
         salvarAgendamento(materiaisSelecionados);
     }
 
+     */
+
+    private void validarEMarcarAgendamento() {
+        if (idPontoSelecionado == null) {
+            Toast.makeText(getContext(), "Selecione um ponto de coleta.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        List<String> materiaisSelecionados = new ArrayList<>();
+        if (checkBoxOleoCozinha.isChecked()) materiaisSelecionados.add("2");
+        if (checkBoxPilhasBaterias.isChecked()) materiaisSelecionados.add("1");
+        if (checkBoxLampadas.isChecked()) materiaisSelecionados.add("3");
+        if (checkBoxEletronicos.isChecked()) materiaisSelecionados.add("4");
+
+        if (materiaisSelecionados.isEmpty()) {
+            Toast.makeText(getContext(), "Selecione pelo menos um material para a coleta.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        db.collection("PONTOSCOLETA_MATERIAIS")
+                .whereEqualTo("id_ponto_coleta", idPontoSelecionado)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<String> materiaisNaoAceitos = new ArrayList<>();
+                    for (String material : materiaisSelecionados) {
+                        boolean aceita = queryDocumentSnapshots.getDocuments().stream()
+                                .anyMatch(doc -> material.equals(String.valueOf(doc.get("id_material"))));
+                        if (!aceita) {
+                            materiaisNaoAceitos.add(obterDescricaoMaterial(material));
+                        }
+                    }
+
+                    if (!materiaisNaoAceitos.isEmpty()) {
+                        String materiaisIncompativeis = String.join(", ", materiaisNaoAceitos);
+                        Toast.makeText(getContext(), "Os materiais " + materiaisIncompativeis + " não são aceitos neste ponto de coleta.", Toast.LENGTH_LONG).show();
+                        Log.d("AgendamentosActivity", "Materiais incompatíveis: " + materiaisNaoAceitos);
+                    } else {
+                        salvarAgendamento(materiaisSelecionados);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("AgendamentosActivity", "Erro ao acessar Firestore: ", e);
+                    Toast.makeText(getContext(), "Erro ao verificar os materiais no ponto de coleta.", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    // Método para obter a descrição de um material com base no ID
+    private String obterDescricaoMaterial(String idMaterial) {
+        switch (idMaterial) {
+            case "1":
+                return "Pilha/Baterias";
+            case "2":
+                return "Óleo de Cozinha";
+            case "3":
+                return "Lâmpadas";
+            case "4":
+                return "Eletrônicos";
+            default:
+                return "Material desconhecido (ID: " + idMaterial + ")";
+        }
+    }
+
+
     private void salvarAgendamento(List<String> materiaisSelecionados) {
         String uid = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : null;
 
@@ -217,18 +284,48 @@ public class SolicitarAgendamentoFragment extends Fragment {
             return;
         }
 
+        // Converter a data do campo editTextDataColeta para uma instância de Date
+        Date dataColeta;
+        try {
+            String dataColetaTexto = editTextDataColeta.getText().toString();
+            if (dataColetaTexto.isEmpty()) {
+                Toast.makeText(getContext(), "Informe uma data de coleta válida.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            dataColeta = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(dataColetaTexto);
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Erro ao interpretar a data de coleta.", Toast.LENGTH_SHORT).show();
+            Log.e("SalvarAgendamento", "Erro ao interpretar a data de coleta", e);
+            return;
+        }
+
+        // Criar o objeto de agendamento
         Agendamento agendamento = new Agendamento(
                 uid,
                 idPontoSelecionado,
                 materiaisSelecionados,
-                new Date(),
-                new Date(),
+                dataColeta, // Utiliza a data escolhida pelo usuário
+                new Date(), // Data de criação do agendamento
                 1
         );
 
+        // Salvar no Firestore
         db.collection("AGENDAMENTOS").add(agendamento)
-                .addOnSuccessListener(docRef -> {
-                    Toast.makeText(getContext(), "Agendamento realizado!", Toast.LENGTH_SHORT).show();
+                .addOnSuccessListener(agendamentoDocRef -> {
+                    Toast.makeText(getContext(), "Agendamento realizado com sucesso!", Toast.LENGTH_SHORT).show();
+
+                    // Criação da notificação para o usuário
+                    Map<String, Object> notificacao = new HashMap<>();
+                    notificacao.put("id_usuario", uid);
+                    notificacao.put("titulo", "Agendamento de coleta.");
+                    notificacao.put("mensagem", "Sua solicitação de agendamento foi enviada ao ponto de coleta " + pontosColetaNomes.get(spinnerPontoColeta.getSelectedItemPosition()) + ", aguarde pela confirmação da coleta.");
+                    notificacao.put("status", false); // Status não lido (false)
+
+                    // Salvar a notificação na coleção NOTIFICACOES
+                    db.collection("NOTIFICACOES").add(notificacao)
+                            .addOnSuccessListener(notificacaoDocRef -> Log.d("AgendamentosActivity", "Notificação registrada com sucesso para o usuário."))
+                            .addOnFailureListener(e -> Log.e("AgendamentosActivity", "Erro ao registrar notificação: ", e));
+
                     limparCampos();
                 })
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Erro ao agendar.", Toast.LENGTH_SHORT).show());

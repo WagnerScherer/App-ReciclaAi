@@ -8,15 +8,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.wagner.reciclaai.R;
 import com.wagner.reciclaai.Util.RecargaListener;
 import com.wagner.reciclaai.model.AgendamentoSolicitado;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,6 @@ public class AgendamentoRecyclerAdapter extends RecyclerView.Adapter<Agendamento
     public void onBindViewHolder(@NonNull AgendamentoViewHolder holder, int position) {
         AgendamentoSolicitado agendamento = agendamentos.get(position);
 
-        // Buscar nome e endereço do usuário a partir do idUsuario
         db.collection("USUARIOS").document(agendamento.getIdUsuario())
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
@@ -58,18 +58,12 @@ public class AgendamentoRecyclerAdapter extends RecyclerView.Adapter<Agendamento
                     }
                 });
 
-        // Exibir a data da coleta usando o método formatado do model
         holder.textDataColeta.setText("Data: " + agendamento.getDataColeta());
-
-        // Exibir materiais coletados
         List<String> materiais = agendamento.getTipoMaterial();
         holder.textMateriaisColetados.setText("Materiais: " + formatarMateriais(materiais));
-
-        // Exibir status da coleta
         String statusTexto = formatarStatus(agendamento.getStatusAgendamento());
         holder.textStatusDaColeta.setText("Status: " + statusTexto);
 
-        // Configurar botão Rejeitar
         holder.buttonRejeitar.setOnClickListener(v -> {
             if (agendamento.getStatusAgendamento() != 1) {
                 Toast.makeText(context, "Esta coleta não está mais pendente!", Toast.LENGTH_SHORT).show();
@@ -78,7 +72,6 @@ public class AgendamentoRecyclerAdapter extends RecyclerView.Adapter<Agendamento
             }
         });
 
-        // Configurar botão Aceitar
         holder.buttonAceitar.setOnClickListener(v -> {
             if (agendamento.getStatusAgendamento() != 1) {
                 Toast.makeText(context, "Esta coleta não está mais pendente!", Toast.LENGTH_SHORT).show();
@@ -93,51 +86,73 @@ public class AgendamentoRecyclerAdapter extends RecyclerView.Adapter<Agendamento
         return (agendamentos != null) ? agendamentos.size() : 0;
     }
 
+    // Método para atualizar a lista de agendamentos
+    public void atualizarLista(List<AgendamentoSolicitado> novaLista) {
+        if (novaLista != null) {
+            agendamentos.clear();
+            agendamentos.addAll(novaLista);
+            notifyDataSetChanged(); // Atualizar RecyclerView
+        }
+    }
+
     private void criarNotificacaoRejeitar(AgendamentoSolicitado agendamento) {
+        db.collection("PONTOSCOLETA").document(agendamento.getIdPontoColeta())
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String nomePonto = documentSnapshot.getString("nome");
+                        String dataColeta = agendamento.getDataColeta();
+                        enviarNotificacaoRejeitar(agendamento, nomePonto, dataColeta);
+                    } else {
+                        Log.e("Notificacao", "Ponto de coleta não encontrado!");
+                        Toast.makeText(context, "Erro ao localizar o ponto de coleta.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("Notificacao", "Erro ao buscar ponto de coleta", e));
+    }
+
+    private void enviarNotificacaoRejeitar(AgendamentoSolicitado agendamento, String nomePonto, String dataColeta) {
         Map<String, Object> notificacao = new HashMap<>();
-        notificacao.put("idUsuario", agendamento.getIdUsuario());
+        notificacao.put("id_usuario", agendamento.getIdUsuario());
         notificacao.put("status", false);
         notificacao.put("titulo", "Resposta de agendamento de coleta");
-        notificacao.put("mensagem", "O ponto de coleta recusou a sua solicitação.");
+        notificacao.put("mensagem", "O ponto de coleta \"" + nomePonto + "\" recusou a sua coleta para o dia " + dataColeta + ".");
 
         db.collection("NOTIFICACOES").add(notificacao)
-                .addOnSuccessListener(documentReference -> {
-                    atualizarStatus(agendamento, 2);
-                });
+                .addOnSuccessListener(documentReference -> atualizarStatus(agendamento, 2))
+                .addOnFailureListener(e -> Log.e("Notificacao", "Erro ao enviar notificação", e));
     }
 
     private void criarNotificacaoAceitar(AgendamentoSolicitado agendamento) {
+        db.collection("PONTOSCOLETA").document(agendamento.getIdPontoColeta())
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String nomePonto = documentSnapshot.getString("nome");
+                        String dataColeta = agendamento.getDataColeta();
+                        enviarNotificacaoAceitar(agendamento, nomePonto, dataColeta);
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("Notificacao", "Erro ao buscar ponto de coleta", e));
+    }
+
+    private void enviarNotificacaoAceitar(AgendamentoSolicitado agendamento, String nomePonto, String dataColeta) {
         Map<String, Object> notificacao = new HashMap<>();
-        notificacao.put("idUsuario", agendamento.getIdUsuario());
+        notificacao.put("id_usuario", agendamento.getIdUsuario());
         notificacao.put("status", false);
         notificacao.put("titulo", "Resposta do seu agendamento de coleta");
-        notificacao.put("mensagem", "O ponto de coleta aceitou a sua coleta.");
+        notificacao.put("mensagem", "O ponto de coleta \"" + nomePonto + "\" aceitou a sua coleta para o dia " + dataColeta + ".");
 
         db.collection("NOTIFICACOES").add(notificacao)
-                .addOnSuccessListener(documentReference -> {
-                    atualizarStatus(agendamento, 3);
-                });
+                .addOnSuccessListener(documentReference -> atualizarStatus(agendamento, 3))
+                .addOnFailureListener(e -> Log.e("Notificacao", "Erro ao enviar notificação", e));
     }
 
     private void atualizarStatus(AgendamentoSolicitado agendamento, int status) {
         db.collection("AGENDAMENTOS").document(agendamento.getId())
                 .update("status_agendamento", status)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(context, "Status atualizado!", Toast.LENGTH_SHORT).show();
-                    recargaListener.recarregarSolicitacoes();
-                });
+                .addOnSuccessListener(aVoid -> recargaListener.recarregarSolicitacoes());
     }
-
-    /*
-    private String formatarMateriais(List<String> materiais) {
-        // Verifica se a lista é nula ou vazia antes de iterar
-        if (materiais == null || materiais.isEmpty()) {
-            return "Nenhum material coletado";
-        }
-        return String.join(", ", materiais);
-    }
-
-     */
 
     private String formatarMateriais(List<String> materiais) {
         if (materiais == null || materiais.isEmpty()) {
@@ -146,27 +161,22 @@ public class AgendamentoRecyclerAdapter extends RecyclerView.Adapter<Agendamento
         StringBuilder sb = new StringBuilder();
         for (String material : materiais) {
             switch (material) {
-                case "1":
-                    sb.append("Pilhas/Baterias, ");
-                    break;
-                case "2":
-                    sb.append("Óleo de Cozinha, ");
-                    break;
-                case "3":
-                    sb.append("Lâmpadas, ");
-                    break;
-                case "4":
-                    sb.append("Eletrônicos, ");
-                    break;
-                default:
-                    sb.append("Desconhecido, ");
-                    break;
+                case "1": sb.append("Pilhas/Baterias, "); break;
+                case "2": sb.append("Óleo de Cozinha, "); break;
+                case "3": sb.append("Lâmpadas, "); break;
+                case "4": sb.append("Eletrônicos, "); break;
+                default: sb.append("Desconhecido, "); break;
             }
         }
-        if (sb.length() > 0) {
-            sb.setLength(sb.length() - 2); // Remove a última vírgula e espaço extra
-        }
-        return sb.toString();
+        return sb.substring(0, sb.length() - 2);
+    }
+
+    private String formatarEndereco(DocumentSnapshot documentSnapshot) {
+        StringBuilder endereco = new StringBuilder();
+        endereco.append(documentSnapshot.getString("endereco")).append(", ");
+        endereco.append(documentSnapshot.getString("numero")).append(", ");
+        endereco.append(documentSnapshot.getString("bairro"));
+        return endereco.toString();
     }
 
     private String formatarStatus(int status) {
@@ -174,29 +184,8 @@ public class AgendamentoRecyclerAdapter extends RecyclerView.Adapter<Agendamento
             case 1: return "Pendente";
             case 2: return "Recusada";
             case 3: return "Confirmada";
-            default: return "Status desconhecido";
+            default: return "Desconhecido";
         }
-    }
-
-    // Método para formatar o endereço do usuário
-    private String formatarEndereco(DocumentSnapshot documentSnapshot) {
-        StringBuilder enderecoCompleto = new StringBuilder();
-
-        String rua = documentSnapshot.getString("endereco");
-        String numero = documentSnapshot.getString("numero");
-        String bairro = documentSnapshot.getString("bairro");
-        String cidade = documentSnapshot.getString("cidade");
-        String uf = documentSnapshot.getString("estado");
-        String complemento = documentSnapshot.getString("complemento");
-
-        if (rua != null && !rua.isEmpty()) enderecoCompleto.append(rua);
-        if (numero != null && !numero.isEmpty()) enderecoCompleto.append(", ").append(numero);
-        if (bairro != null && !bairro.isEmpty()) enderecoCompleto.append(", ").append(bairro);
-        if (cidade != null && !cidade.isEmpty()) enderecoCompleto.append(", ").append(cidade);
-        if (uf != null && !uf.isEmpty()) enderecoCompleto.append(" - ").append(uf);
-        if (complemento != null && !complemento.isEmpty()) enderecoCompleto.append(", ").append(complemento);
-
-        return enderecoCompleto.toString();
     }
 
     public static class AgendamentoViewHolder extends RecyclerView.ViewHolder {
