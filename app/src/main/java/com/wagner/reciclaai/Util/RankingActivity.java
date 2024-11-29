@@ -93,17 +93,30 @@ public class RankingActivity extends AppCompatActivity {
                         if (documentSnapshot.exists()) {
                             String nomeUsuario = documentSnapshot.getString("nome");
                             ranking.setUsername(nomeUsuario != null ? nomeUsuario : "Usuário Desconhecido");
+                        } else {
+                            ranking.setUsername("Usuário Desconhecido");
                         }
+
+                        // Adicionar à lista apenas após atualizar o nome
                         rankingList.add(ranking);
 
-                        // Atualizar o adapter após obter todos os usuários
+                        // Atualizar o adapter apenas após completar todas as buscas
                         if (rankingList.size() == top5List.size()) {
+                            // Garantir ordenação correta antes de exibir
+                            Collections.sort(rankingList, (a, b) -> b.getColetas() - a.getColetas());
                             adapter.notifyDataSetChanged();
                         }
                     })
-                    .addOnFailureListener(e -> Log.e("RankingActivity", "Erro ao buscar nome de usuário", e));
+                    .addOnFailureListener(e -> {
+                        Log.e("RankingActivity", "Erro ao buscar nome de usuário", e);
+                        ranking.setUsername("Erro ao buscar nome");
+                        rankingList.add(ranking);
+                        if (rankingList.size() == top5List.size()) {
+                            Collections.sort(rankingList, (a, b) -> b.getColetas() - a.getColetas());
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
         }
     }
-
 }
 
