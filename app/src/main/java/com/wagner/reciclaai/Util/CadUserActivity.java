@@ -21,7 +21,9 @@ import com.wagner.reciclaai.R;
 import com.wagner.reciclaai.model.PhoneNumberFormatter;
 import com.wagner.reciclaai.model.Usuario;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class CadUserActivity extends AppCompatActivity {
 
@@ -104,12 +106,46 @@ public class CadUserActivity extends AppCompatActivity {
             botaoCadastrar.setText("Cadastrar"); // Mudar o texto para "Cadastrar" se não houver usuário autenticado
         }
 
+
         // Exibe o spinner de pontos de coleta apenas se o usuário for administrador
         switchUserAdmin.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 spinnerAdmPontoColeta.setVisibility(View.VISIBLE);
+
+                // Carregar todos os pontos de coleta com realizaColeta = true
+                db.collection("PONTOSCOLETA")
+                        .whereEqualTo("realizaColeta", true)
+                        .get()
+                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                // Criar lista para o Spinner, adicionando o item padrão
+                                List<String> pontosDeColeta = new ArrayList<>();
+                                pontosDeColeta.add("Selecione um ponto de coleta"); // Primeira posição
+
+                                for (DocumentSnapshot document : queryDocumentSnapshots) {
+                                    String nomePonto = document.getString("nome");
+                                    if (nomePonto != null) {
+                                        pontosDeColeta.add(nomePonto);
+                                    }
+                                }
+
+                                // Adicionar os nomes ao Spinner
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, pontosDeColeta);
+                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerAdmPontoColeta.setAdapter(adapter);
+                            } else {
+                                Toast.makeText(this, "Nenhum ponto de coleta disponível.", Toast.LENGTH_SHORT).show();
+
+                                // Mesmo sem pontos, exibir "Selecione um ponto de coleta"
+                                List<String> pontosDeColeta = new ArrayList<>();
+                                pontosDeColeta.add("Selecione um ponto de coleta");
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, pontosDeColeta);
+                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerAdmPontoColeta.setAdapter(adapter);
+                            }
+                        })
+                        .addOnFailureListener(e -> Log.e("Firestore", "Erro ao carregar pontos de coleta", e));
             } else {
-                spinnerAdmPontoColeta.setSelection(0);
                 spinnerAdmPontoColeta.setVisibility(View.GONE);
             }
         });
