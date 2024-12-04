@@ -87,17 +87,57 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
             holder.textViewCidadeUfPonto.setText(cidadeUfPonto);
             Log.d("Adapter", "Cidade-UF: " + cidadeUfPonto);
         }
+
         if (holder.textViewPessoaContato != null) {
-            holder.textViewPessoaContato.setText(pontoColeta.getPessoa_contato());
+            String fone = pontoColeta.getFone();
+            if (fone == null || fone.trim().isEmpty()) {
+                holder.textViewPessoaContato.setText("Não cadastrado");
+            } else {
+                holder.textViewPessoaContato.setText(fone);
+            }
         }
+
         if (holder.textViewHorarioFuncionamento != null) {
-            holder.textViewHorarioFuncionamento.setText(pontoColeta.getHorario_funcionamento());
+            String fone = pontoColeta.getFone();
+            if (fone == null || fone.trim().isEmpty()) {
+                holder.textViewHorarioFuncionamento.setText("Não cadastrado");
+            } else {
+                holder.textViewHorarioFuncionamento.setText(fone);
+            }
         }
+
         if (holder.textViewTelefonePonto != null) {
-            holder.textViewTelefonePonto.setText(pontoColeta.getFone());
+            String fone = pontoColeta.getFone();
+            if (fone == null || fone.trim().isEmpty()) {
+                holder.textViewTelefonePonto.setText("Não cadastrado.");
+            } else {
+                holder.textViewTelefonePonto.setText(pontoColeta.getFone());
+            }
         }
+
+        /* se nao tiver numero de whatsapp, oculta da visualização
         if (holder.textViewWhatsapp != null) {
-            holder.textViewWhatsapp.setText(pontoColeta.getWhatsApp());
+            String whatsapp = pontoColeta.getWhatsApp();
+            if (whatsapp == null || whatsapp.trim().isEmpty()) {
+                // Se o WhatsApp for nulo ou vazio, esconder o ImageView e o TextView
+                holder.textViewWhatsapp.setVisibility(View.GONE);
+                holder.imageViewWhatsApp.setVisibility(View.GONE);
+            } else {
+                // Caso contrário, exibir o WhatsApp e configurar o texto
+                holder.textViewWhatsapp.setVisibility(View.VISIBLE);
+                holder.imageViewWhatsApp.setVisibility(View.VISIBLE);
+                holder.textViewWhatsapp.setText(pontoColeta.getWhatsApp());
+            }
+        }
+         */
+
+        if (holder.textViewWhatsapp != null) {
+            String fone = pontoColeta.getFone();
+            if (fone == null || fone.trim().isEmpty()) {
+                holder.textViewWhatsapp.setText("WhatsApp não cadastrado");
+            } else {
+                holder.textViewWhatsapp.setText(fone);
+            }
         }
 
         // Exibir os materiais coletados
@@ -308,7 +348,7 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
         TextView textViewWhatsapp, textViewAvaliacoes;
         ImageButton imageButtonFavoritar;
         Button buttonAlterarPonto;
-        ImageView imageViewPontoColeta;
+        ImageView imageViewPontoColeta, imageViewWhatsApp;
 
         public PontoColetaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -323,6 +363,7 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
             textViewHorarioFuncionamento = itemView.findViewById(R.id.textViewHorarioFuncionamento);
             textViewTelefonePonto = itemView.findViewById(R.id.textViewTelefonePonto);
             textViewWhatsapp = itemView.findViewById(R.id.textViewWhatsApp);
+            imageViewWhatsApp = itemView.findViewById(R.id.imageViewWhatsApp);
             textViewMateriaisColetados = itemView.findViewById(R.id.textViewMateriaisColetados);
             imageViewPontoColeta = itemView.findViewById(R.id.imageViewPontoColeta);
 

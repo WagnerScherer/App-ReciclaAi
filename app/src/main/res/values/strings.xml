@@ -49,7 +49,7 @@
     <string name="card_cadastraPonto">Cadastre um Ponto de Coleta</string>
     <string name="logo">Logotipo do aplicativo</string>
     <string name="tipo_de_material">Tipo de material coletado:</string>
-    <string name="materiais_que_coleta">Materiais que o ponto aceita/coleta?</string>
+    <string name="materiais_que_coleta">Materiais que o ponto aceita/coleta:</string>
     <string name="tipo_material_pilha">Pilhas/Baterias</string>
     <string name="tipo_material_oleocozinha">Óleo de cozinha</string>
     <string name="tipo_material_lampada">Lâmpadas</string>

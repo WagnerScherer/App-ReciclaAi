@@ -88,7 +88,7 @@
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:hint="@string/whatsapp"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:maxLength="15"
                     android:background="@drawable/rounded_edit_text"
                     android:padding="12dp" />
