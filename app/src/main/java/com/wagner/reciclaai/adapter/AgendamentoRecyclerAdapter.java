@@ -117,7 +117,9 @@ public class AgendamentoRecyclerAdapter extends RecyclerView.Adapter<Agendamento
         notificacao.put("id_usuario", agendamento.getIdUsuario());
         notificacao.put("status", false);
         notificacao.put("titulo", "Resposta de agendamento de coleta");
-        notificacao.put("mensagem", "O ponto de coleta \"" + nomePonto + "\" recusou a sua coleta para o dia " + dataColeta + ".");
+        notificacao.put("mensagem",
+                "O ponto de coleta \"" + nomePonto + "\" recusou a sua coleta para o dia " + dataColeta + ".\n" +
+                        "Para maiores informações, contate o ponto de coleta.");
 
         db.collection("NOTIFICACOES").add(notificacao)
                 .addOnSuccessListener(documentReference -> atualizarStatus(agendamento, 2))
@@ -142,8 +144,10 @@ public class AgendamentoRecyclerAdapter extends RecyclerView.Adapter<Agendamento
         notificacao.put("id_usuario", agendamento.getIdUsuario());
         notificacao.put("status", false);
         notificacao.put("titulo", "Resposta do seu agendamento de coleta");
-        notificacao.put("mensagem", "O ponto de coleta \"" + nomePonto + "\" aceitou a sua coleta para o dia " + dataColeta + ".");
-
+        notificacao.put("mensagem",
+                "O ponto de coleta \"" + nomePonto + "\" aceitou a sua coleta para o dia " + dataColeta + ".\n" +
+                        "Na data marcada, um funcionário devidamente identificado realizará a coleta no endereço informado."
+        );
         db.collection("NOTIFICACOES").add(notificacao)
                 .addOnSuccessListener(documentReference -> atualizarStatus(agendamento, 3))
                 .addOnFailureListener(e -> Log.e("Notificacao", "Erro ao enviar notificação", e));

@@ -106,7 +106,6 @@ public class CadUserActivity extends AppCompatActivity {
             botaoCadastrar.setText("Cadastrar"); // Mudar o texto para "Cadastrar" se não houver usuário autenticado
         }
 
-
         // Exibe o spinner de pontos de coleta apenas se o usuário for administrador
         switchUserAdmin.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -268,6 +267,8 @@ public class CadUserActivity extends AppCompatActivity {
                                 campoEmail.setEnabled(false);
                                 campoSenha.setEnabled(false);
                                 campoSenha.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+
 
                                 //Configura o switch de administrador
                                 if (usuarioRecuperado.isAdmin()) {
