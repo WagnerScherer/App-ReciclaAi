@@ -51,34 +51,6 @@ public class HistoricoActivity extends AppCompatActivity {
         carregarHistorico();
     }
 
-    /*
-    private void carregarHistorico() {
-        if (auth.getCurrentUser() == null) {
-            Toast.makeText(this, "Usuário não autenticado", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
-
-        String uid = auth.getCurrentUser().getUid();
-
-        firestore.collection("AGENDAMENTOS")
-                .whereEqualTo("idUsuario", uid)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    historicoList.clear();
-                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                        Historico historico = document.toObject(Historico.class);
-                        historicoList.add(historico);
-                    }
-                    historicoAdapter.notifyDataSetChanged();
-                })
-                .addOnFailureListener(e ->
-                        Toast.makeText(HistoricoActivity.this, "Erro ao carregar histórico: " + e.getMessage(), Toast.LENGTH_SHORT).show()
-                );
-    }
-
-     */
-
     private void carregarHistorico() {
         if (auth.getCurrentUser() == null) {
             Toast.makeText(this, "Usuário não autenticado", Toast.LENGTH_SHORT).show();
@@ -145,25 +117,5 @@ public class HistoricoActivity extends AppCompatActivity {
                     Toast.makeText(HistoricoActivity.this, "Erro ao carregar histórico", Toast.LENGTH_SHORT).show();
                 });
     }
-
-
-
-        // Inicializar a lista com dados dummy para testar o RecyclerView
-
-        /*
-        historicoList.clear();
-
-        // Adicionar um histórico de exemplo para testar
-        List<Integer> materiaisExemplo = Arrays.asList(1, 2, 3); // Pilha/Baterias, Óleo de Cozinha, Lâmpadas
-        Historico historicoDummy = new Historico("uid123", "2024-11-10", "Ponto Coleta Exemplo", materiaisExemplo);
-        historicoList.add(historicoDummy);
-
-        // Notificar o adapter que os dados mudaram
-        historicoAdapter.notifyDataSetChanged();
-
-        // Log para verificação
-        Log.d("HistoricoActivity", "Dados dummy adicionados: " + historicoList.size());
-
-         */
 }
 

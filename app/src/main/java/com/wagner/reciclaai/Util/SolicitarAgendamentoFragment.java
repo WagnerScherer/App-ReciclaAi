@@ -146,30 +146,24 @@ public class SolicitarAgendamentoFragment extends Fragment {
                         if (endereco != null && !endereco.isEmpty()) {
                             enderecoCompleto.append(endereco);
                         }
-
                         if (numero != null && !numero.isEmpty()) {
                             enderecoCompleto.append(", ").append(numero);
                         }
-
                         if (bairro != null && !bairro.isEmpty()) {
                             enderecoCompleto.append(", ").append(bairro);
                         }
-
                         if (cidade != null && !cidade.isEmpty()) {
                             enderecoCompleto.append(", ").append(cidade);
                         }
-
                         if (uf != null && !uf.isEmpty()) {
                             enderecoCompleto.append("-").append(uf);
                         }
-
                         // Tratamento para o complemento
                         if (complemento == null || complemento.isEmpty()) {
                             enderecoCompleto.append(", Complemento: sem complemento");
                         } else {
                             enderecoCompleto.append(", Complemento: ").append(complemento);
                         }
-
                         // Preencher o campo EditText com o endereço formatado
                         editTextEndereco.setText(enderecoCompleto.toString());
                     } else {
@@ -182,33 +176,9 @@ public class SolicitarAgendamentoFragment extends Fragment {
                 });
     }
 
-
     private void configurarBotaoAgendar() {
         btnAgendar.setOnClickListener(v -> validarEMarcarAgendamento());
     }
-
-    /*
-    private void validarEMarcarAgendamento() {
-        if (idPontoSelecionado == null) {
-            Toast.makeText(getContext(), "Selecione um ponto de coleta.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        List<String> materiaisSelecionados = new ArrayList<>();
-        if (checkBoxOleoCozinha.isChecked()) materiaisSelecionados.add("Óleo de Cozinha");
-        if (checkBoxPilhasBaterias.isChecked()) materiaisSelecionados.add("Pilha/Baterias");
-        if (checkBoxLampadas.isChecked()) materiaisSelecionados.add("Lâmpadas");
-        if (checkBoxEletronicos.isChecked()) materiaisSelecionados.add("Eletrônicos");
-
-        if (materiaisSelecionados.isEmpty()) {
-            Toast.makeText(getContext(), "Selecione pelo menos um material.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        salvarAgendamento(materiaisSelecionados);
-    }
-
-     */
 
     private void validarEMarcarAgendamento() {
         if (idPontoSelecionado == null) {
@@ -239,7 +209,6 @@ public class SolicitarAgendamentoFragment extends Fragment {
                             materiaisNaoAceitos.add(obterDescricaoMaterial(material));
                         }
                     }
-
                     if (!materiaisNaoAceitos.isEmpty()) {
                         String materiaisIncompativeis = String.join(", ", materiaisNaoAceitos);
                         Toast.makeText(getContext(), "Os materiais " + materiaisIncompativeis + " não são aceitos neste ponto de coleta.", Toast.LENGTH_LONG).show();
@@ -270,7 +239,6 @@ public class SolicitarAgendamentoFragment extends Fragment {
         }
     }
 
-
     private void salvarAgendamento(List<String> materiaisSelecionados) {
         String uid = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : null;
 
@@ -278,12 +246,10 @@ public class SolicitarAgendamentoFragment extends Fragment {
             Toast.makeText(getContext(), "Usuário não autenticado.", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (idPontoSelecionado == null) {
             Toast.makeText(getContext(), "Ponto de coleta não selecionado.", Toast.LENGTH_SHORT).show();
             return;
         }
-
         // Converter a data do campo editTextDataColeta para uma instância de Date
         Date dataColeta;
         try {

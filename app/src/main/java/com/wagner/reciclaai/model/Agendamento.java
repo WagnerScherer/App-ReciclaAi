@@ -109,5 +109,4 @@ public class Agendamento {
                 ", status=" + status_agendamento +
                 '}';
     }
-
 }
