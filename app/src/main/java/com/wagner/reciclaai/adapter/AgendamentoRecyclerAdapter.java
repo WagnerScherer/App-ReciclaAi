@@ -116,7 +116,7 @@ public class AgendamentoRecyclerAdapter extends RecyclerView.Adapter<Agendamento
         Map<String, Object> notificacao = new HashMap<>();
         notificacao.put("id_usuario", agendamento.getIdUsuario());
         notificacao.put("status", false);
-        notificacao.put("titulo", "Resposta de agendamento de coleta");
+        notificacao.put("titulo", "Resposta à solicitação de coleta");
         notificacao.put("mensagem",
                 "O ponto de coleta \"" + nomePonto + "\" recusou a sua coleta para o dia " + dataColeta + ".\n" +
                         "Para maiores informações, contate o ponto de coleta.");
@@ -143,7 +143,7 @@ public class AgendamentoRecyclerAdapter extends RecyclerView.Adapter<Agendamento
         Map<String, Object> notificacao = new HashMap<>();
         notificacao.put("id_usuario", agendamento.getIdUsuario());
         notificacao.put("status", false);
-        notificacao.put("titulo", "Resposta do seu agendamento de coleta");
+        notificacao.put("titulo", "Resposta à solicitação de coleta");
         notificacao.put("mensagem",
                 "O ponto de coleta \"" + nomePonto + "\" aceitou a sua coleta para o dia " + dataColeta + ".\n" +
                         "Na data marcada, um funcionário devidamente identificado realizará a coleta no endereço informado."
