@@ -34,6 +34,7 @@ public class SolicitacoesRecebidasFragment extends Fragment implements RecargaLi
     private FirebaseFirestore db;
     private FirebaseAuth auth;
     private AgendamentoRecyclerAdapter adapter;
+    private String idPontoColeta;
 
     @Nullable
     @Override
@@ -80,14 +81,15 @@ public class SolicitacoesRecebidasFragment extends Fragment implements RecargaLi
             return;
         }
 
-        //Buscar o idPontoColeta do usuário autenticado
+        // Buscar o idPontoColeta do usuário autenticado
         db.collection("USUARIOS").document(uid)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        String idPontoColeta = documentSnapshot.getString("idPontoColeta");
+                        idPontoColeta = documentSnapshot.getString("idPontoColeta"); // Atribuir o valor aqui
                         if (idPontoColeta != null) {
                             buscarNomePontoColeta(idPontoColeta);
+                            carregarSolicitacoes(); // Chamar carregarSolicitacoes após definir idPontoColeta
                         }
                     }
                 })
@@ -110,7 +112,14 @@ public class SolicitacoesRecebidasFragment extends Fragment implements RecargaLi
     }
 
     private void carregarSolicitacoes() {
-        db.collection("AGENDAMENTOS").get()
+        if (idPontoColeta == null) {
+            Log.e("SolicitaçõesRecebidas", "idPontoColeta não disponível.");
+            return;
+        }
+
+        db.collection("AGENDAMENTOS")
+                .whereEqualTo("id_ponto_coleta", idPontoColeta)
+                .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<AgendamentoSolicitado> agendamentos = new ArrayList<>();
                     for (DocumentSnapshot document : queryDocumentSnapshots) {
@@ -119,7 +128,6 @@ public class SolicitacoesRecebidasFragment extends Fragment implements RecargaLi
                             Timestamp dataTimestamp = document.getTimestamp("data_coleta");
                             String dataColeta = AgendamentoSolicitado.formatarData(dataTimestamp);
                             List<String> tipoMaterial = (List<String>) document.get("tipo_material");
-                            String idPontoColeta = document.getString("id_ponto_coleta");
                             int statusAgendamento = document.getLong("status_agendamento").intValue();
 
                             AgendamentoSolicitado agendamento = new AgendamentoSolicitado(
@@ -156,7 +164,9 @@ public class SolicitacoesRecebidasFragment extends Fragment implements RecargaLi
         }
 
         // Aplicar filtros apenas se algum checkbox estiver marcado
-        db.collection("AGENDAMENTOS").get()
+        db.collection("AGENDAMENTOS")
+                //.whereEqualTo("id_ponto_coleta", idPontoColeta)
+                .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<AgendamentoSolicitado> agendamentosFiltrados = new ArrayList<>();
 
