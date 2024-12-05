@@ -34,7 +34,6 @@ public class CadPontoColetaActivity extends AppCompatActivity {
             editTextPessoaContato, editTextHorarioFuncionamento;
     private CheckBox checkBoxRealizaColeta, checkBoxPilhasBaterias, checkBoxOleoCozinha,
             checkBoxLampadas, checkBoxEletronicos;
-
     private FirebaseFirestore db;
     private String idPontoColeta; // ID do ponto de coleta (se for edição)
     private Button btnCadastrarPontoColeta;

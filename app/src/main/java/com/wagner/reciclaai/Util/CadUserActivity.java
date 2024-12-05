@@ -268,8 +268,6 @@ public class CadUserActivity extends AppCompatActivity {
                                 campoSenha.setEnabled(false);
                                 campoSenha.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
-
-
                                 //Configura o switch de administrador
                                 if (usuarioRecuperado.isAdmin()) {
                                     switchUserAdmin.setChecked(true);
@@ -291,7 +289,6 @@ public class CadUserActivity extends AppCompatActivity {
                                             })
                                             .addOnFailureListener(e -> Log.d("Firestore", "Erro ao carregar nome do ponto de coleta", e));
                                 }
-
                             }
                         } else {
                             Log.d("Firestore", "Documento não encontrado");

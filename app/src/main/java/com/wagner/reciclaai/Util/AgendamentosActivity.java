@@ -57,5 +57,4 @@ public class AgendamentosActivity extends AppCompatActivity {
         // Log para depuração
         Log.d("AgendamentosActivity", "Número de abas: " + adapter.getItemCount());
     }
-
 }
