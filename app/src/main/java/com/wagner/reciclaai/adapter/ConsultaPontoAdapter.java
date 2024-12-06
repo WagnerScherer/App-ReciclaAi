@@ -89,20 +89,20 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
         }
 
         if (holder.textViewPessoaContato != null) {
-            String fone = pontoColeta.getFone();
-            if (fone == null || fone.trim().isEmpty()) {
+            String pessoaContato = pontoColeta.getPessoa_contato();
+            if (pessoaContato == null || pessoaContato.trim().isEmpty()) {
                 holder.textViewPessoaContato.setText("Não cadastrado");
             } else {
-                holder.textViewPessoaContato.setText(fone);
+                holder.textViewPessoaContato.setText(pontoColeta.getPessoa_contato());
             }
         }
 
         if (holder.textViewHorarioFuncionamento != null) {
-            String fone = pontoColeta.getFone();
-            if (fone == null || fone.trim().isEmpty()) {
+            String horarioFuncionamento = pontoColeta.getHorario_funcionamento();
+            if (horarioFuncionamento == null || horarioFuncionamento.trim().isEmpty()) {
                 holder.textViewHorarioFuncionamento.setText("Não cadastrado");
             } else {
-                holder.textViewHorarioFuncionamento.setText(fone);
+                holder.textViewHorarioFuncionamento.setText(pontoColeta.getHorario_funcionamento());
             }
         }
 
@@ -132,11 +132,11 @@ public class ConsultaPontoAdapter extends RecyclerView.Adapter<ConsultaPontoAdap
          */
 
         if (holder.textViewWhatsapp != null) {
-            String fone = pontoColeta.getFone();
-            if (fone == null || fone.trim().isEmpty()) {
+            String whatsApp = pontoColeta.getWhatsApp();
+            if (whatsApp == null || whatsApp.trim().isEmpty()) {
                 holder.textViewWhatsapp.setText("WhatsApp não cadastrado");
             } else {
-                holder.textViewWhatsapp.setText(fone);
+                holder.textViewWhatsapp.setText(pontoColeta.getWhatsApp());
             }
         }
 
