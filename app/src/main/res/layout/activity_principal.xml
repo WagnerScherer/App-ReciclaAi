@@ -7,20 +7,18 @@
     android:background="@color/white"
     tools:context="com.wagner.reciclaai.Util.PrincipalActivity">
 
-    <!-- First row: Button Home and Button Cad User -->
+    <!-- Botão Home -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonClickHome"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="8dp"
         android:background="@drawable/baseline_home"
-        android:padding="1dp"
         android:contentDescription="@string/buttomHome"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/lineSeparator" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Line Separator -->
+    <!-- Botão Cadastro de Usuário -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonCadUser"
         android:layout_width="48dp"
@@ -35,41 +33,42 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Linha Separadora -->
     <View
         android:id="@+id/lineSeparator"
         android:layout_width="0dp"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/buttonClickHome"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonClickHome" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Primeira Linha de Cards -->
     <androidx.cardview.widget.CardView
         android:id="@+id/buscaPontoColeta_Card"
         android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:layout_margin="10dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:clickable="true"
-        app:cardCornerRadius="35dp"
-        app:cardElevation="25dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.22"
+        app:layout_constraintWidth_percent="0.45"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cadastraPontoColeta_Card"
-        app:layout_constraintTop_toBottomOf="@+id/lineSeparator"
-        app:layout_constraintHorizontal_chainStyle="spread">
+        app:layout_constraintTop_toBottomOf="@+id/lineSeparator">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_card_gradiente"
+            android:orientation="vertical"
             android:gravity="center"
-            android:orientation="vertical">
+            android:background="@drawable/background_card_gradiente">
 
             <ImageView
-                android:layout_width="84dp"
-                android:layout_height="84dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:src="@drawable/ic_card_localiza_ponto"
-                android:padding="10dp"
                 android:contentDescription="@string/pontoColetaIcon" />
 
             <TextView
@@ -77,37 +76,38 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/card_buscar_ponto_coleta"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cadastraPontoColeta_Card"
         android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:layout_margin="10dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:clickable="true"
-        app:cardCornerRadius="35dp"
-        app:cardElevation="25dp"
-        app:layout_constraintStart_toEndOf="@+id/buscaPontoColeta_Card"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.22"
+        app:layout_constraintWidth_percent="0.45"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lineSeparator">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_card_gradiente"
+            android:orientation="vertical"
             android:gravity="center"
-            android:orientation="vertical">
+            android:background="@drawable/background_card_gradiente">
 
             <ImageView
-                android:layout_width="84dp"
-                android:layout_height="84dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:src="@drawable/ic_card_cadastra_ponto"
-                android:padding="8dp"
                 android:contentDescription="@string/pontoColetaIcon" />
 
             <TextView
@@ -115,10 +115,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/card_cadastrar_ponto_coleta"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -126,28 +126,28 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/agendamentoColeta_Card"
         android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:layout_margin="10dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:clickable="true"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="35dp"
-        app:cardElevation="10dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.22"
+        app:layout_constraintWidth_percent="0.45"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/notificacoes_Card"
         app:layout_constraintTop_toBottomOf="@+id/buscaPontoColeta_Card">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_card_gradiente"
+            android:orientation="vertical"
             android:gravity="center"
-            android:orientation="vertical">
+            android:background="@drawable/background_card_gradiente">
 
             <ImageView
-                android:layout_width="84dp"
-                android:layout_height="84dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:src="@drawable/ic_card_agendamento"
-                android:padding="10dp"
                 android:contentDescription="@string/calendarIcon" />
 
             <TextView
@@ -155,38 +155,38 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/card_agendamento"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/notificacoes_Card"
         android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:layout_margin="10dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:clickable="true"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="35dp"
-        app:cardElevation="10dp"
-        app:layout_constraintStart_toEndOf="@+id/agendamentoColeta_Card"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.22"
+        app:layout_constraintWidth_percent="0.45"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cadastraPontoColeta_Card">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_card_gradiente"
+            android:orientation="vertical"
             android:gravity="center"
-            android:orientation="vertical">
+            android:background="@drawable/background_card_gradiente">
 
             <ImageView
-                android:layout_width="84dp"
-                android:layout_height="84dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:src="@drawable/ic_card_notificacoes"
-                android:padding="10dp"
                 android:contentDescription="@string/notificacoesIcon" />
 
             <TextView
@@ -194,39 +194,38 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/card_notificacoes"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 
     <!-- Terceira Linha de Cards -->
     <androidx.cardview.widget.CardView
         android:id="@+id/ranking_Card"
         android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:layout_margin="10dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:clickable="true"
-        app:cardCornerRadius="35dp"
-        app:cardElevation="10dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.22"
+        app:layout_constraintWidth_percent="0.45"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/consultaHistorico_Card"
-        app:layout_constraintTop_toBottomOf="@+id/agendamentoColeta_Card"
-        app:layout_constraintHorizontal_chainStyle="spread">
+        app:layout_constraintTop_toBottomOf="@+id/agendamentoColeta_Card">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_card_gradiente"
+            android:orientation="vertical"
             android:gravity="center"
-            android:orientation="vertical">
+            android:background="@drawable/background_card_gradiente">
 
             <ImageView
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:padding="8dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:src="@drawable/ic_card_ranking"
                 android:contentDescription="@string/rankingIcon" />
 
@@ -235,65 +234,69 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/card_Ranking"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/consultaHistorico_Card"
         android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:layout_margin="10dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:clickable="true"
-        app:cardCornerRadius="35dp"
-        app:cardElevation="10dp"
-        app:layout_constraintStart_toEndOf="@+id/ranking_Card"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.22"
+        app:layout_constraintWidth_percent="0.45"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notificacoes_Card"
-        app:layout_constraintHorizontal_chainStyle="spread">
+        app:layout_constraintTop_toBottomOf="@+id/notificacoes_Card">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_card_gradiente"
+            android:orientation="vertical"
             android:gravity="center"
-            android:orientation="vertical">
+            android:background="@drawable/background_card_gradiente">
 
             <ImageView
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:padding="10dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:src="@drawable/ic_card_historico"
-                android:contentDescription="@string/historicoIcon"/>
+                android:contentDescription="@string/historicoIcon" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/card_historico"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Perguntas Frequentes Button -->
+    <!-- Botão Perguntas Frequentes -->
     <Button
         android:id="@+id/buttonPerguntasFrequentes"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/buttonPerguntasFrequentes"
-        android:textColor="@color/black"
         android:background="@drawable/background_card_gradiente"
         android:drawableStart="@drawable/margin_escrever_mensagem"
-        android:drawablePadding="-25dp"
+        android:drawablePadding="-15dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        app:layout_constraintTop_toBottomOf="@+id/consultaHistorico_Card"
+        app:layout_constraintWidth_percent="0.9"
+        app:layout_constraintTop_toBottomOf="@+id/ranking_Card"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

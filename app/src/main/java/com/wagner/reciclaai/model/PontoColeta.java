@@ -18,6 +18,7 @@ public class PontoColeta {
     private String materiaisColetados;
     private String pessoa_contato;
     private String horario_funcionamento;
+    private String nomeLowercase;
 
     public String getWhatsApp() {
         return whatsapp;
@@ -31,8 +32,9 @@ public class PontoColeta {
         // Construtor vazio
     }
 
-    public PontoColeta(String nome, String endereco, String numero, String bairro, String cidade, String uf, String fone, String pessoa_contato, String horario_funcionamento) {
+    public PontoColeta(String nome, String nomeLowercase, String endereco, String numero, String bairro, String cidade, String uf, String fone, String pessoa_contato, String horario_funcionamento) {
         this.nome = nome;
+        this.nomeLowercase = nomeLowercase;
         this.endereco = endereco;
         this.numero = numero;
         this.bairro = bairro;
@@ -170,5 +172,13 @@ public class PontoColeta {
 
     public void setHorario_funcionamento(String horario_funcionamento) {
         this.horario_funcionamento = horario_funcionamento;
+    }
+
+    public String getNomeLowercase() {
+        return nomeLowercase;
+    }
+
+    public void setNomeLowercase(String nomeLowercase) {
+        this.nomeLowercase = nomeLowercase;
     }
 }

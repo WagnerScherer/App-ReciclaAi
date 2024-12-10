@@ -35,7 +35,7 @@
     <string name="card_notificacoes">Notificações</string>
     <string name="card_Ranking">Ranking</string>
     <string name="card_historico">Meu Histórico</string>
-    <string name="buttonPerguntasFrequentes">Respostas às Dúvidas Frequentes</string>
+    <string name="buttonPerguntasFrequentes">Dúvidas Frequentes</string>
     <string name="buttonCadastroUser">Botão de acesso ao cadastro de usuários</string>
     <string name="buttomHome">Botão de atalho a tela principal</string>
     <string name="mapaIcon">Figura representando de ponto de mapa</string>
