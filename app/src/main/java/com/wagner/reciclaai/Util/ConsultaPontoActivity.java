@@ -147,9 +147,10 @@ public class ConsultaPontoActivity extends AppCompatActivity {
 
     //Consulta do cenário 2
     private void buscarPontosPorNome(String nomeDigitado) {
+        String nomeDigitadoLower = nomeDigitado.toLowerCase();
         db.collection("PONTOSCOLETA")
-                .whereGreaterThanOrEqualTo("nome", nomeDigitado)
-                .whereLessThanOrEqualTo("nome", nomeDigitado + "\uf8ff")
+                .whereGreaterThanOrEqualTo("nome_lowercase", nomeDigitadoLower)
+                .whereLessThanOrEqualTo("nome_lowercase", nomeDigitadoLower + "\uf8ff")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -174,6 +175,8 @@ public class ConsultaPontoActivity extends AppCompatActivity {
 
     //Consulta do cenário 3
     private void buscarPontosPorNomeEMaterial(String nomeDigitado, List<Integer> materiaisFiltrados) {
+        String nomeDigitadoLower = nomeDigitado.toLowerCase();
+
         db.collection("PONTOSCOLETA_MATERIAIS")
                 .whereIn("id_material", materiaisFiltrados)
                 .get()
@@ -195,29 +198,27 @@ public class ConsultaPontoActivity extends AppCompatActivity {
                                                 DocumentSnapshot document = pontoTask.getResult();
                                                 if (document.exists()) {
                                                     PontoColeta pontoColeta = document.toObject(PontoColeta.class);
-                                                    pontoColeta.setId_PC(document.getId());
-                                                    if (pontoColeta.getNome().toLowerCase().contains(nomeDigitado.toLowerCase())) {
-                                                        // Adicionar apenas se ainda não estiver na lista (evitar duplicados)
-                                                        if (!listaCompletaPontos.contains(pontoColeta)) {
-                                                            // Carregar os materiais coletados
-                                                            carregarMateriaisColetados(pontoColeta);
-
-                                                            listaCompletaPontos.add(pontoColeta);
-                                                            Log.d("Consulta", "Ponto de coleta adicionado: " + pontoColeta.getNome());
+                                                    if (pontoColeta != null && pontoColeta.getNomeLowercase() != null) {
+                                                        if (pontoColeta.getNomeLowercase().contains(nomeDigitadoLower)) {
+                                                            if (!listaCompletaPontos.contains(pontoColeta)) {
+                                                                carregarMateriaisColetados(pontoColeta);
+                                                                listaCompletaPontos.add(pontoColeta);
+                                                                Log.d("Consulta", "Ponto de coleta adicionado: " + pontoColeta.getNome());
+                                                            }
                                                         }
                                                     }
                                                 }
-                                            }
-
-                                            // Atualizar o RecyclerView após todos os pontos serem processados
-                                            if (idPonto.equals(idsPontos.get(idsPontos.size() - 1))) {
-                                                atualizarRecyclerView();
+                                                if (idPonto.equals(idsPontos.get(idsPontos.size() - 1))) {
+                                                    atualizarRecyclerView();
+                                                }
                                             }
                                         });
                             }
                         } else {
                             Toast.makeText(this, "Nenhum ponto de coleta encontrado.", Toast.LENGTH_SHORT).show();
                         }
+                    } else {
+                        Log.e("Consulta", "Erro ao buscar materiais: ", materialTask.getException());
                     }
                 });
     }
@@ -233,7 +234,6 @@ public class ConsultaPontoActivity extends AppCompatActivity {
                         for (DocumentSnapshot document : task.getResult()) {
                             idsPontos.add(document.getString("id_ponto_coleta"));
                         }
-
                         if (!idsPontos.isEmpty()) {
                             buscarPontosColetaPorIds(idsPontos);
                         } else {
